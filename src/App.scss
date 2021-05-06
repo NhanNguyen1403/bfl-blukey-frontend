@@ -1,3 +1,11 @@
+@import "../src/scss/Color";
+@import "../src/scss/Border";
+
 * {
   scroll-behavior: smooth;
+  color: $second-text-color;
+  font-family: "Roboto", sans-serif;
+}
+div {
+  border-radius: $border-radius-md;
 }

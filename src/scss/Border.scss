@@ -1,0 +1,11 @@
+@import "Color";
+
+$border-radius-sm: 2px;
+$border-radius-md: 4px;
+$border-radius-circle: 50%;
+
+$border-inactive: solid 1px $second-text-color;
+$border-active: solid 1px $primary-bg-color;
+
+$border-dash-inactive: dash 1px $second-text-color;
+$border-dash-active: dash 1px $primary-bg-color;

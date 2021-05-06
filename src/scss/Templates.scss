@@ -1,0 +1,11 @@
+@import "Border";
+@import "Color";
+
+%outlined {
+  border: $border-inactive;
+  transition: 300ms;
+  &:hover {
+    border: $border-active;
+    cursor: pointer;
+  }
+}
