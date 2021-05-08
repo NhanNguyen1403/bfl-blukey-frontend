@@ -5,7 +5,29 @@
   scroll-behavior: smooth;
   color: $second-text-color;
   font-family: "Roboto", sans-serif;
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $text-placeholder;
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: $text-placeholder;
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: $text-placeholder;
+  }
 }
 div {
   border-radius: $border-radius-md;
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+input {
+  outline: none;
 }

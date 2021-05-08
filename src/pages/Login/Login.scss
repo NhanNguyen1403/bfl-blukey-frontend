@@ -1,0 +1,23 @@
+@import "../../scss/Color.scss";
+
+.login-container {
+	width: 100vw;
+	height: 100vh;
+	background-color: $primary-bg-color;
+	border-radius: unset;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  position: relative;
+
+  .sub-background {
+    width: 125vw;
+    height: 50vh;
+    background-image: url('../../assets/desktop/mesh-bg.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 100%;
+    transform: rotate(-4deg);
+  }
+}

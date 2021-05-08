@@ -4,7 +4,7 @@
 %outlined {
   border: $border-inactive;
   transition: 300ms;
-  &:hover {
+  &:hover, &:focus {
     border: $border-active;
     cursor: pointer;
   }
