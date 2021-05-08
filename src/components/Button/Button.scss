@@ -1,0 +1,27 @@
+@import "../../scss/Color";
+@import "../../scss/Border";
+@import "../../scss/BoxShadow";
+@import "../../scss/Templates";
+
+.button-container {
+	background-color: $primary-bg-color;
+	border-radius: $border-radius-md;
+	color: white;
+	border: none;
+	padding: 10px;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.outlined {
+	@extend %outlined;
+}
+
+.md {
+	width: 50%;
+}
+
+.lg {
+	width: 100%;
+}

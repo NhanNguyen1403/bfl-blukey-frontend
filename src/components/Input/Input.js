@@ -2,19 +2,15 @@ import React from 'react';
 import "./Input.scss"
 
 function Input(props) {
-  let {type, size, labelName, isRequired, isValid} = props
-  let value = ''
+  let {labelName, type, size, isRequired} = props.configs
 
   const validate = (newValue) => {
     if (isRequired && !newValue)
-      return isValid = false
+      return props.configs.setIsValid = false
 
-    return value = newValue
+    props.configs.setIsValid = true
+    props.configs.setValue = newValue
   }
-
-  // const getValue = () => {
-  //   return value
-  // }
 
   return (
     <div className={`input-container ${size}`}>
