@@ -2,7 +2,7 @@
  * Using this service to creat props for Chip components
  ********************************************************/
 
-exports.generateInput = function (name, type) {
+exports.generateChip = function (name, type, isActive) {
 	try {
 		if (!name)
 			return new Error("Missing name")
@@ -12,7 +12,7 @@ exports.generateInput = function (name, type) {
 		return {
 			name,
 			type,
-			isActive: false,
+			isActive: isActive || false,
 			set setIsActive(preState) {
 				return this.isActive = !preState
 			},

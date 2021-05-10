@@ -13,8 +13,8 @@ function Input(props) {
 
 
 	const validate = (newValue) => {
-		if (isRequired && newValue.length < 6)
-			return props.configs.setIsValid = false
+		if (isRequired && newValue.length < 6){}
+			return shortInput.setIsActive = true
 
 		props.configs.setIsValid = true
 		props.configs.setValue = newValue

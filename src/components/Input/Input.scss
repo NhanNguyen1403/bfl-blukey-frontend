@@ -32,4 +32,15 @@
     color: $primary-text-color;
     @extend %outlined;
   }
+
+  .chip-area {
+    position: absolute;
+    padding: 10px 0;
+    box-sizing: border-box;
+    top: -20px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

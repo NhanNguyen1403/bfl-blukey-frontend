@@ -4,5 +4,20 @@
 @import "../../scss/Templates";
 
 .chip-container {
+  font-weight: bold;
+  padding: 2px 5px;
+  font-size: 12px;
+  box-sizing: border-box;
+  span {
+    color: $danger-text-color;
+    font-weight: bold;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
 
+.error, danger {
+  background-color: $danger-bg-color;
+  color: $danger-text-color;
 }
