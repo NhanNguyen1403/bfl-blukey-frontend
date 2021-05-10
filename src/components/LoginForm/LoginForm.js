@@ -4,6 +4,7 @@ import logo from "../../assets/desktop/logo.png"
 import Input from "../Input/Input";
 import {generateInput} from "../../services/generateInput"
 import {generateButton} from "../../services/generateButton"
+import {Login} from "../../services/Login"
 import Button from "../Button/Button";
 
 function LoginForm(props) {
@@ -13,8 +14,15 @@ function LoginForm(props) {
 
 	let inputConfig = [emailInput, passwordInput]
 
-	const handle = (e) => {
+	const clickHandler = async (e) => {
+		e.preventDefault()
+		if (!emailInput.getIsValid || !passwordInput.getIsValid)
+			return console.log(false)
 
+		let email = emailInput.getValue,
+				password = passwordInput.getValue
+
+		await Login(email, password)
 	}
 
 	return (
@@ -30,7 +38,7 @@ function LoginForm(props) {
 			</div>
 
 			<div className="button-area">
-				<Button configs={loginButton}/>
+				<Button clickHandler={clickHandler} configs={loginButton}/>
 			</div>
 		</div>
 	);
