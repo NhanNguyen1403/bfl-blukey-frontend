@@ -13,8 +13,8 @@ exports.generateChip = function (name, type, isActive) {
 			name,
 			type,
 			isActive: isActive || false,
-			set setIsActive(preState) {
-				return this.isActive = !preState
+			set setIsActive(newState) {
+				return this.isActive = newState
 			},
 			get getIsActive() {
 				return this.isActive

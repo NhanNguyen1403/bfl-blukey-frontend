@@ -1,26 +1,20 @@
+/****************************
+* 1. Props will display
+* 2. State will close
+* 3. Received configs
+* 4. Received Hide function
+*****************************/
+
 import React from 'react';
 import "./Chip.scss"
-import {useSelector} from "react-redux";
 
 function Chip(props) {
-	let {name, type, isActive} = props.configs
-  let [isDisplayed, setIsDisplayed ] = useSelector('inactive')
-
-  const hideChip = (e) => {
-    setTimeout(() => {
-      props.configs.setIsActive = false
-    }, 5000)
-  }
-
-  if (isActive) {
-    toggleClass = 'active'
-    hideChip()
-  }
+	let {name, type} = props.configs
 
 	return (
-		<div className={`chip-container ${type} ${toggleClass}`}>
+		<div className={`chip-container ${type} ${props.configs.getIsActive ? 'active' : 'inactive'}`}>
 			{name}
-			<span onClick={e => hideChip(e)} > X </span>
+			<span onClick={() => props.closeChip(false)} > X </span>
 		</div>
 	);
 }
