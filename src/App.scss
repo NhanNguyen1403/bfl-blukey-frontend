@@ -26,6 +26,18 @@ div {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+
+  .top-cover {
+    width: calc(100vw - 250px);
+    height: 150px;
+    z-index: -1;
+    opacity: .2;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    background-image: url("./assets/desktop/mesh-bg.png");
+  }
 }
 
 input {

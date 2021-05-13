@@ -1,11 +1,11 @@
 /***********************************************************
- * 1. Received an input config with generateInput service
+ * 1. Received an input config by generateInput service
  ***********************************************************/
 
 import React, {useState} from 'react';
 import "./Input.scss"
 import Chip from "../Chip/Chip";
-import {generateChip} from '../../services/generateChip'
+import {generateChip} from '../../services/Generators/generateChip'
 
 function Input(props) {
 	let {labelName, type, size, isRequired} = props.configs
@@ -19,6 +19,7 @@ function Input(props) {
 
 		props.configs.setIsValid = true
 		props.configs.setValue = newValue
+		toggleAlert(false)
 	}
 
 	const toggleAlert = (isDisplay) => {

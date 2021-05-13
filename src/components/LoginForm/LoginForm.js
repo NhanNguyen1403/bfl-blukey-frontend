@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import "./LoginForm.scss"
 import logo from "../../assets/desktop/logo.png"
 import Input from "../Input/Input";
-import {generateInput} from "../../services/generateInput"
-import {generateButton} from "../../services/generateButton"
-import {Login} from "../../services/Login"
+import {generateInput} from "../../services/Generators/generateInput"
+import {generateButton} from "../../services/Generators/generateButton"
+import Login from "../../services/Session/Login"
 import Button from "../Button/Button";
 
-function LoginForm(props) {
+function LoginForm() {
 	let emailInput = generateInput("Email", "text", "lg", true),
 			passwordInput = generateInput("Password", "password", "lg", true),
 			loginButton = generateButton('Sign In', "default", "lg")

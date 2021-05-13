@@ -12,16 +12,17 @@
 	&:hover {
 		cursor: pointer;
 	}
+
+	&.outlined {
+		@extend %outlined;
+	}
+
+	&.md {
+		width: 50%;
+	}
+
+	&.lg {
+		width: 100%;
+	}
 }
 
-.outlined {
-	@extend %outlined;
-}
-
-.md {
-	width: 50%;
-}
-
-.lg {
-	width: 100%;
-}

@@ -19,17 +19,18 @@
 			cursor: pointer;
 		}
 	}
+	&.error, danger {
+		background-color: $danger-bg-color;
+		color: $danger-text-color;
+	}
+
+	&.inactive {
+		transform: scale(0);
+	}
+
+	&.active {
+		transform: scale(1);
+	}
+
 }
 
-.error, danger {
-	background-color: $danger-bg-color;
-	color: $danger-text-color;
-}
-
-.inactive {
-	transform: scale(0);
-}
-
-.active {
-	transform: scale(1);
-}

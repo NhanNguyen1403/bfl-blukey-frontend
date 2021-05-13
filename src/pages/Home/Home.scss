@@ -1,0 +1,40 @@
+@import "../../scss/Color";
+@import "../../scss/Border";
+@import "../../scss/BoxShadow";
+
+.home-container {
+	background-color: white;
+	width: 900px;
+	height: fit-content;
+	max-height: calc(100vh - 140px);
+	margin-top: 100px;
+	margin-inline: auto;
+	box-shadow: $default-box-shadow;
+	box-sizing: border-box;
+	border-radius: $border-radius-lg;
+	animation: zoom-out 300ms;
+	position: relative;
+
+	@keyframes zoom-out {
+		from {
+			transform: scale(.7);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+
+	.options-area {
+		display: flex;
+		position: absolute;
+		width: fit-content;
+		top: -36px;
+		left: 40px;
+	}
+
+	.carousel-area {
+		margin: 50px 0;
+		padding: 0 20px;
+		box-sizing: border-box;
+	}
+}
