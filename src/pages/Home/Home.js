@@ -5,14 +5,18 @@ import {generatePageOption} from "../../services/Generators/generatePageOption"
 import PageOption from "../../components/pageOption/pageOption";
 import Carousel from "../../components/Carousel/Carousel";
 
+import home1 from "../../assets/desktop/home-1.jpg"
+import home2 from "../../assets/desktop/home-2.jpg"
+import home3 from "../../assets/desktop/home-3.jpg"
+
 function Home(props) {
 	let [optionList, setOptionList] = useState([
 		generatePageOption('Home', 'lg', true),
 	])
 	let images = [
-		{original: 'src/assets/desktop/home-1.jpg', thumbnail: 'src/assets/desktop/home-1.jpg'},
-		{original: 'src/assets/desktop/home-2.jpg', thumbnail: 'src/assets/desktop/home-2.jpg'},
-		{original: 'src/assets/desktop/home-3.jpg', thumbnail: 'src/assets/desktop/home-3.jpg'},
+		{original: home1, thumbnail: home1},
+		{original: home2, thumbnail: home2},
+		{original: home3, thumbnail: home3},
 	]
 
 	let changeOption = (optionName) => {
