@@ -2,7 +2,7 @@
  * Using this service to create props for Button component
  * ********************************************************/
 
-exports.generateButton = function (name, type, size) {
+exports.generateButton = function (name, type, size, icon) {
 	try {
 		if (!name)
 			return new Error("Missing name")
@@ -14,7 +14,8 @@ exports.generateButton = function (name, type, size) {
 		return {
 			name,
 			type,
-			size
+			size,
+			icon,
 		}
 
 	} catch (err) {

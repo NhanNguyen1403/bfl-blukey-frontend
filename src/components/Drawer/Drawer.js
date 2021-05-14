@@ -17,6 +17,15 @@ function Drawer() {
 		return state.tab
 	})
 
+	useEffect(() => {
+		setDrawerList(drawerList.map(i => {
+			return {
+				...i,
+				isActive: i.name === currentTab
+			}
+		}))
+	}, [currentTab])
+
 	const changeTab = (itemName) => {
 		if (itemName === currentTab)
 			return

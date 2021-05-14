@@ -2,10 +2,12 @@ import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
 
 import './App.scss';
-import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
-import Drawer from "./components/Drawer/Drawer";
 import checkSession from "./services/Session/checkSession"
+
+import Login from "./pages/Login/Login";
+import Drawer from "./components/Drawer/Drawer";
+import Home from "./pages/Home/Home";
+import Administer from "./pages/Administrator/Administer";
 
 function App() {
 	const {isLogged} = useSelector(state => {
@@ -31,6 +33,7 @@ function App() {
 			<Drawer/>
 			<div className="top-cover"></div>
 			{ currentTab === 'Home' && <Home/>}
+			{ currentTab === 'Administrator' && <Administer/>}
 		</div>
 	);
 }

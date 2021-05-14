@@ -6,6 +6,7 @@
 .button-container {
 	background-color: $primary-bg-color;
 	border-radius: $border-radius-md;
+	box-shadow: $primary-box-shadow;
 	color: white;
 	border: none;
 	padding: 10px;
@@ -23,6 +24,17 @@
 
 	&.lg {
 		width: 100%;
+	}
+
+	&.icon {
+		margin: 0;
+		padding: 0;
+		width: 30px;
+		height: 30px;
+	}
+
+	* {
+		color: white;
 	}
 }
 
