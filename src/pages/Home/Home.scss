@@ -12,7 +12,7 @@
 	box-shadow: $default-box-shadow;
 	box-sizing: border-box;
 	border-radius: $border-radius-lg;
-	animation: zoom-out 300ms;
+	animation: zoom-out 300ms ease-out;
 	position: relative;
 
 	@keyframes zoom-out {

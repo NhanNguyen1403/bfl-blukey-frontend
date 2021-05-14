@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const webpack = require('webpack');
 
 module.exports = env => {
@@ -33,7 +34,7 @@ module.exports = env => {
 					]
 				},
 				{
-					test: /\.(png|jpe?g|gif)$/i,
+					test: /\.(png|jpe?g|gif|ico)$/i,
 					loader: 'file-loader',
 					options: {
 						name: '[path][name].[ext]',
@@ -48,6 +49,7 @@ module.exports = env => {
 				title: "tools",
 				template: path.resolve(__dirname, 'public/index.html')
 			}),
+			new FaviconsWebpackPlugin(path.resolve(__dirname, 'public/favicon.ico')),
 			new webpack.DefinePlugin({
 				"process.env" : {
 					"SERVER_URL" : env.WEBPACK_SERVE
