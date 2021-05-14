@@ -8,6 +8,7 @@ import Login from "./pages/Login/Login";
 import Drawer from "./components/Drawer/Drawer";
 import Home from "./pages/Home/Home";
 import Administer from "./pages/Administrator/Administer";
+import Transaction from "./pages/Transaction/Transaction";
 
 function App() {
 	const {isLogged} = useSelector(state => {
@@ -34,6 +35,7 @@ function App() {
 			<div className="top-cover"></div>
 			{ currentTab === 'Home' && <Home/>}
 			{ currentTab === 'Administrator' && <Administer/>}
+			{ currentTab === 'Transaction' && <Transaction/>}
 		</div>
 	);
 }
