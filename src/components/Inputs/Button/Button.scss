@@ -1,7 +1,7 @@
-@import "../../scss/Color";
-@import "../../scss/Border";
-@import "../../scss/BoxShadow";
-@import "../../scss/Templates";
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
 
 .button-container {
 	background-color: $primary-bg-color;
@@ -28,9 +28,7 @@
 
 	&.icon {
 		margin: 0;
-		padding: 0;
-		width: 30px;
-		height: 30px;
+		padding: 8px 8px 6px 8px;
 	}
 
 	* {

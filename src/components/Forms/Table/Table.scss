@@ -1,0 +1,11 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+
+.table-container {
+	width: 100%;
+
+	hr {
+		width: 100%;
+	}
+}

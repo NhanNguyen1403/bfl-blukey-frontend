@@ -2,15 +2,8 @@
  * Using this service to creat props for Input components
  ********************************************************/
 
-exports.generateInput = function (labelName, type, size, isRequired) {
+exports.generateInput = function (labelName = '', type = '', size = '', isRequired = true) {
 	try {
-		if (!labelName)
-			return new Error("Missing labelName")
-		if (!type)
-			return new Error("Missing type")
-		if (!size)
-			return new Error("Missing size")
-
 		return {
 			labelName,
 			type,

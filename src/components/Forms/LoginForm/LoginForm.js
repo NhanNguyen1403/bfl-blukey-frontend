@@ -1,11 +1,11 @@
 import React from 'react';
 import "./LoginForm.scss"
-import logo from "../../assets/desktop/logo.png"
-import Input from "../Input/Input";
-import {generateInput} from "../../services/Generators/generateInput"
-import {generateButton} from "../../services/Generators/generateButton"
-import Login from "../../services/Session/Login"
-import Button from "../Button/Button";
+import logo from "../../../assets/desktop/logo.png"
+import Input from "../../Inputs/Input/Input";
+import {generateInput} from "../../../services/Generators/generateInput"
+import {generateButton} from "../../../services/Generators/generateButton"
+import Login from "../../../services/Session/Login"
+import Button from "../../Inputs/Button/Button";
 
 function LoginForm() {
 	let emailInput = generateInput("Email", "text", "lg", true),

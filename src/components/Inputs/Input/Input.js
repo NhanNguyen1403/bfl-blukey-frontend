@@ -4,8 +4,8 @@
 
 import React, {useState} from 'react';
 import "./Input.scss"
-import Chip from "../Chip/Chip";
-import {generateChip} from '../../services/Generators/generateChip'
+import Chip from "../../Forms/Chip/Chip";
+import {generateChip} from '../../../services/Generators/generateChip'
 
 function Input(props) {
 	let {labelName, type, size, isRequired} = props.configs

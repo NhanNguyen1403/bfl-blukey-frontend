@@ -7,8 +7,8 @@ import {changeTab as changeGlobalTab}  from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
 import {generateButton} from "../../services/Generators/generateButton"
-import PageOption from "../../components/pageOption/pageOption";
-import Button from "../../components/Button/Button";
+import PageOption from "../../components/Forms/pageOption/pageOption";
+import Button from "../../components/Inputs/Button/Button";
 
 
 function Transaction(props) {
@@ -16,7 +16,7 @@ function Transaction(props) {
 	let [optionList, setOptionList] = useState([
 		generatePageOption('Transaction', 'lg', true)
 	])
-	let closeButton = generateButton('close', 'default', 'lg', 'close-icon')
+	let closeButton = generateButton('close', 'default', 'icon', 'close-icon')
 
 	let redirectHome = () => {
 		dispatch(changeGlobalTab('Home'))

@@ -5,7 +5,7 @@ import './App.scss';
 import checkSession from "./services/Session/checkSession"
 
 import Login from "./pages/Login/Login";
-import Drawer from "./components/Drawer/Drawer";
+import Drawer from "./components/Forms/Drawer/Drawer";
 import Home from "./pages/Home/Home";
 import Administer from "./pages/Administrator/Administer";
 import Transaction from "./pages/Transaction/Transaction";

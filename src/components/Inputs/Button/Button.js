@@ -11,7 +11,7 @@ import {IoClose} from "react-icons/io5"
 
 function Button(props) {
 	let {name, type, size, icon} = props.configs
-	let iconSize = size === 'lg' ? '30px' : '24px'
+	let iconSize = size === 'icon' ? '30px' : '24px'
 
 
 	return (

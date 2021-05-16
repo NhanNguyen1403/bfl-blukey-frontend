@@ -2,17 +2,12 @@
  * Using this service to creat props for Chip components
  ********************************************************/
 
-exports.generateChip = function (name, type, isActive) {
+exports.generateChip = function (name = 'Alert!', type = 'error', isActive = false) {
 	try {
-		if (!name)
-			return new Error("Missing name")
-		if (!type)
-			return new Error("Missing type")
-
 		return {
 			name,
 			type,
-			isActive: isActive || false,
+			isActive,
 			set setIsActive(newState) {
 				return this.isActive = newState
 			},
@@ -20,7 +15,6 @@ exports.generateChip = function (name, type, isActive) {
 				return this.isActive
 			}
 		}
-
 	} catch (err) {
 		console.error(err)
 	}

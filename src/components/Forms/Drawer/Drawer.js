@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
 import "./Drawer.scss"
-import logo from "../../assets/desktop/logo.png"
+import logo from "../../../assets/desktop/logo.png"
 import DrawerItem from "./DrawerItem/DrawerItem";
 import {useDispatch, useSelector} from "react-redux";
-import {changeTab as changeGlobalTab}  from "../../redux";
+import {changeTab as changeGlobalTab}  from "../../../redux";
 
 function Drawer() {
 	let [drawerList, setDrawerList] = useState([
