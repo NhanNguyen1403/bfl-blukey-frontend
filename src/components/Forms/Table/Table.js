@@ -3,17 +3,23 @@ import React from 'react';
 import "./Table.scss"
 import TableHeader from "./TableHeader/TableHeader";
 import TableBody from "./TableBody/TableBody";
+import Paging from "../Paging/Paging";
 
 function Table(props) {
-	let data = props.configs
+  let data = props.configs
 
-	return (
-		<table className='table-container'>
-			<TableHeader configs={data}/>
-			<hr />
-			<TableBody configs={data}/>
-		</table>
-	);
+  return (
+    <React.Fragment>
+      <table className='table-container'>
+        <TableHeader configs={data}/>
+        <TableBody configs={data}/>
+      </table>
+
+      <div className="paging-area">
+        <Paging />
+      </div>
+    </React.Fragment>
+  );
 }
 
 export default Table;

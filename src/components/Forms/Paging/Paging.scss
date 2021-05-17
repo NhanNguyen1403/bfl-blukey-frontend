@@ -1,0 +1,20 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+
+.paging-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    * {
+      color: $primary-text-color;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

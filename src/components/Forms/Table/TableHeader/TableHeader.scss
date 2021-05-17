@@ -5,6 +5,9 @@
 .table-header-container {
 
 	th {
+		position: sticky;
+		top: 0;
+		background-color: white;
 		font-weight: bold;
 		text-transform: uppercase;
 		color: $primary-text-color;
@@ -12,5 +15,6 @@
 		box-sizing: border-box;
 		margin: 0;
 		text-align: left;
+		border-bottom: solid 1px $primary-text-color;
 	}
 }
