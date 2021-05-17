@@ -31,6 +31,7 @@ function Administer(props) {
 			return generatePageOption(i.name, i.size, i.name === optionName)
 		}))
 	}
+
 	let fakeUsers = [
 		{id: 1,lastName: 'Nguyen', firstName: 'Nhan', email: 'nqnhan1403@gmail.com', address: '10 Vo Van Kiet', userName: 'nhannguyen', isAdmin: true, createAt: 1},
 		{id: 2,lastName: 'Nguyen', firstName: 'Nhan', email: 'nqnhan1403@gmail.com', address: '10 Vo Van Kiet', userName: 'nhannguyen', isAdmin: true, createAt: 2},
@@ -51,12 +52,10 @@ function Administer(props) {
 	]
 	let pageConfigs = {current: currentPage, total: 5}
 	let next = () => {
-		console.log(1, currentPage)
 		if (currentPage < pageConfigs.total)
 			setCurrentPage(prevState => prevState += 1)
 	}
 	let back = () => {
-		console.log(2, currentPage)
 		if (currentPage > 1)
 			setCurrentPage(prevState => prevState - 1)
 	}

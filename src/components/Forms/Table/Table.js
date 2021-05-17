@@ -7,6 +7,7 @@ import Paging from "../Paging/Paging";
 
 function Table(props) {
   let data = props.configs.fakeUsers
+  let {pageConfigs} = props.configs
 
   return (
     <React.Fragment>
@@ -16,7 +17,7 @@ function Table(props) {
       </table>
 
       <div className="paging-area">
-        <Paging clickHandler={props.clickHandler} />
+        <Paging configs={pageConfigs} clickHandler={props.clickHandler} />
       </div>
     </React.Fragment>
   );

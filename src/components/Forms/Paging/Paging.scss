@@ -17,4 +17,10 @@
       cursor: pointer;
     }
   }
+  .page-item {
+    width: 25px;
+    height: 25px;
+    border-radius: $border-radius-circle;
+    border: solid 1px $primary-text-color;
+  }
 }
