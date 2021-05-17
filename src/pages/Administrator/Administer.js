@@ -7,6 +7,8 @@ import {changeTab as changeGlobalTab}  from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
 import {generateButton} from "../../services/Generators/generateButton"
+import {getAll} from "../../services/Api/getAll.js"
+
 import PageOption from "../../components/Forms/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
 import Table from "../../components/Forms/Table/Table";
@@ -14,6 +16,7 @@ import Table from "../../components/Forms/Table/Table";
 
 function Administer(props) {
 	let dispatch = useDispatch()
+	let [currentPage, setCurrentPage] = useState(1)
 	let [optionList, setOptionList] = useState([
 		generatePageOption('Users', 'lg', true),
 		generatePageOption('Create', 'lg', false),
@@ -46,6 +49,17 @@ function Administer(props) {
 		{id: 15,lastName: 'Nguyen', firstName: 'Nhan', email: 'nqnhan1403@gmail.com', address: '10 Vo Van Kiet', userName: 'nhannguyen', isAdmin: true, createAt: 15},
 		{id: 16,lastName: 'Nguyen', firstName: 'Nhan', email: 'nqnhan1403@gmail.com', address: '10 Vo Van Kiet', userName: 'nhannguyen', isAdmin: true, createAt: 16},
 	]
+	let pageConfigs = {current: currentPage, total: 5}
+	let next = () => {
+		console.log(1, currentPage)
+		if (currentPage < pageConfigs.total)
+			setCurrentPage(prevState => prevState += 1)
+	}
+	let back = () => {
+		console.log(2, currentPage)
+		if (currentPage > 1)
+			setCurrentPage(prevState => prevState - 1)
+	}
 
 	return (
 		<div className='administrator-container'>
@@ -62,7 +76,7 @@ function Administer(props) {
 
 			<div className="content-area">
 				<div className="table-area">
-					<Table configs={fakeUsers} />
+					<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back}}/>
 				</div>
 			</div>
 		</div>

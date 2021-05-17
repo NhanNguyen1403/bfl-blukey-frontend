@@ -6,7 +6,7 @@ import TableBody from "./TableBody/TableBody";
 import Paging from "../Paging/Paging";
 
 function Table(props) {
-  let data = props.configs
+  let data = props.configs.fakeUsers
 
   return (
     <React.Fragment>
@@ -16,7 +16,7 @@ function Table(props) {
       </table>
 
       <div className="paging-area">
-        <Paging />
+        <Paging clickHandler={props.clickHandler} />
       </div>
     </React.Fragment>
   );
