@@ -1,3 +1,8 @@
+/****************************************************
+ * 1. Received configs: data to render the table
+ * 2. Using switch-case for special columns
+ *****************************************************/
+
 import React from 'react';
 
 import {IconContext} from "react-icons";

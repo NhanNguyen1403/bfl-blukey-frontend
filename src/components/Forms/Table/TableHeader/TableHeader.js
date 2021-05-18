@@ -1,3 +1,8 @@
+/***************************************************
+ * 1. Received configs: data to render the table
+ * 2. headerItems store headers extracted from data
+ ***************************************************/
+
 import React, {useEffect, useState} from 'react';
 
 import "./TableHeader.scss"

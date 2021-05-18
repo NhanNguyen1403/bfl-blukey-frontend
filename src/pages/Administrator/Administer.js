@@ -1,4 +1,14 @@
-import React, {useState} from 'react';
+/****************************************************
+ * 1. Setup configs for PageOptions
+ * 		Change pageOptions: Administrator, Create
+ * 2. Setup configs for Table
+ * 		Load init data for Table
+ * 		Get new Data every time change currentPage
+ * 3. Setup configs for CreatUser Modal
+ * 		Call Api to CreateUser
+ *****************************************************/
+
+import React, {useEffect, useState} from 'react';
 
 import "./Administer.scss"
 
@@ -7,14 +17,14 @@ import {changeTab as changeGlobalTab}  from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
 import {generateButton} from "../../services/Generators/generateButton"
-import {getAll} from "../../services/Api/getAll.js"
+// import {getAll} from "../../services/Api/getAll.js"
 
 import PageOption from "../../components/Forms/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
 import Table from "../../components/Forms/Table/Table";
 
 
-function Administer(props) {
+function Administer() {
 	let dispatch = useDispatch()
 	let [currentPage, setCurrentPage] = useState(1)
 	let [optionList, setOptionList] = useState([
@@ -31,6 +41,9 @@ function Administer(props) {
 			return generatePageOption(i.name, i.size, i.name === optionName)
 		}))
 	}
+	useEffect(() => {
+		// Call getAll API to get data
+	}, [currentPage])
 
 	let fakeUsers = [
 		{id: 1,lastName: 'Nguyen', firstName: 'Nhan', email: 'nqnhan1403@gmail.com', address: '10 Vo Van Kiet', userName: 'nhannguyen', isAdmin: true, createAt: 1},
@@ -50,10 +63,13 @@ function Administer(props) {
 		{id: 15,lastName: 'Nguyen', firstName: 'Nhan', email: 'nqnhan1403@gmail.com', address: '10 Vo Van Kiet', userName: 'nhannguyen', isAdmin: true, createAt: 15},
 		{id: 16,lastName: 'Nguyen', firstName: 'Nhan', email: 'nqnhan1403@gmail.com', address: '10 Vo Van Kiet', userName: 'nhannguyen', isAdmin: true, createAt: 16},
 	]
-	let pageConfigs = {current: currentPage, total: 5}
+	let pageConfigs = {current: currentPage, totalItem: 26}
+	let changeDirectPage = (page) => {
+		setCurrentPage(page)
+	}
 	let next = () => {
-		if (currentPage < pageConfigs.total)
-			setCurrentPage(prevState => prevState += 1)
+		if (currentPage < (pageConfigs.totalItem / 25))
+			setCurrentPage(prevState => prevState + 1)
 	}
 	let back = () => {
 		if (currentPage > 1)
@@ -75,7 +91,7 @@ function Administer(props) {
 
 			<div className="content-area">
 				<div className="table-area">
-					<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back}}/>
+					<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
 				</div>
 			</div>
 		</div>

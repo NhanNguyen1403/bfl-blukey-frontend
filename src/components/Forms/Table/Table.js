@@ -1,3 +1,10 @@
+/*****************************************************************
+ * 1. Received configs: "data", "pageConfigs" to render the table
+ *    Pass "data" as configs to TableHeader and TableBody
+ *    Pass "pageConfigs" as configs to Paging
+ * 2. Received clickHandler and pass it to Paging
+ *****************************************************************/
+
 import React from 'react';
 
 import "./Table.scss"
