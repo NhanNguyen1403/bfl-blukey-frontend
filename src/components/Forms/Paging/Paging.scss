@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   user-select: none;
+  animation: zoom-out 300ms;
 
   .summarize {
     font-size: 12px;
@@ -36,6 +37,8 @@
     padding-top: 1px;
     box-sizing: border-box;
     transition: 300ms;
+
+
     
     &.active {
       color: white;
@@ -44,6 +47,14 @@
     
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .page-item, .page-button {
+    transition: 300ms;
+
+    &:active {
+      transform: translateY(4px);
     }
   }
 }

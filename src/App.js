@@ -7,7 +7,7 @@ import checkSession from "./services/Session/checkSession"
 import Login from "./pages/Login/Login";
 import Drawer from "./components/Forms/Drawer/Drawer";
 import Home from "./pages/Home/Home";
-import Administer from "./pages/Administrator/Administer";
+import Administrator from "./pages/Administrator/Administrator";
 import Transaction from "./pages/Transaction/Transaction";
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
 			<Drawer/>
 			<div className="top-cover"></div>
 			{ currentTab === 'Home' && <Home/>}
-			{ currentTab === 'Administrator' && <Administer/>}
+			{ currentTab === 'Administrator' && <Administrator/>}
 			{ currentTab === 'Transaction' && <Transaction/>}
 		</div>
 	);

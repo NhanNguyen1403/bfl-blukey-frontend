@@ -8,13 +8,14 @@ import Chip from "../../Forms/Chip/Chip";
 import {generateChip} from '../../../services/Generators/generateChip'
 
 function Input(props) {
-	let {labelName, type, size, isRequired} = props.configs
+	let {labelName, data, type, size, isRequired} = props.configs
 	let [shortInput, setShortInput] = useState(
 		generateChip(`${labelName} too short.`, 'error', false)
 	)
 
 	const validate = (newValue) => {
-		if (isRequired && newValue.length < 6)
+		console.log((newValue))
+		if (isRequired && newValue.length < 4)
 			return toggleAlert(true)
 
 		props.configs.setIsValid = true
@@ -43,8 +44,24 @@ function Input(props) {
 				id={labelName}
 				placeholder={labelName}
 				type={type}
+				autoComplete=''
 				onBlur={e => validate(e.target.value)}
+				list={data.length > 0 ? `${labelName}s` : ''}
 			/>
+
+			{
+				data.length > 0
+					? (
+						<datalist id={`${labelName}s`}>
+							{
+								data.map(i => {
+									return <option key={`option-item-${i}`} value={i}/>
+								})
+							}
+						</datalist>
+					)
+					: null
+			}
 
 			<div className="chip-area">
 				<Chip configs={shortInput} closeChip={toggleAlert}/>

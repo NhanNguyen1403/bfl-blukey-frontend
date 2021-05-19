@@ -10,6 +10,7 @@
     opacity: 1; /* Firefox */
   }
 
+  // placeholder
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: $text-placeholder;
   }
@@ -17,6 +18,23 @@
   ::-ms-input-placeholder { /* Microsoft Edge */
     color: $text-placeholder;
   }
+
+
+  // scrollbar
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: $background-pages;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $primary-bg-color;
+  }
+
 }
 div {
   border-radius: $border-radius-md;

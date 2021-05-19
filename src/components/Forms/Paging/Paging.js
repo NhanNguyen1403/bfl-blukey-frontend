@@ -31,7 +31,7 @@ function Paging(props) {
 		<div className='paging-container'>
 			<span className='summarize'> {25 * current} of {totalItem}</span>
 			<IconContext.Provider value={{size: '25px', className: "icon"}}>
-				<IoIosArrowDropleftCircle onClick={back}/>
+				<IoIosArrowDropleftCircle className='page-button' onClick={back}/>
 				{
 					pageItems.map(i => {
 						if (i === current)
@@ -39,7 +39,7 @@ function Paging(props) {
 						return <span onClick={() => changeDirectPage(i)} className='page-item' key={`page-item-${i}`}>{i}</span>
 					})
 				}
-				<IoIosArrowDroprightCircle onClick={next}/>
+				<IoIosArrowDroprightCircle className='page-button' onClick={next}/>
 			</IconContext.Provider>
 		</div>
 	);

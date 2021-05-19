@@ -2,7 +2,7 @@
  * Using this service to creat props for Input components
  ********************************************************/
 
-exports.generateInput = function (labelName = '', type = '', size = '', isRequired = true) {
+exports.generateInput = function (labelName = 'label', type = 'text', size = 'full', isRequired = true, data=[]) {
 	try {
 		return {
 			labelName,
@@ -24,7 +24,8 @@ exports.generateInput = function (labelName = '', type = '', size = '', isRequir
 			},
 			get getValue() {
 				return this.value
-			}
+			},
+			data,
 		}
 	} catch (err) {
 		console.error(err)

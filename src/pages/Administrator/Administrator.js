@@ -10,7 +10,7 @@
 
 import React, {useEffect, useState} from 'react';
 
-import "./Administer.scss"
+import "./Administrator.scss"
 
 import {useDispatch} from "react-redux";
 import {changeTab as changeGlobalTab}  from "../../redux";
@@ -22,9 +22,10 @@ import {generateButton} from "../../services/Generators/generateButton"
 import PageOption from "../../components/Forms/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
 import Table from "../../components/Forms/Table/Table";
+import UserForm from "../../components/Forms/UserForm/UserForm";
 
 
-function Administer() {
+function Administrator() {
 	let dispatch = useDispatch()
 	let [currentPage, setCurrentPage] = useState(1)
 	let [optionList, setOptionList] = useState([
@@ -76,6 +77,11 @@ function Administer() {
 			setCurrentPage(prevState => prevState - 1)
 	}
 
+	let create = (payload) => {
+		console.log('Create with:', payload)
+	}
+
+
 	return (
 		<div className='administrator-container'>
 			<div className="options-area">
@@ -90,12 +96,18 @@ function Administer() {
 			</div>
 
 			<div className="content-area">
-				<div className="table-area">
-					<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
-				</div>
+				{
+					optionList[1].isActive
+					? <UserForm clickHandler={{create, cancel: changeOption}}/>
+					: (
+						<div className="table-area">
+							<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
+						</div>
+					)
+				}
 			</div>
 		</div>
 	);
 }
 
-export default Administer;
+export default Administrator;
