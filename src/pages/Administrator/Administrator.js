@@ -22,7 +22,7 @@ import {generateButton} from "../../services/Generators/generateButton"
 import PageOption from "../../components/Forms/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
 import Table from "../../components/Forms/Table/Table";
-import UserForm from "../../components/Forms/UserForm/UserForm";
+import CreateUserForm from "../../components/Forms/CreateUserForm/CreateUserForm";
 
 
 function Administrator() {
@@ -98,7 +98,7 @@ function Administrator() {
 			<div className="content-area">
 				{
 					optionList[1].isActive
-					? <UserForm clickHandler={{create, cancel: changeOption}}/>
+					? <CreateUserForm clickHandler={{create, cancel: changeOption}}/>
 					: (
 						<div className="table-area">
 							<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>

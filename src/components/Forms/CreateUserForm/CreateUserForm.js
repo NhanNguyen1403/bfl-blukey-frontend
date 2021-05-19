@@ -1,12 +1,12 @@
 import React from 'react';
 
-import "./UserForm.scss"
+import "./CreateUserForm.scss"
 import Input from "../../Inputs/Input/Input";
 import {generateInput} from "../../../services/Generators/generateInput";
 import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
 
-function UserForm(props) {
+function CreateUserForm(props) {
 	let {create, cancel} = props.clickHandler
 	let firstName = generateInput('First name', 'text', 'half'),
 			lastName = generateInput('Last name', 'text', 'half'),
@@ -61,4 +61,4 @@ function UserForm(props) {
 	);
 }
 
-export default UserForm
+export default CreateUserForm
