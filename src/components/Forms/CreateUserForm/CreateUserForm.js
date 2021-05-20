@@ -15,8 +15,8 @@ function CreateUserForm(props) {
 			address = generateInput('Address', 'text', 'full'),
 			userName = generateInput('Username', 'text', 'half'),
 			password = generateInput('Password', 'password', 'half'),
-			createButton = generateButton('Create', 'default', 'md'),
-			cancelButton = generateButton('Cancel', 'outlined', 'md')
+			createButton = generateButton('Create', 'text', 'solid','md'),
+			cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
 	let validate = () => {
 		let inputs = [firstName,lastName,email,role,address,userName,password]
@@ -47,7 +47,7 @@ function CreateUserForm(props) {
 			</div>
 
 			<div className="account-form-container">
-				<p className="title">INFORMATION</p>
+				<p className="title">ACCOUNT</p>
 
 				<Input configs={userName}/>
 				<Input configs={password}/>

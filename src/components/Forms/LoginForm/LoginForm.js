@@ -10,7 +10,7 @@ import Button from "../../Inputs/Button/Button";
 function LoginForm() {
 	let emailInput = generateInput("Email", "text", "lg", true),
 			passwordInput = generateInput("Password", "password", "lg", true),
-			loginButton = generateButton('Sign In', "default", "lg")
+			loginButton = generateButton('Sign In', "text", 'solid',  "lg")
 
 	let inputConfig = [emailInput, passwordInput]
 

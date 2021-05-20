@@ -16,7 +16,7 @@ function Transaction(props) {
 	let [optionList, setOptionList] = useState([
 		generatePageOption('Transaction', 'lg', true)
 	])
-	let closeButton = generateButton('close', 'default', 'icon', 'close-icon')
+	let closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon')
 
 	let redirectHome = () => {
 		dispatch(changeGlobalTab('Home'))

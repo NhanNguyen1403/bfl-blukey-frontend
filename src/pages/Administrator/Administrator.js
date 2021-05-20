@@ -24,7 +24,6 @@ import Button from "../../components/Inputs/Button/Button";
 import Table from "../../components/Forms/Table/Table";
 import CreateUserForm from "../../components/Forms/CreateUserForm/CreateUserForm";
 
-
 function Administrator() {
 	let dispatch = useDispatch()
 	let [currentPage, setCurrentPage] = useState(1)
@@ -32,7 +31,7 @@ function Administrator() {
 		generatePageOption('Users', 'lg', true),
 		generatePageOption('Create', 'lg', false),
 	])
-	let closeButton = generateButton('close', 'default', 'icon', 'close-icon')
+	let closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon')
 
 	let redirectHome = () => {
 		dispatch(changeGlobalTab('Home'))

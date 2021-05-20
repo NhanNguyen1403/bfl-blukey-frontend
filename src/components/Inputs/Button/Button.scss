@@ -4,35 +4,54 @@
 @import "../../../scss/Templates";
 
 .button-container {
-	background-color: $primary-bg-color;
-	border-radius: $border-radius-md;
-	box-shadow: $primary-box-shadow;
-	color: white;
-	border: none;
-	padding: 10px;
-	&:hover {
-		cursor: pointer;
-	}
+  background-color: $primary-bg-color;
+  border-radius: $border-radius-md;
+  box-shadow: $primary-box-shadow;
+  color: white;
+  border: none;
+  padding: 10px;
 
-	&.outlined {
-		@extend %outlined;
-	}
+  &.outlined {
+    @extend %outlined;
+  }
 
-	&.md {
-		width: calc(50% - 10px);
-	}
+  &.icon {
+    padding: 8px 8px 6px 8px;
 
-	&.lg {
-		width: 100%;
-	}
+    &.circle {
+      padding: 0;
+      border-radius: 50%;
+    }
+  }
 
-	&.icon {
-		margin: 0;
-		padding: 8px 8px 6px 8px;
-	}
+  &.md {
+    width: calc(50% - 10px);
+  }
 
-	* {
-		color: white;
-	}
+  &.lg {
+    width: 100%;
+    height: 100%;
+  }
+
+  * {
+    color: white;
+  }
+
+  &.secondary {
+    background: unset;
+    box-shadow: unset;
+
+    * {
+      color: $primary-text-color;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: translateY(4px);
+  }
 }
 

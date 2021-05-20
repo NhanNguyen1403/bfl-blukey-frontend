@@ -1,6 +1,7 @@
 @import "../../../scss/Color";
 @import "../../../scss/Border";
 @import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
 
 .paging-container {
   height: 100%;
@@ -8,7 +9,7 @@
   justify-content: center;
   align-items: center;
   user-select: none;
-  animation: zoom-out 300ms;
+  transition: 300ms;
 
   .summarize {
     font-size: 12px;
@@ -24,6 +25,7 @@
       cursor: pointer;
     }
   }
+
   .page-item {
     width: 20px;
     height: 20px;
@@ -38,13 +40,11 @@
     box-sizing: border-box;
     transition: 300ms;
 
-
-    
     &.active {
       color: white;
       background-color: $primary-text-color;
     }
-    
+
     &:hover {
       cursor: pointer;
     }
