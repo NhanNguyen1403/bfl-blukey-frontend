@@ -8,6 +8,7 @@ import {generateButton} from "../../../services/Generators/generateButton";
 import LogOut from "../../../services/Session/LogOut";
 import Button from "../../Inputs/Button/Button";
 import {useDispatch} from "react-redux";
+import ProfileModal from "../../Modals/ProfileModal/ProfileModal";
 
 function Menu() {
 	let [displayMenu, setDisplayMenu] = useState(false)
@@ -51,6 +52,10 @@ function Menu() {
 						<div onClick={LogOut} className="menu-item">Log out</div>
 					</div>
 				}
+			</div>
+
+			<div className="modal-area">
+				<ProfileModal/>
 			</div>
 		</div>
 	);

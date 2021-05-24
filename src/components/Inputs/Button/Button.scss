@@ -15,14 +15,6 @@
     @extend %outlined;
   }
 
-  &.icon {
-    padding: 8px 8px 6px 8px;
-
-    &.circle {
-      padding: 0;
-      border-radius: 50%;
-    }
-  }
 
   &.md {
     width: calc(50% - 10px);
@@ -31,6 +23,21 @@
   &.lg {
     width: 100%;
     height: 100%;
+  }
+
+  &.icon {
+    padding: 8px 8px 6px 8px;
+
+    &.md {
+      width: 100%;
+      height: 100%;
+      padding: 2px 2px 0px 2px;
+    }
+
+    &.circle {
+      padding: 0;
+      border-radius: 50%;
+    }
   }
 
   * {

@@ -18,7 +18,7 @@ function Button(props) {
   let iconSize = '30px'       // lg size is default
 
   if (type === 'icon' && size === 'md')
-    iconSize = '20px'
+    iconSize = '26px'
 
   return (
     <IconContext.Provider value={{size: iconSize, className: "icon"}}>
