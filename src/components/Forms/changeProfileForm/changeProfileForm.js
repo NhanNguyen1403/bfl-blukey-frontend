@@ -13,7 +13,7 @@ function ChangeProfileForm(props) {
       email = generateInput('Email', 'text', 'half'),
       role = generateInput('Role', 'text', 'half', true, ['User', 'Admin']),
       address = generateInput('Address', 'text', 'full'),
-      saveButton = generateButton('Create', 'text', 'solid', 'md'),
+      saveButton = generateButton('Save', 'text', 'solid', 'md'),
       cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
   let validate = () => {

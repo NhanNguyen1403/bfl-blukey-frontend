@@ -31,7 +31,11 @@ function ProfileModal(props) {
   }
 
   const saveProfile = (payload) => {
-    console.log('save Profile', payload)
+    console.log('Save Profile', payload)
+  }
+
+  const savePassword = (payload) => {
+    console.log('Save Password', payload)
   }
 
   return (
@@ -51,7 +55,7 @@ function ProfileModal(props) {
         {
           optionList[0].isActive
             ? <ChangeProfileForm clickHandler={{save: saveProfile, cancel: closeModal}}/>
-            : <ChangePasswordForm clickHandler={{save: saveProfile, cancel: closeModal}}/>
+            : <ChangePasswordForm clickHandler={{save: savePassword, cancel: closeModal}}/>
         }
       </div>
 

@@ -1,0 +1,17 @@
+@keyframes zoom-out {
+  from {
+    transform: scale(.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -6,7 +6,7 @@
 .button-container {
   background-color: $primary-bg-color;
   border-radius: $border-radius-md;
-  box-shadow: $primary-box-shadow;
+  transition: 300ms;
   color: white;
   border: none;
   padding: 10px;
@@ -55,10 +55,12 @@
 
   &:hover {
     cursor: pointer;
+    box-shadow: $primary-box-shadow;
   }
 
   &:active {
     transform: translateY(2px);
+    box-shadow: $primary-box-shadow;
   }
 }
 
