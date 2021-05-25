@@ -49,7 +49,7 @@ module.exports = env => {
 				title: "tools",
 				template: path.resolve(__dirname, 'public/index.html')
 			}),
-			new FaviconsWebpackPlugin(path.resolve(__dirname, 'public/favicon.ico')),
+			new FaviconsWebpackPlugin(path.resolve(__dirname, 'public/favicon.png')),
 			new webpack.DefinePlugin({
 				"process.env" : {
 					"SERVER_URL" : env.WEBPACK_SERVE
