@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import "./changeProfileForm.scss"
 import {generateInput} from "../../../services/Generators/generateInput";
@@ -8,11 +8,12 @@ import Button from "../../Inputs/Button/Button";
 
 function ChangeProfileForm(props) {
   let {save, cancel} = props.clickHandler
-  let firstName = generateInput('First name', 'text', 'half'),
-      lastName = generateInput('Last name', 'text', 'half'),
-      email = generateInput('Email', 'text', 'half'),
-      role = generateInput('Role', 'text', 'half', true, ['User', 'Admin']),
-      address = generateInput('Address', 'text', 'full'),
+  let firstName = generateInput('First name', 'text', '', 'half'),
+      lastName = generateInput('Last name', 'text', '', 'half'),
+      email = generateInput('Email', 'text', '', 'half'),
+      role = generateInput('Role', 'text', '', 'half', true, ['User', 'Admin']),
+      address = generateInput('Address', 'text', '', 'full'),
+      file = generateInput('Files', 'file', '', 'full'),
       saveButton = generateButton('Save', 'text', 'solid', 'md'),
       cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
@@ -41,6 +42,7 @@ function ChangeProfileForm(props) {
         <Input configs={email}/>
         <Input configs={role}/>
         <Input configs={address}/>
+        <Input configs={file}/>
       </div>
 
       <div className="button-area">

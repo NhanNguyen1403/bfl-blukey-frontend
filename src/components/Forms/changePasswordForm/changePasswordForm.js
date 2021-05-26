@@ -8,8 +8,9 @@ import Button from "../../Inputs/Button/Button";
 
 function ChangePasswordForm(props) {
   let {save, cancel} = props.clickHandler
-  let newPassword = generateInput('New password', 'password', 'full'),
-      confirmPassword = generateInput('Confirm password', 'password', 'full'),
+  let oldPassword = generateInput('Old password', 'password', '', 'full'),
+      newPassword = generateInput('New password', 'password', '', 'full'),
+      confirmPassword = generateInput('Confirm password', 'password', '', 'full'),
       saveButton = generateButton('Save', 'text', 'solid', 'md'),
       cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
@@ -29,6 +30,7 @@ function ChangePasswordForm(props) {
       <div className="info-form-container">
         <p className="title">PASSWORD RESET</p>
 
+        <Input configs={oldPassword}/>
         <Input configs={newPassword}/>
         <Input configs={confirmPassword}/>
       </div>

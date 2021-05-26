@@ -44,6 +44,7 @@ function Input(props) {
 				id={labelName}
 				placeholder={labelName}
 				type={type}
+				defaultValue={props.configs.getValue}
 				autoComplete=''
 				onBlur={e => validate(e.target.value)}
 				list={data.length > 0 ? `${labelName}s` : ''}

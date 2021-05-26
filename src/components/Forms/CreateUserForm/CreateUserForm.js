@@ -8,13 +8,13 @@ import Button from "../../Inputs/Button/Button";
 
 function CreateUserForm(props) {
 	let {create, cancel} = props.clickHandler
-	let firstName = generateInput('First name', 'text', 'half'),
-			lastName = generateInput('Last name', 'text', 'half'),
-			email = generateInput('Email', 'text', 'half'),
-			role = generateInput('Role', 'text', 'half', true, ['User', 'Admin']),
-			address = generateInput('Address', 'text', 'full'),
-			userName = generateInput('Username', 'text', 'half'),
-			password = generateInput('Password', 'password', 'half'),
+	let firstName = generateInput('First name', 'text', '', 'half'),
+			lastName = generateInput('Last name', 'text', '', 'half'),
+			email = generateInput('Email', 'text', '', 'half'),
+			role = generateInput('Role', 'text', '', 'half', true, ['User', 'Admin']),
+			address = generateInput('Address', 'text', '', 'full'),
+			userName = generateInput('Username', 'text', '', 'half'),
+			password = generateInput('Password', 'password', '', 'half'),
 			createButton = generateButton('Create', 'text', 'solid','md'),
 			cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
