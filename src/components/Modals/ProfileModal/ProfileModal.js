@@ -9,6 +9,7 @@ import {generateButton} from "../../../services/Generators/generateButton";
 import {hideProfileModal} from "../../../redux";
 import ChangeProfileForm from "../../Forms/changeProfileForm/changeProfileForm";
 import ChangePasswordForm from "../../Forms/changePasswordForm/changePasswordForm";
+import FilesForm from "../../Forms/FilesForm/FilesForm";
 
 function ProfileModal(props) {
   const {isDisplay} = useSelector(state => {
@@ -17,6 +18,7 @@ function ProfileModal(props) {
   let dispatch = useDispatch()
   let [optionList, setOptionList] = useState([
     generatePageOption('Profile', 'md', true),
+    generatePageOption('Files', 'md', false),
     generatePageOption('Password', 'md', false),
   ])
   let closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
@@ -38,6 +40,10 @@ function ProfileModal(props) {
     console.log('Save Password', payload)
   }
 
+  const saveFile = (file) => {
+    console.log('Save File:', file)
+  }
+
   return (
     isDisplay && <div className="profile-modal-container">
       <div className="modal-content">
@@ -52,11 +58,9 @@ function ProfileModal(props) {
           </div>
         </div>
 
-        {
-          optionList[0].isActive
-            ? <ChangeProfileForm clickHandler={{save: saveProfile, cancel: closeModal}}/>
-            : <ChangePasswordForm clickHandler={{save: savePassword, cancel: closeModal}}/>
-        }
+        {optionList[0].isActive && <ChangeProfileForm clickHandler={{save: saveProfile, cancel: closeModal}}/>}
+        {optionList[1].isActive && <FilesForm/>}
+        {optionList[2].isActive && <ChangePasswordForm clickHandler={{save: savePassword, cancel: closeModal}}/>}
       </div>
 
       <div className="blur"/>

@@ -1,0 +1,14 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.files-form-container {
+  @extend %input-layout;
+
+  margin-top: 30px;
+
+  .files-area {
+    width: 100%;
+  }
+}

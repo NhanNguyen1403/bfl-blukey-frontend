@@ -9,17 +9,28 @@ import {generateChip} from '../../../services/Generators/generateChip'
 
 function Input(props) {
 	let {labelName, data, type, size, isRequired} = props.configs
+
 	let [shortInput, setShortInput] = useState(
 		generateChip(`${labelName} too short.`, 'error', false)
 	)
 
-	const validate = (newValue) => {
-		console.log((newValue))
+	const validate = (event) => {
+		let {value: newValue, files} = event.target
+		console.log(labelName, newValue)
+
+
 		if (isRequired && newValue.length < 4)
 			return toggleAlert(true)
 
 		props.configs.setIsValid = true
-		props.configs.setValue = newValue
+		if (type === 'file') {
+			props.configs.setValue = files[0]
+			props.fileHandler()
+			toggleAlert(false)
+			return
+		}
+
+		props.configs.setValue =  newValue
 		toggleAlert(false)
 	}
 
@@ -46,7 +57,7 @@ function Input(props) {
 				type={type}
 				defaultValue={props.configs.getValue}
 				autoComplete=''
-				onBlur={e => validate(e.target.value)}
+				onBlur={e => validate(e)}
 				list={data.length > 0 ? `${labelName}s` : ''}
 			/>
 

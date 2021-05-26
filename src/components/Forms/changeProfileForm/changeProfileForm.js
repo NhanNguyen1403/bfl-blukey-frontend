@@ -13,7 +13,6 @@ function ChangeProfileForm(props) {
       email = generateInput('Email', 'text', '', 'half'),
       role = generateInput('Role', 'text', '', 'half', true, ['User', 'Admin']),
       address = generateInput('Address', 'text', '', 'full'),
-      file = generateInput('Files', 'file', '', 'full'),
       saveButton = generateButton('Save', 'text', 'solid', 'md'),
       cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
@@ -35,14 +34,13 @@ function ChangeProfileForm(props) {
   return (
     <div className='change-profile-form-container'>
       <div className="info-form-container">
-        <p className="title">INFORMATION</p>
+        <p className="title">REVIEW / EDIT</p>
 
         <Input configs={firstName}/>
         <Input configs={lastName}/>
         <Input configs={email}/>
         <Input configs={role}/>
         <Input configs={address}/>
-        <Input configs={file}/>
       </div>
 
       <div className="button-area">

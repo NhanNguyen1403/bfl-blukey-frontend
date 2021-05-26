@@ -2,7 +2,7 @@
  * Using this service to creat props for Input components
  ********************************************************/
 
-exports.generateInput = function (labelName = 'label', type = 'text', value = '', size = 'full', isRequired = true, data=[]) {
+exports.generateInput = function (labelName = 'label', type = 'text', value, size = 'full', isRequired = true, data=[]) {
 	try {
 		return {
 			labelName,
