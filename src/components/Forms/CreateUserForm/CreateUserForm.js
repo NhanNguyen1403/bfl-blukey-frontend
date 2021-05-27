@@ -5,9 +5,10 @@ import Input from "../../Inputs/Input/Input";
 import {generateInput} from "../../../services/Generators/generateInput";
 import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
+import Post from '../../../services/Api/POST/post'
 
 function CreateUserForm(props) {
-	let {create, cancel} = props.clickHandler
+	let {cancel} = props.clickHandler
 	let firstName = generateInput('First name', 'text', '', 'half'),
 			lastName = generateInput('Last name', 'text', '', 'half'),
 			email = generateInput('Email', 'text', '', 'half'),
@@ -32,6 +33,11 @@ function CreateUserForm(props) {
 			userName: userName.getValue,
 			password: password.getValue
 		})
+	}
+
+	let create = async (payload) => {
+		console.log('Create User:', payload)
+		// await Post('users', payload)
 	}
 
 	return (

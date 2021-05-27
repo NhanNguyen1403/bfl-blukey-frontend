@@ -8,11 +8,13 @@
 
 import store from "../../redux/store"
 import {logIn} from "../../redux";
+import Post from "../Api/POST/post"
 
 const Login = async function (email, password) {
 	try {
 		// 1.Call Session Api
 		console.log('Call Log In Api with', email, password)
+		// await Post('login', {email, password}, true)
 
 		// 2. Store credentials into localStorage
 		localStorage.setItem('email', email)

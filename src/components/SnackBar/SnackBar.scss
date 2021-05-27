@@ -1,0 +1,57 @@
+@import "../../scss/Color";
+@import "../../scss/Border";
+@import "../../scss/BoxShadow";
+@import "../../scss/Templates";
+
+.snack-bar-container {
+  position: fixed;
+  right: 30px;
+  top: 20vh;
+  min-width: 200px;
+  height: 40px;
+  animation: zoom-out 300ms ease-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  user-select: none;
+
+  p {
+    font-weight: bold;
+    padding: 3px 5px;
+    border-radius: $border-radius-sm;
+    transition: 300ms;
+  }
+
+
+  &.danger {
+    background: $danger-bg-color;
+    box-shadow: $danger-box-shadow;
+
+    p {
+      color: $danger-text-color;
+    }
+    .close {
+      &:hover {
+        cursor: pointer;
+        background-color: $danger-text-color-50;
+      }
+    }
+  }
+
+  &.success {
+    background: $success-bg-color;
+    box-shadow: $success-box-shadow;
+
+    p {
+      color: $success-text-color;
+    }
+    .close {
+      &:hover {
+        cursor: pointer;
+        background-color: $success-text-color-50;
+      }
+    }
+  }
+
+}

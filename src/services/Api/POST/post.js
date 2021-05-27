@@ -1,7 +1,7 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
 
-async function Post (endPoint, payload, isLogin) {
+async function Post (endPoint, payload, isLogin = false) {
   try {
     if (checkSession() && !isLogin) return
 

@@ -17,7 +17,7 @@ import {changeTab as changeGlobalTab}  from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
 import {generateButton} from "../../services/Generators/generateButton"
-// import {getAll} from "../../services/Api/getAll.js"
+import getAll from "../../services/Api/GET/getAll.js"
 
 import PageOption from "../../components/Forms/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
@@ -41,8 +41,9 @@ function Administrator() {
 			return generatePageOption(i.name, i.size, i.name === optionName)
 		}))
 	}
-	useEffect(() => {
+	useEffect(async () => {
 		// Call getAll API to get data
+		// await getAll('users', currentPage)
 	}, [currentPage])
 
 	let fakeUsers = [
@@ -76,10 +77,6 @@ function Administrator() {
 			setCurrentPage(prevState => prevState - 1)
 	}
 
-	let create = (payload) => {
-		console.log('Create with:', payload)
-	}
-
 
 	return (
 		<div className='administrator-container'>
@@ -95,14 +92,11 @@ function Administrator() {
 			</div>
 
 			<div className="content-area">
-				{
-					optionList[1].isActive
-					? <CreateUserForm clickHandler={{create, cancel: changeOption}}/>
-					: (
-						<div className="table-area">
-							<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
-						</div>
-					)
+				{ optionList[1].isActive && <CreateUserForm clickHandler={{cancel: changeOption}}/>}
+				{	optionList[0].isActive &&
+					<div className="table-area">
+						<Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
+					</div>
 				}
 			</div>
 		</div>

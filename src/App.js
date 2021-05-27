@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home";
 import Administrator from "./pages/Administrator/Administrator";
 import Transaction from "./pages/Transaction/Transaction";
 import Menu from "./components/Forms/Menu/Menu";
+import SnackBar from "./components/SnackBar/SnackBar";
 
 function App() {
 	const {isLogged} = useSelector(state => {
@@ -38,6 +39,7 @@ function App() {
 			{ currentTab === 'Administrator' && <Administrator/>}
 			{ currentTab === 'Transaction' && <Transaction/>}
 			<Menu/>
+			<SnackBar/>
 		</div>
 	);
 }
