@@ -1,7 +1,7 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
 
-async function Delete (endPoint, id, payload) {
+async function Delete (endPoint = '', id = '', payload = {}) {
   try {
     if (checkSession()) return
 

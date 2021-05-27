@@ -10,5 +10,36 @@
 
   .files-area {
     width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .file-item {
+      margin-bottom: 10px;
+      width: 160px;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      background-color: $background-pages;
+      font-weight: bold;
+      border-radius: $border-radius-md;
+      transition: 300ms;
+      position: relative;
+
+      a {
+        text-decoration: none;
+      }
+
+      &:hover, &:active {
+        cursor: pointer;
+        color: $primary-text-color;
+        box-shadow: $default-box-shadow;
+      }
+
+      .button-area {
+        position: absolute;
+        right: 0;
+      }
+    }
   }
 }

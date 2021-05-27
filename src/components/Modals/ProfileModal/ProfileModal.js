@@ -40,9 +40,6 @@ function ProfileModal(props) {
     console.log('Save Password', payload)
   }
 
-  const saveFile = (file) => {
-    console.log('Save File:', file)
-  }
 
   return (
     isDisplay && <div className="profile-modal-container">

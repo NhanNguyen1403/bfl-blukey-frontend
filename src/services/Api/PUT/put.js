@@ -1,7 +1,7 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
 
-async function Put (endPoint, id, payload) {
+async function Put (endPoint = '', id = '', payload = {}) {
   try {
     if (checkSession()) return
 

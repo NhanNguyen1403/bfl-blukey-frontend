@@ -1,7 +1,7 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
 
-async function getAll (endPoint, pages) {
+async function getAll (endPoint = '', pages = 1) {
 	try {
 		if (checkSession()) return
 

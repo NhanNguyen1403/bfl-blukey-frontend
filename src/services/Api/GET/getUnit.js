@@ -1,7 +1,7 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
 
-async function getUnit (endPoint, itemID) {
+async function getUnit (endPoint = '', itemID = '') {
 	try {
 		if (checkSession()) return
 
