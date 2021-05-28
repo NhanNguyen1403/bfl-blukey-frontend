@@ -1,5 +1,7 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
+import store from "../../../redux/store";
+import {showSnack} from "../../../redux";
 
 async function Delete (endPoint = '', id = '', payload = {}) {
   try {
@@ -17,6 +19,7 @@ async function Delete (endPoint = '', id = '', payload = {}) {
     return data
   } catch (err) {
     console.log(err)
+    store.dispatch(showSnack('Error','danger'))
   }
 }
 

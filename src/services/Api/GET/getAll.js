@@ -1,5 +1,7 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
+import store from "../../../redux/store";
+import {showSnack} from "../../../redux";
 
 async function getAll (endPoint = '', pages = 1) {
 	try {
@@ -16,6 +18,7 @@ async function getAll (endPoint = '', pages = 1) {
 		return data
 	} catch (err) {
 		console.log(err)
+		store.dispatch(showSnack('Error','danger'))
 	}
 }
 

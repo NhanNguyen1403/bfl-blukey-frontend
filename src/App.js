@@ -34,7 +34,7 @@ function App() {
 	return (
 		<div className="App">
 			<Drawer/>
-			<div className="top-cover"></div>
+			<div className="top-cover"/>
 			{ currentTab === 'Home' && <Home/>}
 			{ currentTab === 'Administrator' && <Administrator/>}
 			{ currentTab === 'Transaction' && <Transaction/>}

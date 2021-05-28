@@ -8,18 +8,18 @@ import Login from "../../../services/Session/Login"
 import Button from "../../Inputs/Button/Button";
 
 function LoginForm() {
-	let emailInput = generateInput("Email", "text", '', "lg", true),
+	let usernameInput = generateInput("Username", "text", '', "lg", true),
 			passwordInput = generateInput("Password", "password", '', "lg", true),
 			loginButton = generateButton('Sign In', "text", 'solid',  "lg")
 
-	let inputConfig = [emailInput, passwordInput]
+	let inputConfig = [usernameInput, passwordInput]
 
 	const clickHandler = async (e) => {
 		e.preventDefault()
-		if (!emailInput.getIsValid || !passwordInput.getIsValid)
+		if (!usernameInput.getIsValid || !passwordInput.getIsValid)
 			return console.log(false)
 
-		let email = emailInput.getValue,
+		let email = usernameInput.getValue,
 				password = passwordInput.getValue
 
 		await Login(email, password)

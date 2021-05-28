@@ -7,7 +7,7 @@ async function Post (endPoint = '', payload = {}, isLogin = false) {
 
     let {data} = await axios({
       method: 'POST',
-      url: `${process.env.SERVER_URL}/${endPoint}`,
+      url: `${process.env.SERVER_URL}${endPoint}`,
       headers: {
         'Authorization': isLogin ? null :localStorage.getItem('token')
       },

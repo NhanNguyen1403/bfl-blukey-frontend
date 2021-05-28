@@ -1,7 +1,7 @@
 import {SHOW_SNACK, HIDE_SNACK} from "./Type";
 
 const initialState = {
-	isDisplay: true,
+	isDisplay: false,
 	message: 'Error!',
 	snackType: 'danger',
 }
