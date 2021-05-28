@@ -3,7 +3,7 @@ import checkSession from '../../Session/checkSession'
 
 async function getAll (endPoint = '', pages = 1) {
 	try {
-		if (checkSession()) return
+		if (!checkSession()) return
 
 		let {data} = await axios({
 			method: 'GET',

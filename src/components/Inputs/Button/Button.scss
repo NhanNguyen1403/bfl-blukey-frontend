@@ -38,6 +38,10 @@
       padding: 0;
       border-radius: 50%;
     }
+
+    &.non-bg {
+      background: transparent;
+    }
   }
 
   * {
@@ -49,7 +53,13 @@
     box-shadow: unset;
 
     * {
-      color: $primary-text-color;
+      color: $second-text-color;
+    }
+
+    &:hover {
+      * {
+        color: $primary-text-color;
+      }
     }
   }
 

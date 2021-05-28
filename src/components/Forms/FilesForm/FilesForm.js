@@ -11,11 +11,11 @@ import Button from "../../Inputs/Button/Button";
 
 function FilesForm() {
   let file = generateInput('File', 'file', '', 'full')
-  let removeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
+  let removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon')
   let [files, setFiles] = useState([])
 
   useEffect(async () => {
-    await getFiles()
+    // await getFiles()
   }, [])
 
   let getFiles = async () => {

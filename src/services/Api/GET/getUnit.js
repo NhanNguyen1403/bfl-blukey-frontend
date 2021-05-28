@@ -3,7 +3,7 @@ import checkSession from '../../Session/checkSession'
 
 async function getUnit (endPoint = '', itemID = '') {
 	try {
-		if (checkSession()) return
+		if (!checkSession()) return
 
 		let {data} = await axios({
 			method: 'GET',

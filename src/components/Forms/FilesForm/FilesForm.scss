@@ -19,26 +19,33 @@
       margin-bottom: 10px;
       width: 160px;
       box-sizing: border-box;
-      padding: 8px 10px;
+      padding-left: 10px;
       background-color: $background-pages;
       font-weight: bold;
       border-radius: $border-radius-md;
       transition: 300ms;
       position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       a {
         text-decoration: none;
+        transition: 300ms;
       }
 
       &:hover, &:active {
-        cursor: pointer;
-        color: $primary-text-color;
         box-shadow: $default-box-shadow;
+
+        a {
+          cursor: pointer;
+          color: $primary-text-color;
+        }
       }
 
       .button-area {
-        position: absolute;
-        right: 0;
+        margin: 0;
+        padding: 0;
       }
     }
   }
