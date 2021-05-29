@@ -15,7 +15,7 @@ const checkSession = async function () {
 		return true
 
 	// 2. Check localStorage
-	if (localStorage.getItem('email')) {
+	if (localStorage.getItem('token')) {
 		store.dispatch(logIn())
 		return true
 	}

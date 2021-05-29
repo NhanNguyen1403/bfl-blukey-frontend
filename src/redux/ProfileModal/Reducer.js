@@ -1,15 +1,18 @@
 import {SHOW_MODAL, HIDE_MODAL} from "./Type";
 
 const initialState = {
-	isDisplay: false
+	isDisplay: false,
+	mode: 'view',
+	user: {},
 }
 
 const profileModalReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SHOW_MODAL:
 			return {
-				...state,
-				isDisplay: true
+				mode: action.mode,
+				user: action.user,
+				isDisplay: true,
 			}
 
 		case HIDE_MODAL:

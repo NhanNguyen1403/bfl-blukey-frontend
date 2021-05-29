@@ -11,6 +11,7 @@ import Administrator from "./pages/Administrator/Administrator";
 import Transaction from "./pages/Transaction/Transaction";
 import Menu from "./components/Forms/Menu/Menu";
 import SnackBar from "./components/SnackBar/SnackBar";
+import ProfileModal from "./components/Modals/ProfileModal/ProfileModal";
 
 function App() {
 	const {isLogged} = useSelector(state => {
@@ -40,6 +41,7 @@ function App() {
 			{ currentTab === 'Transaction' && <Transaction/>}
 			<Menu/>
 			<SnackBar/>
+			<ProfileModal/>
 		</div>
 	);
 }

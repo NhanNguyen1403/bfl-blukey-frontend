@@ -7,6 +7,7 @@ import Input from "../../Inputs/Input/Input";
 import Button from "../../Inputs/Button/Button";
 
 function ChangePasswordForm(props) {
+  let user = JSON.parse(localStorage.getItem('user'))
   let {save, cancel} = props.clickHandler
   let oldPassword = generateInput('Old password', 'password', '', 'full'),
       newPassword = generateInput('New password', 'password', '', 'full'),
@@ -19,9 +20,9 @@ function ChangePasswordForm(props) {
     if (inputs.some(i => i.getIsValid === false))
       return console.log('false')
 
-    return save({
-      newPassword: newPassword.getValue,
-      confirmPassword: confirmPassword.getValue,
+    return save(user.id, {
+      old_password: newPassword.getValue,
+      password: confirmPassword.getValue,
     })
   }
 

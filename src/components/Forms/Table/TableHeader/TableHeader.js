@@ -11,10 +11,14 @@ function TableHeader(props) {
 	let [headerItems, setHeaderItems] = useState([])
 
 	useEffect(() => {
-		if (props.configs.length > 0)
-			setHeaderItems(Object.keys(props.configs[0]))
+		if (props.configs.length > 0){
+			let rawHeaders = Object.keys(props.configs[0])
+			setHeaderItems(rawHeaders.map(i => i.replace('_', ' ')))
+		}
 
-	}, [])
+
+
+	}, [props.configs])
 
 	return (
 		<thead className='table-header-container'>

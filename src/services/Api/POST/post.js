@@ -9,7 +9,7 @@ async function Post (endPoint = '', payload = {}, isLogin = false) {
       method: 'POST',
       url: `${process.env.SERVER_URL}${endPoint}`,
       headers: {
-        'Authorization': isLogin ? null :localStorage.getItem('token')
+        'Authorization': isLogin ? null : `Bearer ${localStorage.getItem('token')}`
       },
       data: payload,
     })

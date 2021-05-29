@@ -9,16 +9,16 @@ async function getAll (endPoint = '', pages = 1) {
 
 		let {data} = await axios({
 			method: 'GET',
-			url: `${process.env.SERVER_URL}/${endPoint}?page=${pages}&limit=25`,
+			url: `${process.env.SERVER_URL}${endPoint}?page=${pages}&limit=25`,
 			headers: {
-				'Authorization': localStorage.getItem('token')
+				'Authorization': `Bearer ${localStorage.getItem('token')}`
 			}
 		})
 
 		return data
 	} catch (err) {
 		console.log(err)
-		store.dispatch(showSnack('Error','danger'))
+		store.dispatch(showSnack(err?.response?.data?.message || 'Error','danger'))
 	}
 }
 

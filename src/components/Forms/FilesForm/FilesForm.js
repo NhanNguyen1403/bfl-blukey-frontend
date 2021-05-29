@@ -9,7 +9,8 @@ import getAll from "../../../services/Api/GET/getAll"
 import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
 
-function FilesForm() {
+function FilesForm(props) {
+  let {mode, user} = props.configs
   let file = generateInput('File', 'file', '', 'full')
   let removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon')
   let [files, setFiles] = useState([])
@@ -41,9 +42,9 @@ function FilesForm() {
   return (
     <div className='files-form-container'>
       <div className="info-form-container">
-        <p className="title">NEW</p>
+        {mode === 'edit' && < p className="title">NEW</p>}
 
-        <Input configs={file} fileHandler={fileHandler}/>
+        {mode === 'edit' && <Input configs={file} fileHandler={fileHandler}/>}
 
         <div className="files-area">
           <p className="title">YOUR FILES</p>

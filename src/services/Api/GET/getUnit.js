@@ -9,16 +9,16 @@ async function getUnit (endPoint = '', itemID = '') {
 
 		let {data} = await axios({
 			method: 'GET',
-			url: `${process.env.SERVER_URL}/${endPoint}/${itemID}`,
+			url: `${process.env.SERVER_URL}${endPoint}/${itemID}`,
 			headers: {
-				'Authorization': localStorage.getItem('token')
+				'Authorization': `Bearer ${localStorage.getItem('token')}`
 			}
 		})
 
 		return data
 	} catch (err) {
 		console.log(err)
-		store.dispatch(showSnack('Error','danger'))
+		store.dispatch(showSnack(err?.response?.data?.message || 'Error','danger'))
 	}
 
 }

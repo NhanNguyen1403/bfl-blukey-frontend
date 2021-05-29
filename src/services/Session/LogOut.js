@@ -9,7 +9,8 @@ import {logOut} from "../../redux";
 
 const LogOut = async function () {
 	// 1. Remove localStorage credentials
-	localStorage.removeItem('email')
+	localStorage.removeItem('token')
+	localStorage.removeItem('user')
 
 	// 2. Update isLogged as a global (redux)
 	store.dispatch(logOut())

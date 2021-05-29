@@ -13,7 +13,7 @@ import TableBody from "./TableBody/TableBody";
 import Paging from "../Paging/Paging";
 
 function Table(props) {
-  let data = props.configs.fakeUsers
+  let data = props.configs.users
   let {pageConfigs} = props.configs
 
   return (

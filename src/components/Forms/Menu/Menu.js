@@ -31,7 +31,7 @@ function Menu() {
 	}
 	let showModal = () => {
 		setDisplayMenu(false)
-		dispatch(showProfileModal())
+		dispatch(showProfileModal('edit', JSON.parse(localStorage.getItem('user'))))
 	}
 
 	let handleClickOutside = (e) => {
@@ -52,10 +52,6 @@ function Menu() {
 						<div onClick={LogOut} className="menu-item">Log out</div>
 					</div>
 				}
-			</div>
-
-			<div className="modal-area">
-				<ProfileModal/>
 			</div>
 		</div>
 	);

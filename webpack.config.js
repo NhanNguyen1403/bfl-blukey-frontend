@@ -53,7 +53,7 @@ module.exports = env => {
 			new webpack.DefinePlugin({
 				"process.env" : {
 					"SERVER_URL" : env.WEBPACK_SERVE
-						? JSON.stringify('http:localhost:3000/api/v1')
+						? JSON.stringify('https://blukey-be.azurewebsites.net/api/v1/')
 						: JSON.stringify('https://blukey-be.azurewebsites.net/api/v1/')
 				}
 			}),

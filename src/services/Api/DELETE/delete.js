@@ -9,9 +9,9 @@ async function Delete (endPoint = '', id = '', payload = {}) {
 
     let {data} = await axios({
       method: 'DELETE',
-      url: `${process.env.SERVER_URL}/${endPoint}/${id}`,
+      url: `${process.env.SERVER_URL}${endPoint}/${id}`,
       headers: {
-        'Authorization': localStorage.getItem('token')
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       data: payload,
     })
@@ -19,7 +19,7 @@ async function Delete (endPoint = '', id = '', payload = {}) {
     return data
   } catch (err) {
     console.log(err)
-    store.dispatch(showSnack('Error','danger'))
+    store.dispatch(showSnack(err?.response?.data?.message || 'Error','danger'))
   }
 }
 

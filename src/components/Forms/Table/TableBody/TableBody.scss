@@ -10,6 +10,13 @@
 			color: $primary-text-color;
 		}
 	}
+	tr {
+		transition: 300ms;
+		&:hover {
+			cursor: pointer;
+			background-color: $background-pages;
+		}
+	}
 
 	td {
 		color: $primary-text-color;

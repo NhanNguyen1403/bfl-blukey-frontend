@@ -1,68 +1,91 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import "./ProfileModal.scss"
 import {useDispatch, useSelector} from "react-redux";
-import {generatePageOption} from "../../../services/Generators/generatePageOption";
-import PageOption from "../../Forms/pageOption/pageOption";
 import Button from "../../Inputs/Button/Button";
 import {generateButton} from "../../../services/Generators/generateButton";
+import PageOption from "../../Forms/pageOption/pageOption";
+import {generatePageOption} from "../../../services/Generators/generatePageOption";
 import {hideProfileModal} from "../../../redux";
 import ChangeProfileForm from "../../Forms/changeProfileForm/changeProfileForm";
-import ChangePasswordForm from "../../Forms/changePasswordForm/changePasswordForm";
 import FilesForm from "../../Forms/FilesForm/FilesForm";
+import ChangePasswordForm from "../../Forms/changePasswordForm/changePasswordForm";
+import Put from "../../../services/Api/PUT/put"
+import getAll from "../../../services/Api/GET/getAll";
 
 function ProfileModal(props) {
-  const {isDisplay} = useSelector(state => {
-    return state.profileModal
-  })
-  let dispatch = useDispatch()
-  let [optionList, setOptionList] = useState([
-    generatePageOption('Profile', 'md', true),
-    generatePageOption('Files', 'md', false),
-    generatePageOption('Password', 'md', false),
-  ])
-  let closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
+	let dispatch = useDispatch()
+	let {isDisplay, mode, user} = useSelector(state => {
+		return state.profileModal
+	})
+	let [optionList, setOptionList] = useState([])
+	useEffect(() => {
+		if (mode === 'edit')
+			return setOptionList(prevState => [
+					generatePageOption('Profile', 'md', true),
+					generatePageOption('Files', 'md', false),
+					generatePageOption('Password', 'md', false),
+				]
+			)
+		return setOptionList([
+			generatePageOption('Profile', 'md', true),
+			generatePageOption('Files', 'md', false),
+		])
+	}, [mode])
+	let closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
 
-  let closeModal = () => {
-    dispatch(hideProfileModal())
-  }
-  let changeOption = (optionName) => {
-    setOptionList(optionList.map(i => {
-      return generatePageOption(i.name, i.size, i.name === optionName)
-    }))
-  }
+	let closeModal = () => {
+		dispatch(hideProfileModal())
+	}
+	let changeOption = (optionName) => {
+		setOptionList(optionList.map(i => {
+			return generatePageOption(i.name, i.size, i.name === optionName)
+		}))
+	}
 
-  const saveProfile = (payload) => {
-    console.log('Save Profile', payload)
-  }
+	const saveProfile = async (id, payload) => {
+		await Put('users', id, payload)
+		let {data: getInfoResult} = await getAll('info')
+		localStorage.setItem('user', JSON.stringify(getInfoResult))
+		closeModal()
+	}
 
-  const savePassword = (payload) => {
-    console.log('Save Password', payload)
-  }
+	const savePassword = async (id, payload) => {
+		console.log('Save Password', payload)
+		await Put('users', id, payload)
+		closeModal()
+	}
 
 
-  return (
-    isDisplay && <div className="profile-modal-container">
-      <div className="modal-content">
-        <div className="options-area">
-          {
-            optionList.map(i => {
-              return (<PageOption key={`option-${i.name}`} configs={i} clickHandler={changeOption}/>)
-            })
-          }
-          <div className="button-area">
-            <Button configs={closeButton} clickHandler={closeModal}/>
-          </div>
-        </div>
+	return (
+		isDisplay && <div className="profile-modal-container">
+			<div className="modal-content">
+				<div className="options-area">
+					{
+						optionList.map(i => {
+							return (<PageOption key={`option-${i.name}`} configs={i} clickHandler={changeOption}/>)
+						})
+					}
+					<div className="button-area">
+						<Button configs={closeButton} clickHandler={closeModal}/>
+					</div>
+				</div>
 
-        {optionList[0].isActive && <ChangeProfileForm clickHandler={{save: saveProfile, cancel: closeModal}}/>}
-        {optionList[1].isActive && <FilesForm/>}
-        {optionList[2].isActive && <ChangePasswordForm clickHandler={{save: savePassword, cancel: closeModal}}/>}
-      </div>
+				{
+					optionList[0].isActive &&
+					<ChangeProfileForm configs={{mode, user}} clickHandler={{save: saveProfile, cancel: closeModal}}/>
+				}
+				{optionList[1].isActive && <FilesForm configs={{mode, user}}/>}
+				{
+					mode === 'edit' &&
+					optionList[2]?.isActive &&
+					<ChangePasswordForm configs={user} clickHandler={{save: savePassword, cancel: closeModal}}/>
+				}
+			</div>
 
-      <div className="blur"/>
-    </div>
-  );
+			<div className="blur"/>
+		</div>
+	);
 }
 
 export default ProfileModal;

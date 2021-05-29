@@ -4,6 +4,8 @@
  *****************************************************/
 
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {showProfileModal} from "../../../../redux";
 
 import {IconContext} from "react-icons";
 import {FaCheckCircle} from "react-icons/fa";
@@ -11,13 +13,19 @@ import {FaCheckCircle} from "react-icons/fa";
 import "./TableBody.scss"
 
 function TableBody(props) {
+	let dispatch = useDispatch()
+
+	let viewUserDetail = (userInfo) => {
+		dispatch(showProfileModal('view', userInfo))
+	}
+
 	return (
 		<tbody className='table-body-container'>
 		<IconContext.Provider value={{size: '20px', className: "icon"}}>
 			{
 				props.configs.map(item => {
 					return (
-						<tr key={`table-row-${item.id}`}>
+						<tr onClick={() => viewUserDetail(item)} key={`table-row-${item.id}`}>
 							{
 								Object.keys(item).map(key => {
 									switch (key) {

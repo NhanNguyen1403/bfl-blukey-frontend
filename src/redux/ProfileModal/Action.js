@@ -1,8 +1,10 @@
 import {SHOW_MODAL, HIDE_MODAL} from "./Type";
 
-export const showProfileModal = () => {
+export const showProfileModal = (mode, user) => {
   return {
-    type: SHOW_MODAL
+    type: SHOW_MODAL,
+    mode,
+    user,
   }
 }
 

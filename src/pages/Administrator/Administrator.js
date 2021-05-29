@@ -31,6 +31,9 @@ function Administrator() {
     generatePageOption('Users', 'lg', true),
     generatePageOption('Create', 'lg', false),
   ])
+  let [users, setUsers] = useState([])
+  let [pageConfigs, setPagingConfigs] = useState({current: currentPage, totalItem: 1})
+
   let closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon')
 
   let redirectHome = () => {
@@ -41,174 +44,17 @@ function Administrator() {
       return generatePageOption(i.name, i.size, i.name === optionName)
     }))
   }
+
   useEffect(async () => {
     // Call getAll API to get data
-    // await getAll('users', currentPage)
+    let {data, paging} = await getAll('users', currentPage)
+
+    setUsers(data)
+    setPagingConfigs({...pageConfigs, totalItem: paging.total})
   }, [currentPage])
 
-  let fakeUsers = [
-    {
-      id: 1,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 1
-    },
-    {
-      id: 2,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 2
-    },
-    {
-      id: 3,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 3
-    },
-    {
-      id: 4,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 4
-    },
-    {
-      id: 5,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 5
-    },
-    {
-      id: 6,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 6
-    },
-    {
-      id: 7,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 7
-    },
-    {
-      id: 8,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 8
-    },
-    {
-      id: 9,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 9
-    },
-    {
-      id: 10,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 10
-    },
-    {
-      id: 11,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 11
-    },
-    {
-      id: 12,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 12
-    },
-    {
-      id: 13,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 13
-    },
-    {
-      id: 14,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 14
-    },
-    {
-      id: 15,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 15
-    },
-    {
-      id: 16,
-      lastName: 'Nguyen',
-      firstName: 'Nhan',
-      email: 'nqnhan1403@gmail.com',
-      address: '10 Vo Van Kiet',
-      userName: 'nhannguyen',
-      isAdmin: true,
-      createAt: 16
-    },
-  ]
-  let pageConfigs = {current: currentPage, totalItem: 26}
+
+
   let changeDirectPage = (page) => {
     setCurrentPage(page)
   }
@@ -238,7 +84,7 @@ function Administrator() {
       <div className="content-area">
         {optionList[0].isActive &&
         <div className="table-area">
-          <Table configs={{fakeUsers, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
+          <Table configs={{users, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
         </div>
         }
         {optionList[1].isActive && <CreateUserForm clickHandler={{cancel: changeOption}}/>}
