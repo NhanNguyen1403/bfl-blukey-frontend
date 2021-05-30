@@ -10,56 +10,59 @@ import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
 
 function FilesForm(props) {
-  let {mode, user} = props.configs
-  let file = generateInput('File', 'file', '', 'full')
-  let removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon')
-  let [files, setFiles] = useState([])
+	let {mode, user} = props.configs
+	let file = generateInput('File', 'file', '', 'full')
+	let removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon')
+	let [files, setFiles] = useState([])
 
-  useEffect(async () => {
-    // await getFiles()
-  }, [])
+	useEffect(async () => {
+		// await getFiles()
+	}, [])
 
-  let getFiles = async () => {
-    await getAll('files')
-  }
+	let getFiles = async () => {
+		await getAll('files')
+	}
 
-  let removeFile = () => {
-    console.log('Remove File')
-  }
+	let removeFile = () => {
+		console.log('Remove File')
+	}
 
-  let fileHandler = async () => {
-    if (!file.getValue) return console.log('Ignore')
+	let fileHandler = async () => {
+		if (!file.getValue) return console.log('Ignore')
 
-    console.log('Save file:', file.getValue)
-    let formData = new FormData()
+		console.log('Save file:', file.getValue)
+		let formData = new FormData()
 
-    formData.append('file', file.getValue)
-    await Post('file', formData)
-    await getFiles()
-    return
-  }
+		formData.append('file', file.getValue)
+		await Post('file', formData)
+		await getFiles()
+		return
+	}
 
-  return (
-    <div className='files-form-container'>
-      <div className="info-form-container">
-        {mode === 'edit' && < p className="title">NEW</p>}
+	return (
+		<div className='files-form-container'>
+			<div className="info-form-container">
+				{mode === 'edit' && < p className="title">NEW</p>}
 
-        {mode === 'edit' && <Input configs={file} fileHandler={fileHandler}/>}
+				{mode === 'edit' && <Input configs={file} fileHandler={fileHandler}/>}
 
-        <div className="files-area">
-          <p className="title">YOUR FILES</p>
+				<div className="files-area">
+					<p className="title">YOUR FILES</p>
 
-          <div className="file-item">
-            <a href="#">file 1</a>
+					<div className="file-item">
+						<a href="#">file 1</a>
 
-            <div className="button-area">
-              <Button configs={removeButton} clickHandler={removeFile}/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+						{
+							mode === 'edit' &&
+							<div className="button-area">
+								<Button configs={removeButton} clickHandler={removeFile}/>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default FilesForm;

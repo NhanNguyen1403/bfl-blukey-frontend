@@ -5,8 +5,11 @@ import {generateInput} from "../../../services/Generators/generateInput";
 import {generateButton} from "../../../services/Generators/generateButton";
 import Input from "../../Inputs/Input/Input";
 import Button from "../../Inputs/Button/Button";
+import {useDispatch} from "react-redux";
+import {showSnack} from "../../../redux";
 
 function ChangePasswordForm(props) {
+  let dispatch = useDispatch()
   let user = JSON.parse(localStorage.getItem('user'))
   let {save, cancel} = props.clickHandler
   let oldPassword = generateInput('Old password', 'password', '', 'full'),
@@ -20,8 +23,11 @@ function ChangePasswordForm(props) {
     if (inputs.some(i => i.getIsValid === false))
       return console.log('false')
 
+    if (newPassword.getValue !== confirmPassword.getValue)
+      return dispatch(showSnack('Confirm password unmatched', 'danger'))
+
     return save(user.id, {
-      old_password: newPassword.getValue,
+      old_password: oldPassword.getValue,
       password: confirmPassword.getValue,
     })
   }

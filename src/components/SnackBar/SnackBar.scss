@@ -15,6 +15,7 @@
   align-items: center;
   padding: 0 10px;
   user-select: none;
+  z-index: 1;
 
   p {
     font-weight: bold;
@@ -27,6 +28,7 @@
   &.danger {
     background: $danger-bg-color;
     box-shadow: $danger-box-shadow;
+    border: solid 1px $danger-text-color;
 
     p {
       color: $danger-text-color;
@@ -35,6 +37,7 @@
       &:hover {
         cursor: pointer;
         background-color: $danger-text-color-50;
+
       }
     }
   }
@@ -42,6 +45,7 @@
   &.success {
     background: $success-bg-color;
     box-shadow: $success-box-shadow;
+    border: solid 1px $success-text-color;
 
     p {
       color: $success-text-color;

@@ -25,19 +25,20 @@ function CreateUserForm(props) {
 			return console.log('false')
 
 		return create({
-			firstName: firstName.getValue,
-			lastName: lastName.getValue,
+			first_name: firstName.getValue,
+			last_name: lastName.getValue,
 			email: email.getValue,
-			role: role.getValue,
+			is_admin: role.getValue === 'Admin',
 			address: address.getValue,
-			userName: userName.getValue,
+			username: userName.getValue,
 			password: password.getValue
 		})
 	}
 
 	let create = async (payload) => {
 		console.log('Create User:', payload)
-		// await Post('users', payload)
+		await Post('users', payload)
+		cancel('Users', true)
 	}
 
 	return (

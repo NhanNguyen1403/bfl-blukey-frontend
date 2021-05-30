@@ -16,6 +16,7 @@ async function Put (endPoint = '', id = '', payload = {}) {
       data: payload,
     })
 
+    store.dispatch(showSnack("Success", 'success'))
     return data
   } catch (err) {
     store.dispatch(showSnack(err?.response?.data?.message || 'Error','danger'))

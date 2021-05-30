@@ -39,20 +39,26 @@ function Administrator() {
   let redirectHome = () => {
     dispatch(changeGlobalTab('Home'))
   }
-  let changeOption = (optionName) => {
+  let changeOption = (optionName, andReload = false) => {
     setOptionList(optionList.map(i => {
       return generatePageOption(i.name, i.size, i.name === optionName)
     }))
+
+    if (andReload)
+      return loadData()
   }
 
   useEffect(async () => {
+    await loadData()
+  }, [currentPage])
+
+  let loadData = async () => {
     // Call getAll API to get data
     let {data, paging} = await getAll('users', currentPage)
 
     setUsers(data)
     setPagingConfigs({...pageConfigs, totalItem: paging.total})
-  }, [currentPage])
-
+  }
 
 
   let changeDirectPage = (page) => {
