@@ -5,8 +5,8 @@
 
 .snack-bar-container {
   position: fixed;
-  width: 250px;
-  bottom: 20px;
+  min-width: 250px;
+  bottom: 40px;
   left: 50vw;
   height: 40px;
   animation: slide-up 300ms ease-out;
@@ -23,12 +23,15 @@
     border-radius: $border-radius-sm;
     transition: 300ms;
   }
+  .close {
+    margin-left: 25px;
+  }
 
 
   &.danger {
     background: $danger-bg-color;
     box-shadow: $danger-box-shadow;
-    border: solid 1px $danger-text-color;
+    //border: solid 1px $danger-text-color;
 
     p {
       color: $danger-text-color;
@@ -45,7 +48,7 @@
   &.success {
     background: $success-bg-color;
     box-shadow: $success-box-shadow;
-    border: solid 1px $success-text-color;
+    //border: solid 1px $success-text-color;
 
     p {
       color: $success-text-color;

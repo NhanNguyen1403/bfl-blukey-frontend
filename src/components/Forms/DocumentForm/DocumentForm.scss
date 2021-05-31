@@ -3,19 +3,19 @@
 @import "../../../scss/BoxShadow";
 @import "../../../scss/Templates";
 
-.files-form-container {
+.documents-form-container {
   @extend %input-layout;
 
   margin-top: 30px;
 
-  .files-area {
+  .documents-area {
     width: 100%;
     margin-bottom: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 
-    .file-item {
+    .document {
       margin-bottom: 10px;
       height: 34px;
       width: 160px;

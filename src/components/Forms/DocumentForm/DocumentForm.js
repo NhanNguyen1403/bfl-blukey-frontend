@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import "./FilesForm.scss"
+import "./DocumentForm.scss"
 
 import Input from "../../Inputs/Input/Input";
 import {generateInput} from "../../../services/Generators/generateInput";
@@ -8,10 +8,13 @@ import Post from "../../../services/Api/POST/post"
 import getAll from "../../../services/Api/GET/getAll"
 import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
+import {useDispatch} from "react-redux";
+import {hideSnack, showSnack} from "../../../redux";
 
-function FilesForm(props) {
+function DocumentForm(props) {
+	let dispatch = useDispatch()
 	let {mode, user} = props.configs
-	let file = generateInput('File', 'file', '', 'full')
+	let document = generateInput('Document', 'file', '', 'full')
 	let removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon')
 	let [files, setFiles] = useState([])
 
@@ -28,29 +31,33 @@ function FilesForm(props) {
 	}
 
 	let fileHandler = async () => {
-		if (!file.getValue) return console.log('Ignore')
+		if (!document.getValue) return console.log('Ignore')
 
-		console.log('Save file:', file.getValue)
+		if (!/\.pdf$/.test(document.getValue.name))
+			return dispatch(showSnack('Document should be PDF file','danger'))
+		else
+			dispatch(hideSnack())
+
+		console.log('Save file:', document.getValue)
 		let formData = new FormData()
 
-		formData.append('file', file.getValue)
+		formData.append('file', document.getValue)
 		await Post('file', formData)
 		await getFiles()
-		return
 	}
 
 	return (
-		<div className='files-form-container'>
+		<div className='documents-form-container'>
 			<div className="info-form-container">
 				{mode === 'edit' && < p className="title">NEW</p>}
 
-				{mode === 'edit' && <Input configs={file} fileHandler={fileHandler}/>}
+				{mode === 'edit' && <Input configs={document} fileHandler={fileHandler}/>}
 
-				<div className="files-area">
-					<p className="title">YOUR FILES</p>
+				<div className="documents-area">
+					<p className="title">YOUR DOCUMENTS</p>
 
-					<div className="file-item">
-						<a href="#">file 1</a>
+					<div className="document">
+						<a href="#">Document 1</a>
 
 						{
 							mode === 'edit' &&
@@ -65,4 +72,4 @@ function FilesForm(props) {
 	);
 }
 
-export default FilesForm;
+export default DocumentForm;

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
 import store from "../../../redux/store";
-import {showSnack} from "../../../redux";
 import {showLoader, hideLoader} from "../../../redux";
+import errorHandler from "../errorHandler";
 
 async function Delete(endPoint = '', id = '', payload = {}) {
 	try {
@@ -21,9 +21,7 @@ async function Delete(endPoint = '', id = '', payload = {}) {
 
 		return data
 	} catch (err) {
-		store.dispatch(hideLoader())
-		console.log(err)
-		store.dispatch(showSnack(err?.response?.data?.message || 'Error', 'danger'))
+		errorHandler(err)
 	}
 }
 

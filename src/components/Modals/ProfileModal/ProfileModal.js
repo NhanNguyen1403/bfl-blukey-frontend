@@ -8,7 +8,7 @@ import PageOption from "../../Forms/pageOption/pageOption";
 import {generatePageOption} from "../../../services/Generators/generatePageOption";
 import {hideProfileModal} from "../../../redux";
 import ChangeProfileForm from "../../Forms/changeProfileForm/changeProfileForm";
-import FilesForm from "../../Forms/FilesForm/FilesForm";
+import DocumentForm from "../../Forms/DocumentForm/DocumentForm";
 import ChangePasswordForm from "../../Forms/changePasswordForm/changePasswordForm";
 import Put from "../../../services/Api/PUT/put"
 import getAll from "../../../services/Api/GET/getAll";
@@ -23,13 +23,13 @@ function ProfileModal(props) {
 		if (mode === 'edit')
 			return setOptionList(prevState => [
 					generatePageOption('Profile', 'md', true),
-					generatePageOption('Files', 'md', false),
+					generatePageOption('Documents', 'md', false),
 					generatePageOption('Password', 'md', false),
 				]
 			)
 		return setOptionList([
 			generatePageOption('Profile', 'md', true),
-			generatePageOption('Files', 'md', false),
+			generatePageOption('Documents', 'md', false),
 		])
 	}, [mode])
 	let closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
@@ -75,7 +75,7 @@ function ProfileModal(props) {
 					optionList[0].isActive &&
 					<ChangeProfileForm configs={{mode, user}} clickHandler={{save: saveProfile, cancel: closeModal}}/>
 				}
-				{optionList[1].isActive && <FilesForm configs={{mode, user}}/>}
+				{optionList[1].isActive && <DocumentForm configs={{mode, user}}/>}
 				{
 					mode === 'edit' &&
 					optionList[2]?.isActive &&

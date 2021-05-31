@@ -8,6 +8,7 @@ import store from "../../redux/store"
 import {logOut} from "../../redux";
 
 const LogOut = async function () {
+	console.log('Log Out')
 	// 1. Remove localStorage credentials
 	localStorage.removeItem('token')
 	localStorage.removeItem('user')

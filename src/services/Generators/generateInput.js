@@ -10,7 +10,7 @@ exports.generateInput = function (labelName = 'label', type = 'text', value, siz
 			size,
 			isRequired,
 
-			isValid: value && true,
+			isValid: value === true,
 			set setIsValid(status) {
 				return this.isValid = status
 			},

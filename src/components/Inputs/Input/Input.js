@@ -9,7 +9,6 @@ import {generateChip} from '../../../services/Generators/generateChip'
 
 function Input(props) {
 	let {labelName, data, type, size, isRequired} = props.configs
-
 	let [shortInput, setShortInput] = useState(
 		generateChip(`${labelName} too short.`, 'error', false)
 	)
@@ -18,9 +17,11 @@ function Input(props) {
 		let {value: newValue, files} = event.target
 		console.log(labelName, newValue)
 
-
 		if (isRequired && newValue.length < 4)
 			return toggleAlert(true)
+
+		if (data && data.includes(newValue))
+			return
 
 		props.configs.setIsValid = true
 		if (type === 'file') {
@@ -30,7 +31,7 @@ function Input(props) {
 			return
 		}
 
-		props.configs.setValue =  newValue
+		props.configs.setValue = newValue
 		toggleAlert(false)
 	}
 
@@ -55,9 +56,10 @@ function Input(props) {
 				id={labelName}
 				placeholder={labelName}
 				type={type}
-				defaultValue={props.configs.getValue}
+				defaultValue={defaultValue}
 				autoComplete=''
-				onBlur={e => validate(e)}
+				onBlur={e => {if (type !== 'file') validate(e)}}
+				onChange={e => {if (type === 'file') validate(e)}}
 				list={data.length > 0 ? `${labelName}s` : ''}
 			/>
 

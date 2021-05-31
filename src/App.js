@@ -41,9 +41,9 @@ function App() {
 		<div className="App">
 			<Drawer/>
 			<div className="top-cover"/>
-			{ currentTab === 'Home' && <Home/>}
-			{ currentTab === 'Administrator' && <Administrator/>}
-			{ currentTab === 'Transaction' && <Transaction/>}
+			{currentTab === 'Home' && <Home/>}
+			{currentTab === 'Administrator' && <Administrator/>}
+			{currentTab === 'Transaction' && <Transaction/>}
 			<Menu/>
 			<SnackBar/>
 			<ProfileModal/>

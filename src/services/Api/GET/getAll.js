@@ -3,6 +3,7 @@ import checkSession from '../../Session/checkSession'
 import store from "../../../redux/store";
 import {showSnack} from "../../../redux";
 import {showLoader, hideLoader} from "../../../redux";
+import errorHandler from "../errorHandler";
 
 async function getAll (endPoint = '', pages = 1) {
 	try {
@@ -20,9 +21,7 @@ async function getAll (endPoint = '', pages = 1) {
 
 		return data
 	} catch (err) {
-		store.dispatch(hideLoader())
-		console.log(err)
-		store.dispatch(showSnack(err?.response?.data?.message || 'Error','danger'))
+		errorHandler(err)
 	}
 }
 
