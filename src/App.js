@@ -12,6 +12,7 @@ import Transaction from "./pages/Transaction/Transaction";
 import Menu from "./components/Forms/Menu/Menu";
 import SnackBar from "./components/SnackBar/SnackBar";
 import ProfileModal from "./components/Modals/ProfileModal/ProfileModal";
+import Loader from "./components/Modals/Loader/Loader";
 
 function App() {
 	const {isLogged} = useSelector(state => {
@@ -20,6 +21,10 @@ function App() {
 	const {currentTab} = useSelector(state => {
 		return state.tab
 	})
+	let {isDisplay: isLoaderDisplay} = useSelector(state => {
+		return state.loader
+	})
+
 
 	useEffect(() => {
 		checkSession().catch(err => console.log(new Error(err)))
@@ -42,6 +47,7 @@ function App() {
 			<Menu/>
 			<SnackBar/>
 			<ProfileModal/>
+			{isLoaderDisplay && <Loader/>}
 		</div>
 	);
 }

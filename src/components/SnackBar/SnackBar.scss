@@ -5,11 +5,11 @@
 
 .snack-bar-container {
   position: fixed;
-  right: 30px;
-  top: 20vh;
-  min-width: 200px;
+  width: 250px;
+  bottom: 20px;
+  left: 50vw;
   height: 40px;
-  animation: zoom-out 300ms ease-out;
+  animation: slide-up 300ms ease-out;
   display: flex;
   justify-content: space-between;
   align-items: center;

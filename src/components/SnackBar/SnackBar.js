@@ -15,7 +15,7 @@ function SnackBar() {
     isDisplay && <div className={`snack-bar-container ${snackType}`}>
       <p className="content">{message}</p>
 
-      <p className="close" onClick={() => dispatch(hideSnack())}>Hide</p>
+      <p className="close" onClick={() => dispatch(hideSnack())}>Close</p>
     </div>
   );
 }
