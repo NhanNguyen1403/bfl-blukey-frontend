@@ -10,17 +10,22 @@ function ChangeProfileForm(props) {
 	let {save, cancel} = props.clickHandler
 	let {mode, user} = props.configs
 
+	let isOwnerAdmin = () => {
+		let {is_admin} = JSON.parse(localStorage.getItem('user'))
+		return is_admin === true
+	}
+
 	let firstName = generateInput('First name', 'text', user.first_name, 'half'),
 		lastName = generateInput('Last name', 'text', user.last_name, 'half'),
 		email = generateInput('Email', 'text', user.email, 'half'),
-		role = generateInput('Role', 'text', user.is_admin ? 'Admin' : 'User', 'half', true, ['User', 'Admin']),
+		role = generateInput('Role', 'text', user.is_admin ? 'Admin' : 'User', 'half', true, ['User', 'Admin'], !isOwnerAdmin()),
 		address = generateInput('Address', 'text', user.address, 'full'),
 		saveButton = generateButton('Save', 'text', 'solid', 'md'),
 		cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
+
 	let validate = () => {
 		let inputs = [firstName, lastName, email, role, address]
-		console.log(inputs)
 		if (inputs.some(i => i.getIsValid === false))
 			return console.log('false')
 

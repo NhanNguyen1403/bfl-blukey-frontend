@@ -20,14 +20,14 @@ function ProfileModal(props) {
 	})
 	let [optionList, setOptionList] = useState([])
 	useEffect(() => {
-		if (mode === 'edit')
-			return setOptionList(prevState => [
-					generatePageOption('Profile', 'md', true),
-					generatePageOption('Documents', 'md', false),
-					generatePageOption('Password', 'md', false),
-				]
-			)
-		return setOptionList([
+		// if (mode === 'edit')
+		// 	return setOptionList(prevState => [
+		// 			generatePageOption('Profile', 'md', true),
+		// 			generatePageOption('Documents', 'md', false),
+		// 			generatePageOption('Password', 'md', false),
+		// 		]
+		// 	)
+		setOptionList([
 			generatePageOption('Profile', 'md', true),
 			generatePageOption('Documents', 'md', false),
 		])
@@ -75,11 +75,11 @@ function ProfileModal(props) {
 					<ChangeProfileForm configs={{mode, user}} clickHandler={{save: saveProfile, cancel: closeModal}}/>
 				}
 				{optionList[1].isActive && <DocumentForm configs={{mode, user}}/>}
-				{
-					mode === 'edit' &&
-					optionList[2]?.isActive &&
-					<ChangePasswordForm configs={user} clickHandler={{save: savePassword, cancel: closeModal}}/>
-				}
+				{/*{*/}
+				{/*	mode === 'edit' &&*/}
+				{/*	optionList[2]?.isActive &&*/}
+				{/*	<ChangePasswordForm configs={user} clickHandler={{save: savePassword, cancel: closeModal}}/>*/}
+				{/*}*/}
 			</div>
 
 			<div className="blur"/>

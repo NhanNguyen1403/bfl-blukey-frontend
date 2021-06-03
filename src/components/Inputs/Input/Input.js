@@ -8,7 +8,7 @@ import Chip from "../../Forms/Chip/Chip";
 import {generateChip} from '../../../services/Generators/generateChip'
 
 function Input(props) {
-	let {labelName, data, type, size, isRequired} = props.configs
+	let {labelName, data, type, size, isRequired, isDisable} = props.configs
 	let [shortInput, setShortInput] = useState(
 		generateChip(`${labelName} too short.`, 'error', false)
 	)
@@ -42,7 +42,7 @@ function Input(props) {
 
 
 	return (
-		<div className={`input-container ${size}`}>
+		<div className={`input-container ${size} ${isDisable ? 'disabled' : ''}`}>
 			<label htmlFor={`${labelName}`}>
 				{labelName}
 
@@ -52,6 +52,7 @@ function Input(props) {
 			</label>
 
 			<input
+				disabled={isDisable}
 				id={labelName}
 				placeholder={labelName}
 				type={type}

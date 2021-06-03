@@ -22,6 +22,13 @@ function DocumentForm(props) {
 		await getDocuments()
 	}, [])
 
+	let isOwner = () => {
+		if (mode === 'view') return false
+
+		let {id} = JSON.parse(localStorage.getItem('user'))
+		return id === user.id
+	}
+
 	let getDocuments = async () => {
 		let res = await getAll('documents', 1, {userID: user.id})
 		if (res && res.data)
@@ -36,7 +43,7 @@ function DocumentForm(props) {
 		if (!document.getValue) return console.log('Ignore')
 
 		if (!/\.pdf$/.test(document.getValue.name))
-			return dispatch(showSnack('Document should be PDF file','danger'))
+			return dispatch(showSnack('Document should be PDF file', 'danger'))
 		else
 			dispatch(hideSnack())
 
@@ -51,9 +58,14 @@ function DocumentForm(props) {
 	return (
 		<div className='documents-form-container'>
 			<div className="info-form-container">
-				{mode === 'edit' && < p className="title">NEW</p>}
+				{
+					isOwner() &&
+					<div className='add-document-area'>
+						<p className="title">NEW</p>
+						<Input configs={document} fileHandler={fileHandler}/>
+					</div>
+				}
 
-				{mode === 'edit' && <Input configs={document} fileHandler={fileHandler}/>}
 
 				<div className="documents-area">
 					<p className="title">DOCUMENTS</p>
@@ -62,19 +74,19 @@ function DocumentForm(props) {
 						documents.length === 0
 							? (<span>Documents uploaded will be here... </span>)
 							: documents.map(i => {
-							return (
-								<div key={i.id} className="document" title={i.file_name}>
-									<a href={i.url} target="_blank">{i.file_name}</a>
+								return (
+									<div key={i.id} className="document" title={i.file_name}>
+										<a href={i.url} target="_blank">{i.file_name}</a>
 
-									{/*{*/}
-									{/*	mode === 'edit' &&*/}
-									{/*	<div className="button-area">*/}
-									{/*		<Button configs={removeButton} clickHandler={removeFile}/>*/}
-									{/*	</div>*/}
-									{/*}*/}
-								</div>
-							)
-						})
+										{/*{*/}
+										{/*	mode === 'edit' &&*/}
+										{/*	<div className="button-area">*/}
+										{/*		<Button configs={removeButton} clickHandler={removeFile}/>*/}
+										{/*	</div>*/}
+										{/*}*/}
+									</div>
+								)
+							})
 					}
 				</div>
 			</div>

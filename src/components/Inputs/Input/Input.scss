@@ -5,50 +5,58 @@
 
 .input-container {
 
-  height: 45px;
-  position: relative;
-  margin-bottom: 20px;
+	height: 45px;
+	position: relative;
+	margin-bottom: 20px;
 
-  &.full {
-    width: 100%;
-  }
+	&.full {
+		width: 100%;
+	}
 
-  &.half {
-    width: calc(50% - 10px);
-  }
+	&.half {
+		width: calc(50% - 10px);
+	}
 
-  label {
-    position: absolute;
-    line-height: 1rem;
-    top: -.5rem;
-    left: 10px;
-    color: $primary-text-color;
-    font-weight: bold;
-    background-color: white;
+	label {
+		position: absolute;
+		line-height: 1rem;
+		top: -.5rem;
+		left: 10px;
+		color: $primary-text-color;
+		font-weight: bold;
+		background-color: white;
 
-    span {
-      color: red;
-    }
-  }
+		span {
+			color: red;
+		}
+	}
 
-  input {
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: $border-radius-md;
-    width: 100%;
-    outline: unset;
-    color: $primary-text-color;
-    @extend %outlined;
-  }
+	input {
+		padding: 10px;
+		box-sizing: border-box;
+		border-radius: $border-radius-md;
+		width: 100%;
+		outline: unset;
+		color: $primary-text-color;
+		@extend %outlined;
+	}
 
-  .chip-area {
-    position: absolute;
-    margin: 10px 0;
-    box-sizing: border-box;
-    top: -20px;
-    right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+	.chip-area {
+		position: absolute;
+		margin: 10px 0;
+		box-sizing: border-box;
+		top: -20px;
+		right: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&.disabled {
+		input {
+			color: $second-text-color;
+		}
+
+		pointer-events: none;
+	}
 }

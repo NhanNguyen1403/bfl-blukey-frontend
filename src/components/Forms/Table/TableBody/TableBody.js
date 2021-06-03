@@ -16,7 +16,12 @@ function TableBody(props) {
 	let dispatch = useDispatch()
 
 	let viewUserDetail = (userInfo) => {
-		dispatch(showProfileModal('view', userInfo))
+		// check User's role
+		let {is_admin} = JSON.parse(localStorage.getItem('user'))
+		is_admin === true
+			? dispatch(showProfileModal('edit', userInfo))
+			: dispatch(showProfileModal('view', userInfo))
+
 	}
 
 	return (
