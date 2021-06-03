@@ -51,7 +51,6 @@ function ProfileModal(props) {
 	}
 
 	const savePassword = async (id, payload) => {
-		console.log('Save Password', payload)
 		await Put('users', id, payload)
 		closeModal()
 	}

@@ -20,6 +20,7 @@ function ChangeProfileForm(props) {
 
 	let validate = () => {
 		let inputs = [firstName, lastName, email, role, address]
+		console.log(inputs)
 		if (inputs.some(i => i.getIsValid === false))
 			return console.log('false')
 

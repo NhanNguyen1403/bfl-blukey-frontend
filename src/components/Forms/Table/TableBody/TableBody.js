@@ -29,7 +29,7 @@ function TableBody(props) {
 							{
 								Object.keys(item).map(key => {
 									switch (key) {
-										case 'isAdmin': {
+										case 'is_admin': {
 											return <td key={`row-item-${item.id}-${key}`}>{item[key] ? <FaCheckCircle/> : ''}</td>
 										}
 

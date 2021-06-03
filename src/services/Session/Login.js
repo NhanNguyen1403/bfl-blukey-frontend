@@ -15,7 +15,6 @@ import getAll from "../Api/GET/getAll"
 const Login = async function (username, password) {
 	try {
 		// 1.Call Session Api
-		console.log('Call Log In Api with', username, password)
 		let {data: loginResult} = await Post('login', {username, password}, true)
 
 		// 2. Store credentials into localStorage

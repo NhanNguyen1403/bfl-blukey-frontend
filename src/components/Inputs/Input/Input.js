@@ -15,13 +15,12 @@ function Input(props) {
 
 	const validate = (event) => {
 		let {value: newValue, files} = event.target
-		console.log(labelName, newValue)
 
 		if (isRequired && newValue.length < 4)
 			return toggleAlert(true)
 
-		if (data && data.includes(newValue))
-			return
+		if (data.length > 0 && !data.includes(newValue))
+			return props.configs.setIsValid = false
 
 		props.configs.setIsValid = true
 		if (type === 'file') {
