@@ -56,7 +56,7 @@ function Input(props) {
 				id={labelName}
 				placeholder={labelName}
 				type={type}
-				defaultValue={defaultValue}
+				defaultValue={props.configs.getValue}
 				autoComplete=''
 				onBlur={e => {if (type !== 'file') validate(e)}}
 				onChange={e => {if (type === 'file') validate(e)}}

@@ -52,9 +52,7 @@ module.exports = env => {
 			new FaviconsWebpackPlugin(path.resolve(__dirname, 'public/favicon.png')),
 			new webpack.DefinePlugin({
 				"process.env" : {
-					"SERVER_URL" : env.WEBPACK_SERVE
-						? JSON.stringify('https://blukey-be.azurewebsites.net/api/v1/')
-						: JSON.stringify('https://blukey-be.azurewebsites.net/api/v1/')
+					"SERVER_URL" : JSON.stringify('https://blukey-be.azurewebsites.net/api/v1/'),
 				}
 			}),
 		]

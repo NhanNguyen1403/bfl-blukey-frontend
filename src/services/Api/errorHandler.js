@@ -3,8 +3,9 @@ import {hideLoader, hideSnack, showSnack} from "../../redux";
 import LogOut from "../../services/Session/LogOut";
 
 function errorHandler(err) {
-	let {message} = err.response.data|| 'Error!'
+	let {message} = err.response.data
 	console.log(message)
+
 	store.dispatch(hideLoader())
 	if (message === 'Unauthorized.') {
 		setTimeout(() => {
@@ -14,7 +15,7 @@ function errorHandler(err) {
 		return store.dispatch(showSnack('Session expired, Logout soon!', 'danger'))
 	}
 
-	store.dispatch(showSnack(message , 'danger'))
+	store.dispatch(showSnack(message || 'Error!' , 'danger'))
 }
 
 export default errorHandler

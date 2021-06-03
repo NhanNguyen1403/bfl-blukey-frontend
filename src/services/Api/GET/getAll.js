@@ -5,7 +5,7 @@ import {showSnack} from "../../../redux";
 import {showLoader, hideLoader} from "../../../redux";
 import errorHandler from "../errorHandler";
 
-async function getAll (endPoint = '', pages = 1) {
+async function getAll (endPoint = '', pages = 1, params ={}) {
 	try {
 		if (!checkSession()) return
 
@@ -15,7 +15,8 @@ async function getAll (endPoint = '', pages = 1) {
 			url: `${process.env.SERVER_URL}${endPoint}?page=${pages}&limit=25`,
 			headers: {
 				'Authorization': `Bearer ${localStorage.getItem('token')}`
-			}
+			},
+			params: params,
 		})
 		store.dispatch(hideLoader())
 
