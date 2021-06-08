@@ -1,0 +1,62 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.documents-form-container {
+  @extend %input-layout;
+
+  margin-top: 30px;
+
+  .add-document-area {
+    width: 100%;
+  }
+
+  .documents-area {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+
+    .document {
+      margin-bottom: 10px;
+      height: 34px;
+      width: 160px;
+      box-sizing: border-box;
+      border: solid 1px;
+      padding-inline: 10px;
+      background-color: $background-pages;
+      border-radius: $border-radius-md;
+      transition: 300ms;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        text-decoration: none;
+        transition: 300ms;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      &:hover, &:active {
+        box-shadow: $default-box-shadow;
+        border-color: $primary-text-color;
+
+        a {
+          cursor: pointer;
+          color: $primary-text-color;
+        }
+      }
+
+      .button-area {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}

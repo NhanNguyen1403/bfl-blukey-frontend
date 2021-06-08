@@ -1,0 +1,76 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.button-container {
+  background-color: $primary-bg-color;
+  border-radius: $border-radius-md;
+  transition: 300ms;
+  color: white;
+  border: none;
+  padding: 10px;
+
+  &.outlined {
+    @extend %outlined;
+  }
+
+
+  &.md {
+    width: calc(50% - 10px);
+  }
+
+  &.lg {
+    width: 100%;
+    height: 100%;
+  }
+
+  &.icon {
+    padding: 8px 8px 6px 8px;
+
+    &.md {
+      width: 100%;
+      height: 100%;
+      padding: 2px 2px 0px 2px;
+    }
+
+    &.circle {
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    &.non-bg {
+      background: transparent;
+    }
+  }
+
+  * {
+    color: white;
+  }
+
+  &.secondary {
+    background: unset;
+    box-shadow: unset;
+
+    * {
+      color: $second-text-color;
+    }
+
+    &:hover {
+      * {
+        color: $primary-text-color;
+      }
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: $primary-box-shadow;
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: $primary-box-shadow;
+  }
+}
+

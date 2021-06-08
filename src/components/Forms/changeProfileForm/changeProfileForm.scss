@@ -1,0 +1,10 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.change-profile-form-container {
+  margin-top: 30px;
+
+  @extend %input-layout;
+}

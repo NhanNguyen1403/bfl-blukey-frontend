@@ -1,0 +1,9 @@
+@import "../../scss/Color";
+@import "../../scss/Border";
+@import "../../scss/BoxShadow";
+@import "../../scss/Templates";
+
+
+.transaction-container {
+	@extend %page;
+}

@@ -1,0 +1,43 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.profile-modal-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  .modal-content {
+    @extend %page;
+
+    width: 560px;
+    padding: 0 30px 0px 30px;
+    z-index: 1;
+    margin-left: calc(50vw - 125px);
+    margin-top: 20vh;
+
+    .options-area {
+      top: -21px;
+      left: 20px;
+      width: calc(100% - 40px);
+
+      .button-area {
+        top: 7px
+      }
+    }
+
+  }
+
+  .blur {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: #00000085;
+    border-radius: 0;
+  }
+}
+

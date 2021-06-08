@@ -1,0 +1,36 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.chip-container {
+	font-weight: bold;
+	padding: 2px 5px;
+	font-size: 12px;
+	box-sizing: border-box;
+	transition: 300ms;
+	transform-origin: 100% 0%;
+
+	span {
+		color: $danger-text-color;
+		font-weight: bold;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	&.error, danger {
+		background-color: $danger-bg-color;
+		color: $danger-text-color;
+	}
+
+	&.inactive {
+		transform: scale(0);
+	}
+
+	&.active {
+		transform: scale(1);
+	}
+
+}
+

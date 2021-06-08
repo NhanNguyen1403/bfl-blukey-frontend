@@ -1,0 +1,17 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+
+.login-form-container {
+  width: 300px;
+  box-shadow: $default-box-shadow;
+  background-color: white;
+  z-index: 2;
+  padding: 0px 30px 30px 30px;
+
+  img {
+    height: 100px;
+    width: auto;
+    margin-bottom: 10px;
+  }
+}
