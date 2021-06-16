@@ -1,0 +1,11 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.transaction-form-container {
+  margin: 0 auto;
+  animation: zoom-out 300ms;
+
+  @extend %input-layout;
+}

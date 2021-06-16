@@ -1,0 +1,46 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+
+.page-option-container {
+  background-color: $second-text-color;
+  border-radius: $border-radius-md;
+  color: white;
+  box-sizing: border-box;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
+  width: fit-content;
+  margin-right: 20px;
+  transition: 300ms;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+
+  &.sm {
+
+  }
+
+  &.md {
+    padding: 5px 20px;
+    font-size: 1rem;
+    margin-right: 10px;
+
+    &.active {
+      transform: translateY(7px);
+    }
+  }
+
+  &.lg {
+    padding: 10px 25px;
+  }
+
+  &.active {
+    background-color: $primary-bg-color;
+    box-shadow: $primary-box-shadow;
+    color: white;
+    transform: translateY(12px);
+  }
+}

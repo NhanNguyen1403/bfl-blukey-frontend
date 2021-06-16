@@ -12,9 +12,11 @@
 	&.full {
 		width: 100%;
 	}
-
 	&.half {
 		width: calc(50% - 10px);
+	}
+	&.one-third {
+		width: calc(33% - 10px);
 	}
 
 	label {
@@ -39,6 +41,10 @@
 		outline: unset;
 		color: $primary-text-color;
 		@extend %outlined;
+	}
+
+	input[type='date'], input[type='file'] {
+		padding: 7px;
 	}
 
 	.chip-area {

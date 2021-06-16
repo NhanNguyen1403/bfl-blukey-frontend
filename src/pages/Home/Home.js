@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 
 import "./Home.scss"
 import {generatePageOption} from "../../services/Generators/generatePageOption"
-import PageOption from "../../components/Forms/pageOption/pageOption";
+import PageOption from "../../components/Inputs/pageOption/pageOption";
 
-import Carousel from "../../components/Forms/Carousel/Carousel";
+import Carousel from "../../components/DataExhibitions/Carousel/Carousel";
 import home1 from "../../assets/desktop/home-1.jpg"
 import home2 from "../../assets/desktop/home-2.jpg"
 import home3 from "../../assets/desktop/home-3.jpg"

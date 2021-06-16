@@ -3,8 +3,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+
 
 module.exports = env => {
+	console.log(path.join(__dirname))
 	return {
 		mode: env.WEBPACK_SERVE ? 'development' : 'production',
 		entry: './src/index.js',
@@ -50,11 +53,14 @@ module.exports = env => {
 				template: path.resolve(__dirname, 'public/index.html')
 			}),
 			new FaviconsWebpackPlugin(path.resolve(__dirname, 'public/favicon.png')),
-			new webpack.DefinePlugin({
-				"process.env" : {
-					"SERVER_URL" : JSON.stringify('https://blukey-be.azurewebsites.net/api/v1/'),
-				}
-			}),
+			new Dotenv({
+				path: path.join(__dirname, '/src/.env'),
+				safe: true,
+				allowEmptyValues: true,
+				systemvars: true,
+				silent: true,
+				defaults: false
+			})
 		]
 	}
 }

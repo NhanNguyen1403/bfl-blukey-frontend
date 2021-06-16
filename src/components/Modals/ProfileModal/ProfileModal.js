@@ -4,7 +4,7 @@ import "./ProfileModal.scss"
 import {useDispatch, useSelector} from "react-redux";
 import Button from "../../Inputs/Button/Button";
 import {generateButton} from "../../../services/Generators/generateButton";
-import PageOption from "../../Forms/pageOption/pageOption";
+import PageOption from "../../Inputs/pageOption/pageOption";
 import {generatePageOption} from "../../../services/Generators/generatePageOption";
 import {hideProfileModal} from "../../../redux";
 import ChangeProfileForm from "../../Forms/changeProfileForm/changeProfileForm";

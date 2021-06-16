@@ -4,7 +4,7 @@
 
 import React, {useState} from 'react';
 import "./Input.scss"
-import Chip from "../../Forms/Chip/Chip";
+import Chip from "../../DataExhibitions/Chip/Chip";
 import {generateChip} from '../../../services/Generators/generateChip'
 
 function Input(props) {

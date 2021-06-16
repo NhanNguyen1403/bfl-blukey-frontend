@@ -5,11 +5,11 @@ import './App.scss';
 import checkSession from "./services/Session/checkSession"
 
 import Login from "./pages/Login/Login";
-import Drawer from "./components/Forms/Drawer/Drawer";
+import Drawer from "./components/Inputs/Drawer/Drawer";
 import Home from "./pages/Home/Home";
 import Administrator from "./pages/Administrator/Administrator";
 import Transaction from "./pages/Transaction/Transaction";
-import Menu from "./components/Forms/Menu/Menu";
+import Menu from "./components/Inputs/Menu/Menu";
 import SnackBar from "./components/SnackBar/SnackBar";
 import ProfileModal from "./components/Modals/ProfileModal/ProfileModal";
 import Loader from "./components/Modals/Loader/Loader";

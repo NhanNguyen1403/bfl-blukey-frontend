@@ -1,0 +1,20 @@
+@import "../../../../scss/Color";
+@import "../../../../scss/Border";
+@import "../../../../scss/BoxShadow";
+
+.table-header-container {
+
+	th {
+		position: sticky;
+		top: 0;
+		background-color: white;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: $primary-text-color;
+		padding: 3px 0;
+		box-sizing: border-box;
+		margin: 0;
+		text-align: left;
+		border-bottom: solid 1px $primary-text-color;
+	}
+}

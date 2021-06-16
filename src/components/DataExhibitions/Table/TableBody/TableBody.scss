@@ -1,0 +1,28 @@
+@import "../../../../scss/Color";
+@import "../../../../scss/Border";
+@import "../../../../scss/BoxShadow";
+
+.table-body-container {
+	width: 100%;
+
+	.icon {
+		* {
+			color: $primary-text-color;
+		}
+	}
+	tr {
+		transition: 300ms;
+		&:hover {
+			cursor: pointer;
+			background-color: $background-pages;
+		}
+	}
+
+	td {
+		color: $primary-text-color;
+		border-bottom: dashed 1px $primary-text-color;
+		padding: 8px 0;
+		margin: 0;
+	}
+
+}

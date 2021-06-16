@@ -46,7 +46,8 @@
 }
 
 %input-layout {
-	.info-form-container, .account-form-container, .button-area {
+	.info-form-container, .account-form-container, .button-area,
+	.agent-area, .property-area {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
