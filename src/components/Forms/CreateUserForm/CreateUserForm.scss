@@ -1,0 +1,13 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+@import "../../../scss/Animation";
+
+.user-form-container {
+	width: 500px;
+	margin: 0 auto;
+	animation: zoom-out 300ms;
+
+	@extend %input-layout;
+}

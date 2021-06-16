@@ -1,0 +1,19 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+
+.table-container {
+  width: 100%;
+  overflow: scroll;
+
+  hr {
+    width: 100%;
+  }
+}
+
+.paging-area {
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
