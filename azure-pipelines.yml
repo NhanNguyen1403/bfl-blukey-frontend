@@ -12,7 +12,7 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'e2795274-332e-4d16-874a-3d324df20324'
+  azureSubscription: 'fd9c3e09-1cc5-47ac-b08b-804f31df9508'
 
   # Web app name
   webAppName: 'blukey-dev'
