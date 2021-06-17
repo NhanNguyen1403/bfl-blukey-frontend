@@ -12,13 +12,13 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'fd9c3e09-1cc5-47ac-b08b-804f31df9508'
+  azureSubscription: 'e2795274-332e-4d16-874a-3d324df20324'
 
   # Web app name
-  webAppName: 'blukey-sandbox3'
+  webAppName: 'blukey-dev'
 
   # Environment name
-  environmentName: 'blukey-sandbox3'
+  environmentName: 'blukey-dev'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -60,7 +60,7 @@ stages:
         deploy:
           steps:
           - task: AzureRmWebAppDeployment@4
-            displayName: 'Azure App Service Deploy: blukey-sandbox3'
+            displayName: 'Azure App Service Deploy: blukey-dev'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
