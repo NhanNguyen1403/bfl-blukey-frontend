@@ -3,5 +3,18 @@
 @import "../../../scss/BoxShadow";
 
 .transaction-list-container {
+  height: 100%;
 
+  .transaction-list-area {
+    height: calc(100% - 91px);
+    box-sizing: border-box;
+    overflow: auto;
+  }
+
+  .paging-area {
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+    right: 40px;
+  }
 }

@@ -15,7 +15,9 @@
     @extend %outlined;
   }
 
-
+  &.sm {
+    width: fit-content;
+  }
   &.md {
     width: calc(50% - 10px);
   }
@@ -37,6 +39,11 @@
     &.circle {
       padding: 0;
       border-radius: 50%;
+    }
+
+    &.square {
+      padding: 3px;
+      border-radius: $border-radius-sm;
     }
 
     &.non-bg {
@@ -63,6 +70,12 @@
     }
   }
 
+  &.warning {
+    color: $danger-text-color;
+    background-color: white;
+    border: solid 1px $danger-text-color;
+  }
+
   &:hover {
     cursor: pointer;
     box-shadow: $primary-box-shadow;
@@ -71,6 +84,12 @@
   &:active {
     transform: translateY(2px);
     box-shadow: $primary-box-shadow;
+  }
+
+  &.disable {
+    user-select: none;
+    background-color: $second-text-color;
+    color: white;
   }
 }
 

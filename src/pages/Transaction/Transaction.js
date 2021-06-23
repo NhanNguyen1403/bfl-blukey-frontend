@@ -22,22 +22,223 @@ function Transaction(props) {
     generatePageOption('Transactions', 'lg', true),
     generatePageOption('Create', 'lg', false),
   ])
-  let [users, setUsers] = useState([])
+  let [transactions, setTransactions] = useState([])
   let [pageConfigs, setPagingConfigs] = useState({current: currentPage, totalItem: 1})
 
 
-
   useEffect(async () => {
-    await loadData()
-  }, [currentPage])
+    // await loadData()
+    setTransactions([
+        {
+          transaction_id: '12345561',
+          agentName: 'Nhan Nguyen',
+          mls_id: '1234asdcf',
+          address: '123 vo van kiet',
+          city: 'Ho Chi Minh',
+          state: 'district 88888888',
+          zip_code: '700000',
+          transaction_required_count: 4,
+          seller: 'Seller name',
+          buyer: 'Buyer name',
+          price: '123',
+          commission_rate: 2,
+          start_date: '21-05-2021',
+          end_date: '22-05-2021',
+          status: 'new',
+          comments: [
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: true,
+              comment_id: 1
+            },
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: false,
+              comment_id: 2
+            },
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finish ',
+              is_deleted: false,
+              comment_id: 3
+            },
+            {
+              author_name: 'Admin',
+              author_id: 2,
+              created_date: '22-05-2021',
+              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
+              is_deleted: false,
+              comment_id: 4
+            }
+          ]
+        },
+        {
+          transaction_id: '12345562',
+          agentName: 'Nhan Nguyen',
+          mls_id: '1234asdcf',
+          address: '123 vo van kiet',
+          city: 'Ho Chi Minh',
+          state: 'district 8',
+          zip_code: '700000',
+          transaction_required_count: 4,
+          seller: 'Seller name',
+          buyer: 'Buyer name',
+          price: '123',
+          commission_rate: 2,
+          start_date: '21-05-2021',
+          end_date: '22-05-2021',
+          status: 'in progress',
+          comments: [
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: true,
+              comment_id: 5
+            },
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: false,
+              comment_id: 6
+            },
+            {
+              author_name: 'Admin',
+              author_id: 2,
+              created_date: '22-05-2021',
+              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
+              is_deleted: false,
+              comment_id: 7
+            }
+          ]
+        },
+        {
+          transaction_id: '12345563',
+          agentName: 'Nhan Nguyen',
+          mls_id: '1234asdcf',
+          address: '123 vo van kiet',
+          city: 'Ho Chi Minh',
+          state: 'district 8',
+          zip_code: '700000',
+          transaction_required_count: 4,
+          seller: 'Seller name',
+          buyer: 'Buyer name',
+          price: '123',
+          commission_rate: 2,
+          start_date: '21-05-2021',
+          end_date: '22-05-2021',
+          status: 'review',
+          comments: [
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: true,
+              comment_id: 8
+            },
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: false,
+              comment_id: 9
+            },
+            {
+              author_name: 'Admin',
+              author_id: 2,
+              created_date: '22-05-2021',
+              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
+              is_deleted: false,
+              comment_id: 10
+            }
+          ]
+        },
+        {
+          transaction_id: '12345564',
+          agentName: 'Nhan Nguyen',
+          mls_id: '1234asdcf',
+          address: '123 vo van kiet',
+          city: 'Ho Chi Minh',
+          state: 'district 8',
+          zip_code: '700000',
+          transaction_required_count: 4,
+          seller: 'Seller name',
+          buyer: 'Buyer name',
+          price: '123',
+          commission_rate: 2,
+          start_date: '21-05-2021',
+          end_date: '22-05-2021',
+          status: 'complete',
+          comments: [
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: true,
+              comment_id: 11
+            },
+            {
+              author_name: 'Nhan Nguyen',
+              author_id: 3,
+              created_date: '21-05-2021',
+              message: 'Today, I finish this transaction today. Admin please review',
+              is_deleted: false,
+              comment_id: 12
+            },
+            {
+              author_name: 'Admin',
+              author_id: 2,
+              created_date: '22-05-2021',
+              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
+              is_deleted: false,
+              comment_id: 13
+            }
+          ]
+        },
+        {
+          transaction_id: '12345565',
+          agentName: 'Nhan Nguyen',
+          mls_id: '1234asdcf',
+          address: '123 vo van kiet',
+          city: 'Ho Chi Minh',
+          state: 'district 8',
+          zip_code: '700000',
+          transaction_required_count: 4,
+          seller: 'Seller name',
+          buyer: 'Buyer name',
+          price: '123',
+          commission_rate: 2,
+          start_date: '21-05-2021',
+          end_date: '22-05-2021',
+          status: 'error',
+          comments: [
 
+          ]
+        }
+      ]
+    )
+  }, [currentPage])
 
 
   let loadData = async () => {
     // Call getAll API to get data
     let {data, paging} = await getAll('transactions', currentPage)
 
-    setUsers(data)
+    setTransactions(data)
     setPagingConfigs({...pageConfigs, totalItem: paging.total})
   }
   let redirectHome = () => {
@@ -53,7 +254,6 @@ function Transaction(props) {
   }
 
 
-
   let changeDirectPage = (page) => {
     setCurrentPage(page)
   }
@@ -65,7 +265,6 @@ function Transaction(props) {
     if (currentPage > 1)
       setCurrentPage(prevState => prevState - 1)
   }
-
 
 
   return (
@@ -85,7 +284,7 @@ function Transaction(props) {
         {
           optionList[0].isActive &&
           <TransactionList
-            configs={{users, pageConfigs}}
+            configs={{transactions, pageConfigs}}
             clickHandler={{next, back, changeDirectPage}}
           />
         }

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import checkSession from '../../Session/checkSession'
 import store from "../../../redux/store";
-import {showSnack} from "../../../redux";
 import {showLoader, hideLoader} from "../../../redux";
 import errorHandler from "../errorHandler";
 

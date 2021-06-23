@@ -9,14 +9,19 @@ import {generateChip} from '../../../services/Generators/generateChip'
 
 function Input(props) {
 	let {labelName, data, type, size, isRequired, isDisable} = props.configs
+	let chipMessage = 'Required'
+	if (type === 'number') chipMessage = `Should > 0`
+	if (type === 'text' || type === 'password') chipMessage = `Too short`
 	let [shortInput, setShortInput] = useState(
-		generateChip(`${labelName} too short.`, 'error', false)
+		generateChip(chipMessage, 'error', false)
 	)
 
 	const validate = (event) => {
 		let {value: newValue, files} = event.target
+		if (isRequired && type === 'number' && newValue <= 0)
+			return toggleAlert(true)
 
-		if (isRequired && newValue.length < 4)
+		if (isRequired && type !== 'number' && newValue.length < 3)
 			return toggleAlert(true)
 
 		if (data.length > 0 && !data.includes(newValue))
@@ -36,7 +41,7 @@ function Input(props) {
 
 	const toggleAlert = (isDisplay) => {
 		setShortInput(
-			generateChip(`${labelName} too short.`, 'error', isDisplay)
+			generateChip(chipMessage, 'error', isDisplay)
 		)
 	}
 

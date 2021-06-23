@@ -1,0 +1,17 @@
+@import "../../../../scss/Color";
+@import "../../../../scss/Border";
+@import "../../../../scss/BoxShadow";
+
+.transaction-filter-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 5px;
+
+  .button-area {
+    height: 29px;
+    width: 29px;
+    border: solid 1px $primary-bg-color;
+  }
+}
