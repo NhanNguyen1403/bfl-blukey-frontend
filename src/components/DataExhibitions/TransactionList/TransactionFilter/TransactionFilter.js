@@ -5,9 +5,13 @@ import {generateInput} from "../../../../services/Generators/generateInput";
 import Input from "../../../Inputs/Input/Input";
 import {generateButton} from "../../../../services/Generators/generateButton";
 import Button from "../../../Inputs/Button/Button";
+import {showSnack} from "../../../../redux";
+import {useDispatch} from "react-redux";
 
 function TransactionFilter(props) {
-  let transactionID = generateInput('Transaction ID','text','', 'sm',false),
+  let dispatch = useDispatch(),
+      {filterHandler} = props.clickHandler,
+      transactionID = generateInput('Transaction ID','text','', 'sm',false),
       startDate = generateInput('Start date','date','','sm', false),
       endDate = generateInput('End date','date','','sm', false),
       [agentName, setAgentName] = useState(generateInput('Agent name','text','','sm', false, [])),
@@ -36,7 +40,24 @@ function TransactionFilter(props) {
   }
   let validate = () => {
     console.log('Validate filter')
+    // let inputs = [transactionID,startDate,endDate,agentName,status]
+    //
+    // if (inputs.some(i => i.getIsValid === false))
+    //   return console.log(false)
+
+    if ((startDate.isValid && endDate.isValid) && startDate.getValue > endDate.getValue)
+      return dispatch(showSnack('Start-date must before/same End date', 'danger'))
+
+    return filterHandler({
+      transaction_id: transactionID.getValue,
+      start_date: startDate.getValue,
+      end_date: endDate.getValue,
+      agent_name: agentName.getValue,
+      status: status.getValue,
+    })
   }
+
+
 
   return (
     <div className='transaction-filter-container'>

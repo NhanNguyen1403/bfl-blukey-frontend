@@ -12,6 +12,7 @@ import Button from "../../components/Inputs/Button/Button";
 import TransactionList from "../../components/DataExhibitions/TransactionList/TransactionList";
 import TransactionForm from "../../components/Forms/TransactionForm/TransactionForm";
 import getAll from "../../services/Api/GET/getAll";
+import TransactionDocumentForm from "../../components/Forms/TransactionDocumentForm/TransactionDocumentForm";
 
 
 function Transaction(props) {
@@ -31,7 +32,10 @@ function Transaction(props) {
     setTransactions([
         {
           transaction_id: '12345561',
+          user_id: 3,
           agentName: 'Nhan Nguyen',
+          first_name: "Hello",
+          last_name: "There",
           mls_id: '1234asdcf',
           address: '123 vo van kiet',
           city: 'Ho Chi Minh',
@@ -42,14 +46,14 @@ function Transaction(props) {
           buyer: 'Buyer name',
           price: '123',
           commission_rate: 2,
-          start_date: '21-05-2021',
-          end_date: '22-05-2021',
+          start_date: '2021-06-05',
+          end_date: '2021-06-06',
           status: 'new',
           comments: [
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: true,
               comment_id: 1
@@ -57,7 +61,7 @@ function Transaction(props) {
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: false,
               comment_id: 2
@@ -65,7 +69,7 @@ function Transaction(props) {
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finish ',
               is_deleted: false,
               comment_id: 3
@@ -73,7 +77,7 @@ function Transaction(props) {
             {
               author_name: 'Admin',
               author_id: 2,
-              created_date: '22-05-2021',
+              created_date: '2021-06-06',
               message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
               is_deleted: false,
               comment_id: 4
@@ -82,7 +86,10 @@ function Transaction(props) {
         },
         {
           transaction_id: '12345562',
+          user_id: 3,
           agentName: 'Nhan Nguyen',
+          first_name: "Nhan",
+          last_name: "Nguyen",
           mls_id: '1234asdcf',
           address: '123 vo van kiet',
           city: 'Ho Chi Minh',
@@ -93,14 +100,14 @@ function Transaction(props) {
           buyer: 'Buyer name',
           price: '123',
           commission_rate: 2,
-          start_date: '21-05-2021',
-          end_date: '22-05-2021',
+          start_date: '2021-06-05',
+          end_date: '2021-06-06',
           status: 'in progress',
           comments: [
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: true,
               comment_id: 5
@@ -108,7 +115,7 @@ function Transaction(props) {
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: false,
               comment_id: 6
@@ -116,7 +123,7 @@ function Transaction(props) {
             {
               author_name: 'Admin',
               author_id: 2,
-              created_date: '22-05-2021',
+              created_date: '2021-06-06',
               message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
               is_deleted: false,
               comment_id: 7
@@ -125,7 +132,10 @@ function Transaction(props) {
         },
         {
           transaction_id: '12345563',
+          user_id: 3,
           agentName: 'Nhan Nguyen',
+          first_name: "Nhan",
+          last_name: "Nguyen",
           mls_id: '1234asdcf',
           address: '123 vo van kiet',
           city: 'Ho Chi Minh',
@@ -136,14 +146,14 @@ function Transaction(props) {
           buyer: 'Buyer name',
           price: '123',
           commission_rate: 2,
-          start_date: '21-05-2021',
-          end_date: '22-05-2021',
+          start_date: '2021-06-05',
+          end_date: '2021-06-06',
           status: 'review',
           comments: [
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: true,
               comment_id: 8
@@ -151,7 +161,7 @@ function Transaction(props) {
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: false,
               comment_id: 9
@@ -159,7 +169,7 @@ function Transaction(props) {
             {
               author_name: 'Admin',
               author_id: 2,
-              created_date: '22-05-2021',
+              created_date: '2021-06-06',
               message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
               is_deleted: false,
               comment_id: 10
@@ -168,7 +178,10 @@ function Transaction(props) {
         },
         {
           transaction_id: '12345564',
+          user_id: 3,
           agentName: 'Nhan Nguyen',
+          first_name: "Nhan",
+          last_name: "Nguyen",
           mls_id: '1234asdcf',
           address: '123 vo van kiet',
           city: 'Ho Chi Minh',
@@ -179,14 +192,14 @@ function Transaction(props) {
           buyer: 'Buyer name',
           price: '123',
           commission_rate: 2,
-          start_date: '21-05-2021',
-          end_date: '22-05-2021',
+          start_date: '2021-06-05',
+          end_date: '2021-06-06',
           status: 'complete',
           comments: [
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: true,
               comment_id: 11
@@ -194,7 +207,7 @@ function Transaction(props) {
             {
               author_name: 'Nhan Nguyen',
               author_id: 3,
-              created_date: '21-05-2021',
+              created_date: '2021-06-05',
               message: 'Today, I finish this transaction today. Admin please review',
               is_deleted: false,
               comment_id: 12
@@ -202,7 +215,7 @@ function Transaction(props) {
             {
               author_name: 'Admin',
               author_id: 2,
-              created_date: '22-05-2021',
+              created_date: '2021-06-06',
               message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
               is_deleted: false,
               comment_id: 13
@@ -211,7 +224,10 @@ function Transaction(props) {
         },
         {
           transaction_id: '12345565',
+          user_id: 3,
           agentName: 'Nhan Nguyen',
+          first_name: "Nhan",
+          last_name: "Nguyen",
           mls_id: '1234asdcf',
           address: '123 vo van kiet',
           city: 'Ho Chi Minh',
@@ -222,12 +238,10 @@ function Transaction(props) {
           buyer: 'Buyer name',
           price: '123',
           commission_rate: 2,
-          start_date: '21-05-2021',
-          end_date: '22-05-2021',
+          start_date: '2021-06-05',
+          end_date: '2021-06-06',
           status: 'error',
-          comments: [
-
-          ]
+          comments: []
         }
       ]
     )
@@ -251,6 +265,11 @@ function Transaction(props) {
 
     if (andReload)
       return loadData()
+  }
+
+
+  let filterHandler = (conditions) => {
+    console.log('Filter with', conditions)
   }
 
 
@@ -285,16 +304,18 @@ function Transaction(props) {
           optionList[0].isActive &&
           <TransactionList
             configs={{transactions, pageConfigs}}
-            clickHandler={{next, back, changeDirectPage}}
+            clickHandler={{next, back, changeDirectPage, filterHandler}}
           />
         }
 
         {
           optionList[1].isActive &&
           <TransactionForm
+            configs={{transaction: {}, mode: 'create'}}
             clickHandler={{cancel: changePageOption}}
           />
         }
+
       </div>
     </div>
   );

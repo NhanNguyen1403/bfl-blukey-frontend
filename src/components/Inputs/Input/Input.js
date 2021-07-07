@@ -18,6 +18,7 @@ function Input(props) {
 
 	const validate = (event) => {
 		let {value: newValue, files} = event.target
+
 		if (isRequired && type === 'number' && newValue <= 0)
 			return toggleAlert(true)
 
@@ -28,6 +29,7 @@ function Input(props) {
 			return props.configs.setIsValid = false
 
 		props.configs.setIsValid = true
+
 		if (type === 'file') {
 			props.configs.setValue = files[0]
 			props.fileHandler()
@@ -48,7 +50,7 @@ function Input(props) {
 
 	return (
 		<div className={`input-container ${size} ${isDisable ? 'disabled' : ''}`}>
-			<label htmlFor={`${labelName}`}>
+			<label className={type} htmlFor={`${labelName}`}>
 				{labelName}
 
 				<span>

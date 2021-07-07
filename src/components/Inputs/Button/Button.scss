@@ -17,6 +17,7 @@
 
   &.sm {
     width: fit-content;
+    padding: 5px 10px;
   }
   &.md {
     width: calc(50% - 10px);
@@ -70,12 +71,6 @@
     }
   }
 
-  &.warning {
-    color: $danger-text-color;
-    background-color: white;
-    border: solid 1px $danger-text-color;
-  }
-
   &:hover {
     cursor: pointer;
     box-shadow: $primary-box-shadow;
@@ -86,8 +81,27 @@
     box-shadow: $primary-box-shadow;
   }
 
+  &.warning {
+    color: $danger-text-color;
+    background-color: white;
+    border: solid 1px $danger-text-color;
+    margin-left: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+
+    &:focus, &:hover, &:active {
+      border: solid 1px $danger-text-color;
+    }
+  }
+
   &.disable {
-    user-select: none;
+    pointer-events: none;
     background-color: $second-text-color;
     color: white;
   }

@@ -4,13 +4,20 @@
 
 .status-container {
   gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
 
   .title {
-    margin-left: -20px;
+    margin: 0px 0px 0px -20px;
     text-transform: uppercase;
     color: $second-text-color;
     font-weight: bold;
+    width: 100%;
   }
+
+  .button-area {}
 
   .status {
     padding: 2px 3px;
@@ -23,6 +30,7 @@
     font-size: 12px;
     font-weight: bold;
     opacity: .5;
+    user-select: none;
 
     &.new {
       color: $primary-bg-color;

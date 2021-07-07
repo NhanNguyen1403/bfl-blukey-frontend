@@ -1,0 +1,21 @@
+@import "../../../../scss/Color";
+@import "../../../../scss/Border";
+@import "../../../../scss/BoxShadow";
+@import "../../../../scss/Templates";
+@import "../../../../scss/Animation";
+
+.comment-action-form-container {
+  width: 80%;
+  padding: 10px 5px 10px 10px;
+  float: right;
+
+  .edit-comment-area {
+  }
+
+  .button-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px;
+    gap: 5px;
+  }
+}

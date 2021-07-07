@@ -20,12 +20,13 @@ const Login = async function (username, password) {
 		// 2. Store credentials into localStorage
 		localStorage.setItem('token', loginResult.access_token)
 
-		// 3.Update isLogged as a global (redux)
-		store.dispatch(logIn())
-
 		// 4. Get user info
 		let {data: getInfoResult} = await getAll('info')
 		localStorage.setItem('user', JSON.stringify(getInfoResult))
+
+		// 3.Update isLogged as a global (redux)
+		store.dispatch(logIn())
+
 
 	} catch (err) {
 		console.log(err)

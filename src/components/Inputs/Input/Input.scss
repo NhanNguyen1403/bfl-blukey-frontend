@@ -43,6 +43,10 @@
     font-weight: bold;
     background-color: white;
 
+    &.text-area {
+      display: none;
+    }
+
     span {
       color: red;
     }
@@ -60,6 +64,10 @@
 
   input[type='date'], input[type='file'] {
     padding: 7px;
+  }
+
+  input[type='text-area'] {
+    border: none;
   }
 
   .chip-area {

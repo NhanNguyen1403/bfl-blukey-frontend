@@ -43,7 +43,7 @@ function ProfileModal(props) {
 		}))
 	}
 
-	const saveProfile = async (id, payload) => {
+	let saveProfile = async (id, payload) => {
 		await Put('users', id, payload)
 		let {data: getInfoResult} = await getAll('info')
 		localStorage.setItem('user', JSON.stringify(getInfoResult))

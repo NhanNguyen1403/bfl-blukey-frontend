@@ -4,69 +4,118 @@
 @import "Animation";
 
 %outlined {
-	border: $border-inactive;
-	background-color: white;
-	color: $primary-bg-color;
-	transition: 300ms;
+  border: $border-inactive;
+  background-color: white;
+  color: $primary-bg-color;
+  transition: 300ms;
 
-	&:hover, &:focus {
-		border: $border-active;
-		cursor: pointer;
-	}
+  &:hover, &:focus {
+    border: $border-active;
+    cursor: pointer;
+  }
 }
 
 %page {
-	background-color: white;
-	width: 900px;
-	height: fit-content;
-	min-height: 200px;
-	max-height: calc(100vh - 140px);
-	margin-top: 100px;
-	margin-inline: auto;
-	box-shadow: $default-box-shadow;
-	box-sizing: border-box;
-	border-radius: $border-radius-lg;
-	animation: zoom-out 300ms ease-out;
-	position: relative;
+  background-color: white;
+  width: 900px;
+  height: fit-content;
+  min-height: 200px;
+  max-height: calc(100vh - 140px);
+  margin-top: 100px;
+  margin-inline: auto;
+  box-shadow: $default-box-shadow;
+  box-sizing: border-box;
+  border-radius: $border-radius-lg;
+  animation: zoom-out 300ms ease-out;
+  position: relative;
 
-	.options-area {
-		display: flex;
-		position: absolute;
-		box-sizing: border-box;
-		width: calc(100% - 80px);
-		top: -36px;
-		left: 40px;
-		.button-area {
-			width: fit-content;
-			position: absolute;
-			top: 12px;
-			right: 0;
-		}
-	}
+  .options-area {
+    display: flex;
+    position: absolute;
+    box-sizing: border-box;
+    width: calc(100% - 80px);
+    top: -36px;
+    left: 40px;
+
+    .button-area {
+      width: fit-content;
+      position: absolute;
+      top: 12px;
+      right: 0;
+    }
+  }
 }
 
 %input-layout {
-	.info-form-container, .account-form-container, .button-area,
-	.transaction-information-area, .block{
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
+  .info-form-container, .account-form-container, .button-area,
+  .transaction-information-area, .block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-		.title {
-			margin: 0px 0px 15px -20px;
-			padding: 0;
-			font-weight: bolder;
-			width: 100%;
-		}
+    .title {
+      margin: 0px 0px 15px -20px;
+      padding: 0;
+      font-weight: bolder;
+      width: 100%;
+    }
 
-		&.block {
-			margin-bottom: 20px;
-			border-bottom: dashed 1px $text-placeholder;
-			width: 100%;
-		}
-	}
+    &.block {
+      margin-bottom: 20px;
+      border-bottom: dashed 1px $text-placeholder;
+      width: 100%;
+    }
+  }
 
-	.button-area {
-		margin-bottom: 30px;
-	}
+  .button-area {
+    margin-bottom: 30px;
+  }
+}
+
+
+%uploaded-area {
+  width: 100%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+∑
+  .document {
+    height: 34px;
+    width: 160px;
+    box-sizing: border-box;
+    border: solid 1px;
+    padding-left: 10px;
+    background-color: $background-pages;
+    border-radius: $border-radius-md;
+    transition: 300ms;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      transition: 300ms;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    &:hover, &:active {
+      box-shadow: $default-box-shadow;
+      border-color: $primary-text-color;
+
+      a {
+        cursor: pointer;
+        color: $primary-text-color;
+      }
+    }
+
+    .button-area {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

@@ -4,9 +4,16 @@
 @import "../../../scss/Templates";
 
 .transaction-form-container {
+  @extend %input-layout;
+
   margin: 0 auto;
   animation: zoom-out 300ms;
   width: 500px;
 
-  @extend %input-layout;
+  .blocks {
+    overflow: auto;
+    height: calc(100vh - 210px);
+    padding-left: 20px;
+    margin-left: -20px;
+  }
 }

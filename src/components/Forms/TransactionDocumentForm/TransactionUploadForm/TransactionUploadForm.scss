@@ -1,0 +1,52 @@
+@import "../../../../scss/Color";
+@import "../../../../scss/Border";
+@import "../../../../scss/BoxShadow";
+@import "../../../../scss/Templates";
+
+.transaction-upload-form-container {
+  position: relative;
+  width: calc(50% - 15px);
+  height: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  box-sizing: border-box;
+  border: solid 1px $second-text-color;
+  padding-inline: 20px;
+
+  .label {
+    position: absolute;
+    top: -11px;
+    left: 20px;
+    text-transform: capitalize;
+    font-weight: bold;
+    color: $primary-text-color;
+    padding: 2px 3px;
+    background-color: white;
+  }
+
+  .title  {
+    font-weight: bold;
+    margin: 10px 0px 15px -10px;
+  }
+
+  .upload-area {
+    border-bottom: dashed 1px $text-placeholder;
+  }
+
+  .uploaded-area {
+    @extend %uploaded-area;
+    margin-left: -10px;
+    padding-left: 10px;
+    justify-content: space-between;
+
+    .title {
+      width: 100%;
+      margin: 20px 0 0 -10px;
+    }
+
+    .document {
+      width: calc(50% - 5px);
+      gap: 5px;
+    }
+  }
+}
