@@ -53,7 +53,7 @@ function Administrator() {
 
   let loadData = async () => {
     // Call getAll API to get data
-    let {data, paging} = await getAll('users', {page: currentPage})
+    let {data, paging} = await getAll('users', {page: currentPage, fullName: ''})
 
     setUsers(data)
     setPagingConfigs(prev => {return {...prev, totalItem: paging.total}})
