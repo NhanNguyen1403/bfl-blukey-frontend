@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import "./changeProfileForm.scss"
-import {generateInput} from "../../../services/Generators/generateInput";
+import generateInput from "../../../services/Generators/generateInput";
 import {generateButton} from "../../../services/Generators/generateButton";
 import Input from "../../Inputs/Input/Input";
 import Button from "../../Inputs/Button/Button";
@@ -11,14 +11,14 @@ function ChangeProfileForm(props) {
 	let {mode, user} = props.configs
 
 	let isOwnerAdmin = () => {
-		let {is_admin} = JSON.parse(localStorage.getItem('user'))
-		return is_admin === true
+		let {isAdmin} = JSON.parse(localStorage.getItem('user'))
+		return isAdmin === true
 	}
 
-	let firstName = generateInput('First name', 'text', user.first_name, 'half'),
-		lastName = generateInput('Last name', 'text', user.last_name, 'half'),
+	let firstName = generateInput('First name', 'text', user.firstName, 'half'),
+		lastName = generateInput('Last name', 'text', user.lastName, 'half'),
 		email = generateInput('Email', 'text', user.email, 'half'),
-		role = generateInput('Role', 'text', user.is_admin ? 'Admin' : 'User', 'half', true, ['User', 'Admin'], !isOwnerAdmin()),
+		role = generateInput('Role', 'text', user.isAdmin ? 'Admin' : 'User', 'half', true, ['User', 'Admin'], !isOwnerAdmin()),
 		address = generateInput('Address', 'text', user.address, 'full'),
 		saveButton = generateButton('Save', 'text', 'solid', 'md'),
 		cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
@@ -30,10 +30,10 @@ function ChangeProfileForm(props) {
 			return console.log('false')
 
 		return save(user.id, {
-			first_name: firstName.getValue,
-			last_name: lastName.getValue,
+			firstName: firstName.getValue,
+			lastName: lastName.getValue,
 			email: email.getValue,
-			is_admin: role.getValue === 'Admin',
+			isAdmin: role.getValue === 'Admin',
 			address: address.getValue,
 		})
 	}

@@ -7,15 +7,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab}  from "../../../redux";
 
 function Drawer() {
-	let [drawerList, setDrawerList] = useState([
-		{name: "Home", icon: 'home', isActive: true},
-		{name: "Administrator", icon: 'users', isActive: false},
-		{name: "Transaction", icon: 'activity', isActive: false},
-	])
-	let dispatch = useDispatch()
-	let {currentTab} = useSelector(state => {
-		return state.tab
-	})
+	let [drawerList, setDrawerList] = useState([]),
+			dispatch = useDispatch(),
+			{currentTab} = useSelector(state => {
+				return state.tab
+			})
+
 
 	useEffect(() => {
 		setDrawerList(drawerList.map(i => {
@@ -25,6 +22,22 @@ function Drawer() {
 			}
 		}))
 	}, [currentTab])
+
+	useEffect(() => {
+		let {isAdmin} = JSON.parse(localStorage.getItem('user'))
+		if (isAdmin) {
+			setDrawerList([
+				{name: "Home", icon: 'home', isActive: true},
+				{name: "Administrator", icon: 'users', isActive: false},
+				{name: "Transaction", icon: 'activity', isActive: false},
+			])
+		} else {
+			setDrawerList([
+				{name: "Home", icon: 'home', isActive: true},
+				{name: "Transaction", icon: 'activity', isActive: false},
+			])
+		}
+	}, [])
 
 	const changeTab = (itemName) => {
 		if (itemName === currentTab)

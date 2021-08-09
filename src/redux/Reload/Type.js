@@ -1,0 +1,2 @@
+export const NEED_RELOAD = "NEED_RELOAD"
+export const COMPLETE_RELOAD = "COMPLETE_RELOAD"

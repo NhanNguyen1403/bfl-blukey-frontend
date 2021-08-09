@@ -15,7 +15,10 @@
     @extend %outlined;
   }
 
-
+  &.sm {
+    width: fit-content;
+    padding: 5px 10px;
+  }
   &.md {
     width: calc(50% - 10px);
   }
@@ -37,6 +40,11 @@
     &.circle {
       padding: 0;
       border-radius: 50%;
+    }
+
+    &.square {
+      padding: 3px;
+      border-radius: $border-radius-sm;
     }
 
     &.non-bg {
@@ -71,6 +79,31 @@
   &:active {
     transform: translateY(2px);
     box-shadow: $primary-box-shadow;
+  }
+
+  &.warning {
+    color: $danger-text-color;
+    background-color: white;
+    border: solid 1px $danger-text-color;
+    margin-left: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+
+    &:focus, &:hover, &:active {
+      border: solid 1px $danger-text-color;
+    }
+  }
+
+  &.disable {
+    pointer-events: none;
+    background-color: $second-text-color;
+    color: white;
   }
 }
 

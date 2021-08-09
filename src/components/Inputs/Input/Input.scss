@@ -5,58 +5,87 @@
 
 .input-container {
 
-	height: 45px;
-	position: relative;
-	margin-bottom: 20px;
+  position: relative;
+  margin-bottom: 20px;
+  height: fit-content;
 
-	&.full {
-		width: 100%;
-	}
+  &.full {
+    width: 100%;
+  }
 
-	&.half {
-		width: calc(50% - 10px);
-	}
+  &.half {
+    width: calc(50% - 10px);
+  }
 
-	label {
-		position: absolute;
-		line-height: 1rem;
-		top: -.5rem;
-		left: 10px;
-		color: $primary-text-color;
-		font-weight: bold;
-		background-color: white;
+  &.one-third {
+    width: calc(33% - 10px);
+  }
 
-		span {
-			color: red;
-		}
-	}
+  &.sm {
+    width: 150px;
+    font-size: 12px;
 
-	input {
-		padding: 10px;
-		box-sizing: border-box;
-		border-radius: $border-radius-md;
-		width: 100%;
-		outline: unset;
-		color: $primary-text-color;
-		@extend %outlined;
-	}
+    input {
+      padding: 7px;
+    }
 
-	.chip-area {
-		position: absolute;
-		margin: 10px 0;
-		box-sizing: border-box;
-		top: -20px;
-		right: 10px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+    input[type='date'], input[type='file'] {
+      padding: 5px 4px 4px 4px;
+    }
+  }
 
-	&.disabled {
-		input {
-			color: $second-text-color;
-		}
+  label {
+    position: absolute;
+    line-height: 1rem;
+    top: -.5rem;
+    left: 10px;
+    color: $primary-text-color;
+    font-weight: bold;
+    background-color: white;
 
-		pointer-events: none;
-	}
+    &.text-area {
+      display: none;
+    }
+
+    span {
+      color: red;
+    }
+  }
+
+  input {
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: $border-radius-md;
+    width: 100%;
+    outline: unset;
+    color: $primary-text-color;
+    @extend %outlined;
+  }
+
+  input[type='date'], input[type='file'] {
+    padding: 7px;
+  }
+
+  input[type='text-area'] {
+    border: none;
+  }
+
+  .chip-area {
+    position: absolute;
+    margin: 10px 0;
+    box-sizing: border-box;
+    top: -20px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.disabled {
+    input {
+      color: $second-text-color;
+    }
+
+    pointer-events: none;
+  }
 }

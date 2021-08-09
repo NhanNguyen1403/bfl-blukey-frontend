@@ -1,7 +1,7 @@
 import React from 'react';
 
 import "./changePasswordForm.scss"
-import {generateInput} from "../../../services/Generators/generateInput";
+import generateInput from "../../../services/Generators/generateInput";
 import {generateButton} from "../../../services/Generators/generateButton";
 import Input from "../../Inputs/Input/Input";
 import Button from "../../Inputs/Button/Button";

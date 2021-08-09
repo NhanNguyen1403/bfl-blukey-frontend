@@ -5,7 +5,7 @@ import {showSnack} from "../../../redux";
 import {showLoader, hideLoader} from "../../../redux";
 import errorHandler from "../errorHandler";
 
-async function Post (endPoint = '', payload = {}, isLogin = false) {
+async function Post (endPoint = '', payload = {}, isLogin = false, params = {}) {
   try {
     if (!checkSession() && !isLogin) return
 
@@ -17,6 +17,7 @@ async function Post (endPoint = '', payload = {}, isLogin = false) {
         'Authorization': isLogin ? null : `Bearer ${localStorage.getItem('token')}`
       },
       data: payload,
+      params: params,
     })
 
     store.dispatch(hideLoader())

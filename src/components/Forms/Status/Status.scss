@@ -1,0 +1,70 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+
+.status-container {
+  gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .title {
+    margin: 0px 0px 0px -20px;
+    text-transform: uppercase;
+    color: $second-text-color;
+    font-weight: bold;
+    width: 100%;
+  }
+
+  .button-area {}
+
+  .status {
+    padding: 2px 3px;
+    margin: 2px 3px 2px 0px;
+    border-radius: $border-radius-md;
+    text-transform: uppercase;
+    background-color: white;
+    color: $second-text-color;
+    border: solid 1px $second-text-color;
+    font-size: 12px;
+    font-weight: bold;
+    opacity: .5;
+    user-select: none;
+
+    &.new {
+      color: $primary-bg-color;
+      background-color: $text-placeholder-50;
+      border-color: $primary-bg-color;
+      opacity: 1;
+    }
+
+    &.inprogress {
+      color: $in-progress-color;
+      background-color: $in-progress-color-50;
+      border: solid 1px $in-progress-color;
+      opacity: 1;
+    }
+
+    &.review {
+      color: $info-text-color;
+      background-color: $info-bg-color;
+      border: solid 1px $info-text-color;
+      opacity: 1;
+    }
+
+    &.complete {
+      color: $success-text-color;
+      background-color: $success-bg-color-50;
+      border: solid 1px $success-text-color;
+      opacity: 1;
+    }
+
+    &.error {
+      color: $danger-text-color;
+      background-color: $danger-text-color-50;
+      border: solid 1px $danger-text-color;
+      opacity: 1;
+    }
+  }
+}

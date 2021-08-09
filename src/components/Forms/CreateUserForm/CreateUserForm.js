@@ -2,7 +2,7 @@ import React from 'react';
 
 import "./CreateUserForm.scss"
 import Input from "../../Inputs/Input/Input";
-import {generateInput} from "../../../services/Generators/generateInput";
+import generateInput from "../../../services/Generators/generateInput";
 import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
 import Post from '../../../services/Api/POST/post'
@@ -25,12 +25,12 @@ function CreateUserForm(props) {
 			return console.log(false)
 
 		return create({
-			first_name: firstName.getValue,
-			last_name: lastName.getValue,
+			firstName: firstName.getValue,
+			lastName: lastName.getValue,
 			email: email.getValue,
-			is_admin: role.getValue === 'Admin',
+			isAdmin: role.getValue === 'Admin',
 			address: address.getValue,
-			username: userName.getValue,
+			userName: userName.getValue,
 			password: password.getValue
 		})
 	}

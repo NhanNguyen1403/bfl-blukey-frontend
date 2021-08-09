@@ -4,14 +4,15 @@ import "./ProfileModal.scss"
 import {useDispatch, useSelector} from "react-redux";
 import Button from "../../Inputs/Button/Button";
 import {generateButton} from "../../../services/Generators/generateButton";
-import PageOption from "../../Forms/pageOption/pageOption";
+import PageOption from "../../Inputs/pageOption/pageOption";
 import {generatePageOption} from "../../../services/Generators/generatePageOption";
 import {hideProfileModal} from "../../../redux";
+import {needReload} from "../../../redux";
 import ChangeProfileForm from "../../Forms/changeProfileForm/changeProfileForm";
 import DocumentForm from "../../Forms/DocumentForm/DocumentForm";
 import ChangePasswordForm from "../../Forms/changePasswordForm/changePasswordForm";
 import Put from "../../../services/Api/PUT/put"
-import getAll from "../../../services/Api/GET/getAll";
+import getUnit from "../../../services/Api/GET/getUnit";
 
 function ProfileModal(props) {
 	let dispatch = useDispatch()
@@ -43,11 +44,12 @@ function ProfileModal(props) {
 		}))
 	}
 
-	const saveProfile = async (id, payload) => {
+	let saveProfile = async (id, payload) => {
 		await Put('users', id, payload)
-		let {data: getInfoResult} = await getAll('info')
+		let {data: getInfoResult} = await getUnit('users', id)
 		localStorage.setItem('user', JSON.stringify(getInfoResult))
 		closeModal()
+		dispatch(needReload())
 	}
 
 	const savePassword = async (id, payload) => {

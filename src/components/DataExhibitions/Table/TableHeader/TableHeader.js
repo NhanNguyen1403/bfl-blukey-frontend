@@ -28,6 +28,16 @@ function TableHeader(props) {
 						switch (i) {
 							case 'createAt': return
 
+							case 'firstName': return <th key={`table-header-${i}`}>First Name</th>
+
+							case 'lastName': return <th key={`table-header-${i}`}>Last Name</th>
+
+							case 'lastLoginDate': return <th key={`table-header-${i}`}>Last Login</th>
+
+							case 'updatedAt': return
+
+							case 'isAdmin': return <th key={`table-header-${i}`}>Admin</th>
+
 							default: {
 								return (
 									<th key={`table-header-${i}`}>{i}</th>
