@@ -7,6 +7,9 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- bash: overwrite env before build
+  env:
+    SERVER_URL: $(SERVER_URL)
 - task: NodeTool@0
   inputs:
     versionSpec: '14.x'
@@ -20,11 +23,13 @@ steps:
     npm run build
   displayName: 'build prod'
   
-- task: CopyFiles@2
+- task: ArchiveFiles@2
   inputs:
-    Contents: '**'
-    TargetFolder: '$(build.ArtifactStagingDirectory)'
-    OverWrite: true
+    rootFolderOrFile: 'dist'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:
