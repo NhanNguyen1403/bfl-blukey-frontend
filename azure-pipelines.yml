@@ -7,6 +7,9 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- bash: echo override env before build
+  env:
+    SERVER_URL: $(SERVER_URL)
 - task: NodeTool@0
   inputs:
     versionSpec: '14.x'
@@ -19,7 +22,7 @@ steps:
 - script: |
     npm run build
   displayName: 'build prod'
-
+  
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'dist'
