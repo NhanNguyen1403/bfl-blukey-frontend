@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 
 import "./Transaction.scss"
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab} from "../../redux";
+import {completeReload} from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
 import {generateButton} from "../../services/Generators/generateButton"
@@ -12,264 +13,68 @@ import Button from "../../components/Inputs/Button/Button";
 import TransactionList from "../../components/DataExhibitions/TransactionList/TransactionList";
 import TransactionForm from "../../components/Forms/TransactionForm/TransactionForm";
 import getAll from "../../services/Api/GET/getAll";
-import TransactionDocumentForm from "../../components/Forms/TransactionDocumentForm/TransactionDocumentForm";
+import TransactionFilter from "../../components/DataExhibitions/TransactionList/TransactionFilter/TransactionFilter";
 
 
-function Transaction(props) {
-  let dispatch = useDispatch()
-  let closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon')
-  let [currentPage, setCurrentPage] = useState(1)
-  let [optionList, setOptionList] = useState([
-    generatePageOption('Transactions', 'lg', true),
-    generatePageOption('Create', 'lg', false),
-  ])
-  let [transactions, setTransactions] = useState([])
-  let [pageConfigs, setPagingConfigs] = useState({current: currentPage, totalItem: 1})
+function Transaction() {
+  let dispatch = useDispatch(),
+      closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
+      [currentPage, setCurrentPage] = useState(1),
+      [optionList, setOptionList] = useState([
+        generatePageOption('Transactions', 'lg', true),
+        generatePageOption('Create', 'lg', false),
+      ]),
+      [params, setParams] = useState({
+        transactionId: '',
+        startDate: '',
+        endDate: '',
+        agentName: '',
+        transactionStatusId: ''
+      }),
+      [transactions, setTransactions] = useState([]),
+      [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 5, totalItem: 1}),
+      {needReload} = useSelector(state => {
+        return state.reload
+      })
+
+
 
 
   useEffect(async () => {
-    // await loadData()
-    setTransactions([
-        {
-          transaction_id: '12345561',
-          user_id: 3,
-          agentName: 'Nhan Nguyen',
-          first_name: "Hello",
-          last_name: "There",
-          mls_id: '1234asdcf',
-          address: '123 vo van kiet',
-          city: 'Ho Chi Minh',
-          state: 'district 88888888',
-          zip_code: '700000',
-          transaction_required_count: 4,
-          seller: 'Seller name',
-          buyer: 'Buyer name',
-          price: '123',
-          commission_rate: 2,
-          start_date: '2021-06-05',
-          end_date: '2021-06-06',
-          status: 'new',
-          comments: [
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: true,
-              comment_id: 1
-            },
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: false,
-              comment_id: 2
-            },
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finishToday, I finish ',
-              is_deleted: false,
-              comment_id: 3
-            },
-            {
-              author_name: 'Admin',
-              author_id: 2,
-              created_date: '2021-06-06',
-              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
-              is_deleted: false,
-              comment_id: 4
-            }
-          ]
-        },
-        {
-          transaction_id: '12345562',
-          user_id: 3,
-          agentName: 'Nhan Nguyen',
-          first_name: "Nhan",
-          last_name: "Nguyen",
-          mls_id: '1234asdcf',
-          address: '123 vo van kiet',
-          city: 'Ho Chi Minh',
-          state: 'district 8',
-          zip_code: '700000',
-          transaction_required_count: 4,
-          seller: 'Seller name',
-          buyer: 'Buyer name',
-          price: '123',
-          commission_rate: 2,
-          start_date: '2021-06-05',
-          end_date: '2021-06-06',
-          status: 'in progress',
-          comments: [
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: true,
-              comment_id: 5
-            },
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: false,
-              comment_id: 6
-            },
-            {
-              author_name: 'Admin',
-              author_id: 2,
-              created_date: '2021-06-06',
-              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
-              is_deleted: false,
-              comment_id: 7
-            }
-          ]
-        },
-        {
-          transaction_id: '12345563',
-          user_id: 3,
-          agentName: 'Nhan Nguyen',
-          first_name: "Nhan",
-          last_name: "Nguyen",
-          mls_id: '1234asdcf',
-          address: '123 vo van kiet',
-          city: 'Ho Chi Minh',
-          state: 'district 8',
-          zip_code: '700000',
-          transaction_required_count: 4,
-          seller: 'Seller name',
-          buyer: 'Buyer name',
-          price: '123',
-          commission_rate: 2,
-          start_date: '2021-06-05',
-          end_date: '2021-06-06',
-          status: 'review',
-          comments: [
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: true,
-              comment_id: 8
-            },
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: false,
-              comment_id: 9
-            },
-            {
-              author_name: 'Admin',
-              author_id: 2,
-              created_date: '2021-06-06',
-              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
-              is_deleted: false,
-              comment_id: 10
-            }
-          ]
-        },
-        {
-          transaction_id: '12345564',
-          user_id: 3,
-          agentName: 'Nhan Nguyen',
-          first_name: "Nhan",
-          last_name: "Nguyen",
-          mls_id: '1234asdcf',
-          address: '123 vo van kiet',
-          city: 'Ho Chi Minh',
-          state: 'district 8',
-          zip_code: '700000',
-          transaction_required_count: 4,
-          seller: 'Seller name',
-          buyer: 'Buyer name',
-          price: '123',
-          commission_rate: 2,
-          start_date: '2021-06-05',
-          end_date: '2021-06-06',
-          status: 'complete',
-          comments: [
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: true,
-              comment_id: 11
-            },
-            {
-              author_name: 'Nhan Nguyen',
-              author_id: 3,
-              created_date: '2021-06-05',
-              message: 'Today, I finish this transaction today. Admin please review',
-              is_deleted: false,
-              comment_id: 12
-            },
-            {
-              author_name: 'Admin',
-              author_id: 2,
-              created_date: '2021-06-06',
-              message: 'Hey Agent, RPA Document is missing a signature from buyer. Please correct',
-              is_deleted: false,
-              comment_id: 13
-            }
-          ]
-        },
-        {
-          transaction_id: '12345565',
-          user_id: 3,
-          agentName: 'Nhan Nguyen',
-          first_name: "Nhan",
-          last_name: "Nguyen",
-          mls_id: '1234asdcf',
-          address: '123 vo van kiet',
-          city: 'Ho Chi Minh',
-          state: 'district 8',
-          zip_code: '700000',
-          transaction_required_count: 4,
-          seller: 'Seller name',
-          buyer: 'Buyer name',
-          price: '123',
-          commission_rate: 2,
-          start_date: '2021-06-05',
-          end_date: '2021-06-06',
-          status: 'error',
-          comments: []
-        }
-      ]
-    )
-  }, [currentPage])
+    await loadData()
+    setPagingConfigs(prev => {return {...prev, current: currentPage}})
+  }, [currentPage, params])
+
+  useEffect(async () => {
+    if (needReload){
+      await loadData()
+      dispatch(completeReload())
+    }
+  }, [needReload])
 
 
   let loadData = async () => {
     // Call getAll API to get data
-    let {data, paging} = await getAll('transactions', currentPage)
+    let {data, paging} = await getAll('transactions', {...params, page: currentPage, limit: 5})
 
     setTransactions(data)
-    setPagingConfigs({...pageConfigs, totalItem: paging.total})
+    setPagingConfigs(prev => {return {...prev, totalItem: paging.total}})
   }
   let redirectHome = () => {
     dispatch(changeGlobalTab('Home'))
   }
-  let changePageOption = (optionName, andReload = false) => {
+  let changePageOption = (optionName) => {
     setOptionList(optionList.map(i => {
       return generatePageOption(i.name, i.size, i.name === optionName)
     }))
-
-    if (andReload)
-      return loadData()
   }
 
 
-  let filterHandler = (conditions) => {
-    console.log('Filter with', conditions)
+  let filterHandler = async (params) => {
+    console.log(1, params)
+    setParams({...params})
+    setCurrentPage(1)
+    setPagingConfigs(prev => {return {...prev, current: currentPage}})
   }
 
 
@@ -277,7 +82,7 @@ function Transaction(props) {
     setCurrentPage(page)
   }
   let next = () => {
-    if (currentPage < (pageConfigs.totalItem / 25))
+    if (currentPage < (pageConfigs.totalItem / pageConfigs.itemPerPage))
       setCurrentPage(prevState => prevState + 1)
   }
   let back = () => {
@@ -301,11 +106,18 @@ function Transaction(props) {
 
       <div className="content-area">
         {
-          optionList[0].isActive &&
-          <TransactionList
-            configs={{transactions, pageConfigs}}
-            clickHandler={{next, back, changeDirectPage, filterHandler}}
-          />
+          optionList[0].isActive && (
+            <div className={'transaction-and-filter'}>
+              <div className="filter-area">
+                <TransactionFilter configs={params} clickHandler={{filterHandler}}/>
+              </div>
+
+              <TransactionList
+                configs={{transactions, pageConfigs}}
+                clickHandler={{next, back, changeDirectPage}}
+              />
+            </div>
+          )
         }
 
         {
@@ -315,7 +127,6 @@ function Transaction(props) {
             clickHandler={{cancel: changePageOption}}
           />
         }
-
       </div>
     </div>
   );

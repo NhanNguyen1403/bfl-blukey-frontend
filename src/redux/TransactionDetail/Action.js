@@ -1,10 +1,10 @@
 import {SHOW_TRANSACTION_DETAIL_MODAL, HIDE_TRANSACTION_MODAL} from "./Type";
 
-export const showTransactionDetail = (mode, transaction) => {
+export const showTransactionDetail = (initMode, transactionDetail) => {
   return {
     type: SHOW_TRANSACTION_DETAIL_MODAL,
-    mode,
-    transaction,
+    initMode,
+    transactionDetail,
   }
 }
 

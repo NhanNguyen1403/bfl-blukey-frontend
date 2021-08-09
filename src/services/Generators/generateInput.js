@@ -1,15 +1,17 @@
 /*******************************************************
  * Using this service to creat props for Input components
  ********************************************************/
+import moment from "moment"
 
-exports.generateInput = function (
+const generateInput = function (
 	labelName = 'label',
 	type = 'text',
 	value,
 	size = 'full',
 	isRequired = true,
 	data = [],
-	isDisable = false) {
+	isDisable = false, 
+	keyPress = () => {}) {
 	try {
 		return {
 			labelName,
@@ -33,9 +35,13 @@ exports.generateInput = function (
 			get getValue() {
 				return this.value
 			},
+
 			data,
+			keyPress,
 		}
 	} catch (err) {
 		console.error(err)
 	}
 }
+
+export default generateInput

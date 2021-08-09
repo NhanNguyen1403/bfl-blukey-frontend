@@ -3,41 +3,41 @@ import React, {useEffect, useState} from 'react';
 import "./TransactionForm.scss"
 import Button from "../../Inputs/Button/Button";
 import {generateButton} from "../../../services/Generators/generateButton";
-import {generateInput} from "../../../services/Generators/generateInput";
+import generateInput from "../../../services/Generators/generateInput";
 import Post from "../../../services/Api/POST/post";
 import Input from "../../Inputs/Input/Input";
 import {showSnack} from "../../../redux";
+import {needReload} from "../../../redux";
 import {useDispatch} from "react-redux";
 import Put from "../../../services/Api/PUT/put";
-
 
 function TransactionForm(props) {
   let dispatch = useDispatch(),
     {transaction, mode} = props.configs,
     {cancel} = props.clickHandler,
-    {id, first_name, last_name} = JSON.parse(localStorage.getItem('user')),
+    {firstName, lastName} = JSON.parse(localStorage.getItem('user')),
     [agentName, setAgentName] = useState(generateInput('Agent name', 'text', '', 'half', true, [], true)),
-    mlsID = generateInput('MLS-ID', 'text', `${transaction?.mls_id || ''}`, 'half', true, [], mode === 'view'),
+    mlsID = generateInput('MLS-ID', 'text', `${transaction?.mlsId || ''}`, 'half', true, [], mode === 'view'),
     apn = generateInput('Apn', 'text', `${transaction?.apn || ''}`, 'half', true, [], mode === 'view'),
     address = generateInput('Address', 'text', `${transaction?.address || ''}`, 'half', true, [], mode === 'view'),
     city = generateInput('City', 'text', `${transaction?.city || ''}`, 'half', true, [], mode === 'view'),
     state = generateInput('State', 'text', `${transaction?.state || ''}`, 'half', true, [], mode === 'view'),
-    zipCode = generateInput('Zip code', 'text', `${transaction?.zip_code || ''}`, 'half', true, [], mode === 'view'),
-    buyer = generateInput('Buyer', 'text', `${transaction?.buyer || ''}`, 'half', true, [], mode === 'view'),
-    seller = generateInput('Seller', 'text', `${transaction?.seller || ''}`, 'half', true, [], mode === 'view'),
-    price = generateInput('Price ($)', 'number', `${transaction?.price || 0}`, 'half', true, [], mode === 'view'),
-    commissionRate = generateInput('Commission rate (%)', 'number', `${transaction?.commission_rate || 0}`, 'half', true, [], mode === 'view'),
-    startDate = generateInput('Start date', 'date', `${transaction?.start_date || ''}`, 'half', true, [], mode === 'view'),
-    endDate = generateInput('End date', 'date', `${transaction?.end_date || ''}`, 'half', true, [], mode === 'view'),
+    zipCode = generateInput('Zip code', 'text', `${transaction?.zipCode || ''}`, 'half', true, [], mode === 'view'),
+    buyer = generateInput('Buyer', 'text', `${transaction?.buyerName || ''}`, 'half', true, [], mode === 'view'),
+    seller = generateInput('Seller', 'text', `${transaction?.sellerName || ''}`, 'half', true, [], mode === 'view'),
+    price = generateInput('Price ($)', 'number', `${transaction?.listingPrice || 0}`, 'half', true, [], mode === 'view'),
+    commissionRate = generateInput('Commission rate (%)', 'number', `${transaction?.commissionAmount || 0}`, 'half', true, [], mode === 'view'),
+    startDate = generateInput('Start date', 'date', `${transaction?.listingStartDate || ''}`, 'half', true, [], mode === 'view'),
+    endDate = generateInput('End date', 'date', `${transaction?.listingEndDate || ''}`, 'half', true, [], mode === 'view'),
     createButton = generateButton(`${mode === 'edit' ? 'Save' : 'Create'}`, 'text', 'solid', 'md'),
     cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
 
 
   useEffect(() => {
-    if (transaction.first_name && transaction.last_name)
-      setAgentName(generateInput('Agent name', 'text', `${transaction.first_name} ${transaction.last_name}`, 'half', true, [], true))
+    if (transaction.firstName && transaction.lastName)
+      setAgentName(generateInput('Agent name', 'text', `${transaction.firstName} ${transaction.lastName}`, 'half', true, [], true))
     else
-      setAgentName(generateInput('Agent name', 'text', `${first_name} ${last_name}`, 'half', true, [], true))
+      setAgentName(generateInput('Agent name', 'text', `${firstName} ${lastName}`, 'half', true, [], true))
   }, [])
 
   let validate = () => {
@@ -49,15 +49,18 @@ function TransactionForm(props) {
       return dispatch(showSnack('Start-date must before/same End date', 'danger'))
 
     let payload = {
-      user_id: id,
       address: address.getValue,
-      mls_id: mlsID.getValue,
-      seller: seller.getValue,
-      buyer: buyer.getValue,
-      price: price.getValue,
-      commission_rate: commissionRate.getValue,
-      start_date: startDate.getValue,
-      end_date: endDate.getValue,
+      city: city.getValue,
+      state: state.getValue,
+      zipCode: zipCode.getValue,
+      mlsId: mlsID.getValue,
+      apn: apn.getValue,
+      listingPrice: price.getValue,
+      commissionAmount: commissionRate.getValue,
+      sellerName: seller.getValue,
+      buyerName: buyer.getValue,
+      listingStartDate: startDate.getValue,
+      listingEndDate: endDate.getValue,
     }
 
     if (mode === 'create')
@@ -66,11 +69,15 @@ function TransactionForm(props) {
   }
   let create = async (payload) => {
     await Post('transactions', payload)
-    cancel('Transactions', true)
+    closeForm()
   }
   let save = async (payload) => {
-    await Put('transactions', payload)
-    cancel('Transactions', true)
+    await Put('transactions', transaction.id, payload)
+    closeForm()
+  }
+  let closeForm = () => {
+    cancel('Transactions')
+    dispatch(needReload())
   }
 
 

@@ -7,6 +7,10 @@
 .transaction-container {
   @extend %page;
 
+  .transaction-and-filter {
+    height: 100%;
+  }
+
   .content-area {
     height: calc(100vh - 210px);
     margin: 50px 0px;

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import "./DocumentForm.scss"
 
 import Input from "../../Inputs/Input/Input";
-import {generateInput} from "../../../services/Generators/generateInput";
+import generateInput from "../../../services/Generators/generateInput";
 import Post from "../../../services/Api/POST/post"
 import getAll from "../../../services/Api/GET/getAll"
 // import {generateButton} from "../../../services/Generators/generateButton";
@@ -30,7 +30,7 @@ function DocumentForm(props) {
 	}
 
 	let getDocuments = async () => {
-		let res = await getAll('documents', 1, {userID: user.id})
+		let res = await getAll('documentUsers', {userId: user.id})
 		if (res && res.data)
 			setDocuments(res.data)
 	}
@@ -51,7 +51,7 @@ function DocumentForm(props) {
 		let formData = new FormData()
 
 		formData.append('pdf', document.getValue)
-		await Post('upload', formData)
+		await Post('uploadDocumentUser', formData)
 		await getDocuments()
 	}
 
@@ -75,8 +75,8 @@ function DocumentForm(props) {
 							? (<span>Documents uploaded will be here... </span>)
 							: documents.map(i => {
 								return (
-									<div key={i.id} className="document" title={i.file_name}>
-										<a href={i.url} target="_blank">{i.file_name}</a>
+									<div key={i.id} className="document" title={i.fileName}>
+										<a href={i.url} target="_blank">{i.fileName}</a>
 
 										{/*{*/}
 										{/*	mode === 'edit' &&*/}

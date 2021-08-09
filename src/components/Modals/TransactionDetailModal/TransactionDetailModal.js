@@ -6,54 +6,103 @@ import Button from "../../Inputs/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {generatePageOption} from "../../../services/Generators/generatePageOption";
 import {generateButton} from "../../../services/Generators/generateButton";
-import {hideTransactionDetail} from "../../../redux";
-import Put from "../../../services/Api/PUT/put";
+import {hideTransactionDetail, needReload} from "../../../redux";
+// import Put from "../../../services/Api/PUT/put";
+// import getAll from "../../../services/Api/GET/getAll";
 import getAll from "../../../services/Api/GET/getAll";
 import Status from "../../Forms/Status/Status";
 import TransactionForm from "../../Forms/TransactionForm/TransactionForm";
 import TransactionDocumentForm from "../../Forms/TransactionDocumentForm/TransactionDocumentForm";
 import Comment from "../../Forms/Comment/Comment";
+import getUnit from "../../../services/Api/GET/getUnit";
 
 function TransactionDetailModal(props) {
   let dispatch = useDispatch(),
-      {isDisplay, mode, transaction} = useSelector(state => {
+      {isDisplay, initMode, transactionDetail} = useSelector(state => {
         return state.transactionDetail
       }),
-      [optionList, setOptionList] = useState([]),
-      closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon'),
-      isActionDisable = transaction.transaction_required_count === 47
+      [mode, setMode] = useState(initMode),
+      [transaction, setTransaction] = useState(transactionDetail),
+      [comments, setComments] = useState([]),
+      [canComplete, setCanComplete] = useState(false),
+      [optionList, setOptionList] = useState([
+        generatePageOption('Transaction', 'md', true),
+        generatePageOption('Documents', 'md', false),
+        generatePageOption('Comments', 'md', false),
+      ]),
+      [statusConfig, setStatusConfig] = useState({}),
+      [documentType, setDocumentType] = useState({}),
+      [isUserEdited, setIsUserEdited] = useState(false),
+      closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
 
 
+
+  useEffect(async () => {
+    setTransaction(transactionDetail)
+  }, [transactionDetail])
   useEffect(() => {
-    setOptionList([
-      generatePageOption('Transaction', 'md', true),
-      generatePageOption('Documents', 'md', false),
-      generatePageOption('Comments', 'md', false),
-    ])
-  }, [mode])
+    setMode(initMode)
+  }, [initMode])
+  useEffect(async () => {
+    await loadDocuments()
+    setComments(transaction.comments)
+  }, [transaction])
+  useEffect(() => {
+    if (transaction && transaction.user)
+      setStatusConfig({
+        transactionId: transaction.id,
+        userId: transaction.user.id,
+        activeStatus: transaction.transactionStatus.name,
+        mode: 'edit',
+        isActionDisable: !canComplete
+      })
+  }, [documentType, transaction, canComplete])
+
+
   let changeOption = (optionName) => {
     setOptionList(optionList.map(i => {
       return generatePageOption(i.name, i.size, i.name === optionName)
     }))
   }
-  let changePageOption = (optionName, andReload = false) => {
-    setOptionList(optionList.map(i => {
-      return generatePageOption(i.name, i.size, i.name === optionName)
-    }))
-
-    // if (andReload)
-    //   return loadData()
+  let loadDocuments = async () => {
+    if (transaction && transaction.id) {
+      let {data} = await getAll('documentTypes', {transactionId: transaction.id})
+      setCanComplete(data.canComplete)
+      setDocumentType(data)
+    }
   }
   let closeModal = () => {
     dispatch(hideTransactionDetail())
+    if (isUserEdited) {
+      dispatch(needReload())
+      setIsUserEdited(false)
+    }
   }
-  let saveTransaction = async (id, payload) => {
-    await Put('users', id, payload)
-    let {data: getInfoResult} = await getAll('info')
-    localStorage.setItem('user', JSON.stringify(getInfoResult))
-    closeModal()
+  let userEdited = () => {
+    if (!isUserEdited)
+      setIsUserEdited(true)
   }
+  let updateCanComplete = (newCanComplete) => {
+    setCanComplete(newCanComplete)
+  }
+  let reloadDetailTransaction = async () => {
+    let {data} = await getUnit('transactions', transaction.id)
+    updateMode(data.transactionStatus.name)
+    setTransaction(data)
+  }
+  let updateMode = (status) => {
+    let {isAdmin, id} = JSON.parse(localStorage.getItem('user'))
 
+    status = status.toLowerCase()
+
+    // user + new/in-progress -> edit
+    if ((!isAdmin || (isAdmin && id === transaction.user.id)) &&
+      (status === 'new' || status === 'in progress'))
+      return setMode('edit')
+
+    // the rest are view
+    return setMode('view')
+  }
 
 
 
@@ -72,7 +121,7 @@ function TransactionDetailModal(props) {
         </div>
 
         <div className={`status-actions ${optionList[0].isActive ? 'transaction' : ''}`}>
-          <Status configs={{activeStatus: transaction.status, userID: transaction.user_id, mode: 'edit', isActionDisable}}/>
+          <Status configs={statusConfig} clickHandler={{userEdited, reloadDetailTransaction}} />
         </div>
 
         <div className="page-options-content">
@@ -80,19 +129,25 @@ function TransactionDetailModal(props) {
             optionList[0].isActive &&
             <TransactionForm
               configs={{transaction, mode}}
-              clickHandler={{cancel: changePageOption}}
+              clickHandler={{cancel: closeModal}}
             />
           }
           {
             optionList[1].isActive &&
             <TransactionDocumentForm
-              configs={{transaction, mode}}
+              configs={{transaction, documentType}}
+              clickHandler={{updateCanComplete, userEdited, loadDocuments}}
             />
           }
           {
             optionList[2].isActive &&
             <Comment
-              configs={{comments: transaction.comments, mode: 'edit', transactionID: transaction.id, userID: transaction.user_id}}
+              configs={{
+                comments: comments,
+                mode: 'edit',
+                transactionId: transaction.id,
+              }}
+              clickHandler={{userEdited}}
             />
           }
         </div>

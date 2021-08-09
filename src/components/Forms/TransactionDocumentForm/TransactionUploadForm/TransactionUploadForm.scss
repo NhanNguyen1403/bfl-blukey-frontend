@@ -24,29 +24,40 @@
     background-color: white;
   }
 
-  .title  {
-    font-weight: bold;
-    margin: 10px 0px 15px -10px;
-  }
-
-  .upload-area {
-    border-bottom: dashed 1px $text-placeholder;
-  }
-
-  .uploaded-area {
-    @extend %uploaded-area;
+  .scroll {
     margin-left: -10px;
     padding-left: 10px;
-    justify-content: space-between;
+    height: calc(100% - 20px);
+    overflow: auto;
 
     .title {
-      width: 100%;
-      margin: 20px 0 0 -10px;
+      font-weight: bold;
+      margin: 20px 0px 10px -10px;
     }
 
-    .document {
-      width: calc(50% - 5px);
-      gap: 5px;
+    .upload-area {
+      border-bottom: dashed 1px $text-placeholder;
+      padding-bottom: 15px;
+    }
+
+    .uploaded-area {
+
+      .uploaded {
+        @extend %uploaded-area;
+        margin-left: -10px;
+        padding-left: 10px;
+        justify-content: space-between;
+
+        .title {
+          width: 100%;
+          margin: 20px 0 0 -10px;
+        }
+
+        .document {
+          width: calc(50% - 5px);
+          gap: 5px;
+        }
+      }
     }
   }
 }

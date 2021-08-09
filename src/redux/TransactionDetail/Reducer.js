@@ -2,16 +2,16 @@ import {SHOW_TRANSACTION_DETAIL_MODAL, HIDE_TRANSACTION_MODAL} from "./Type";
 
 const initialState = {
 	isDisplay: false,
-	mode: 'view',
-	transaction: {},
+	initMode: 'view',
+	transactionDetail: {},
 }
 
 const transactionDetailReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SHOW_TRANSACTION_DETAIL_MODAL:
 			return {
-				mode: action.mode,
-				transaction: action.transaction,
+				initMode: action.initMode,
+				transactionDetail: action.transactionDetail,
 				isDisplay: true,
 			}
 

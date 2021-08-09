@@ -12,8 +12,9 @@ import React, {useEffect, useState} from 'react';
 
 import "./Administrator.scss"
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab} from "../../redux";
+import {completeReload} from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
 import {generateButton} from "../../services/Generators/generateButton"
@@ -25,39 +26,45 @@ import Table from "../../components/DataExhibitions/Table/Table";
 import CreateUserForm from "../../components/Forms/CreateUserForm/CreateUserForm";
 
 function Administrator() {
-  let dispatch = useDispatch()
-  let closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon')
-  let [currentPage, setCurrentPage] = useState(1)
-  let [optionList, setOptionList] = useState([
-    generatePageOption('Users', 'lg', true),
-    generatePageOption('Create', 'lg', false),
-  ])
-  let [users, setUsers] = useState([])
-  let [pageConfigs, setPagingConfigs] = useState({current: currentPage, totalItem: 1})
+  let dispatch = useDispatch(),
+      closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
+      [currentPage, setCurrentPage] = useState(1),
+      [optionList, setOptionList] = useState([
+        generatePageOption('Users', 'lg', true),
+        generatePageOption('Create', 'lg', false),
+      ]),
+      [users, setUsers] = useState([]),
+      [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 25, totalItem: 1}),
+      {needReload} = useSelector(state => {
+        return state.reload
+      })
 
   useEffect(async () => {
     await loadData()
+    setPagingConfigs(prev => {return {...prev, current: currentPage}})
   }, [currentPage])
 
-
+  useEffect(async () => {
+    if (needReload) {
+      await loadData()
+      dispatch(completeReload())
+    }
+  }, [needReload])
 
   let loadData = async () => {
     // Call getAll API to get data
-    let {data, paging} = await getAll('users', currentPage)
+    let {data, paging} = await getAll('users', {page: currentPage})
 
     setUsers(data)
-    setPagingConfigs({...pageConfigs, totalItem: paging.total})
+    setPagingConfigs(prev => {return {...prev, totalItem: paging.total}})
   }
   let redirectHome = () => {
     dispatch(changeGlobalTab('Home'))
   }
-  let changePageOption = (optionName, andReload = false) => {
+  let changePageOption = (optionName) => {
     setOptionList(optionList.map(i => {
       return generatePageOption(i.name, i.size, i.name === optionName)
     }))
-
-    if (andReload)
-      return loadData()
   }
 
 
@@ -66,7 +73,7 @@ function Administrator() {
     setCurrentPage(page)
   }
   let next = () => {
-    if (currentPage < (pageConfigs.totalItem / 25))
+    if (currentPage < (pageConfigs.totalItem / pageConfigs.itemPerPage))
       setCurrentPage(prevState => prevState + 1)
   }
   let back = () => {

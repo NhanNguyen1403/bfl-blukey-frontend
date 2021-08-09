@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import "./TransactionList.scss"
 import TransactionItem from "./TransactionItem/TransactionItem";
@@ -13,33 +13,33 @@ function TransactionList(props) {
   let {transactions, pageConfigs} = props.configs,
       dispatch = useDispatch()
 
+
   let showDetailModal = (transaction) => {
     let editMode = isEdit(transaction)
     dispatch(showTransactionDetail(`${editMode ? 'edit' : 'view'}`, transaction))
   }
 
   let isEdit = (transaction) => {
-    let {is_admin, id} = JSON.parse(localStorage.getItem('user')),
-        status = transaction.status
+    let {isAdmin, id} = JSON.parse(localStorage.getItem('user')),
+        {transactionStatus} = transaction,
+        status = transactionStatus.name.toLowerCase()
 
     // user + new/in-progress/error -> edit
-    if ((!is_admin || (is_admin && id === transaction.user_id)) && (status === 'new' || status === 'in progress' || status === 'error'))
+    if ((!isAdmin || (isAdmin && id === transaction.user.id)) &&
+      (status === 'new' || status === 'in progress'))
       return true
 
     // the rest are view
     return false
   }
 
+
   return (
     <div className='transaction-list-container'>
-      <div className="filter-area">
-        <TransactionFilter clickHandler={props.clickHandler}/>
-      </div>
-
       <div className="transaction-list-area">
         {
           transactions.map(i => {
-            return (<TransactionItem key={i.transaction_id} configs={i} clickHandler={showDetailModal}/>)
+            return (<TransactionItem key={i.id} configs={i} clickHandler={showDetailModal}/>)
           })
         }
       </div>

@@ -3,25 +3,50 @@ import React, {useEffect, useState} from 'react';
 import "./Status.scss"
 import Button from "../../Inputs/Button/Button";
 import {generateButton} from "../../../services/Generators/generateButton";
+import Put from "../../../services/Api/PUT/put";
 
 function Status(props) {
-  let {activeStatus, userID, mode, isActionDisable} = props.configs,
+  let {transactionId, activeStatus, userId, mode, isActionDisable} = props.configs,
+      {userEdited, reloadDetailTransaction} = props.clickHandler,
       statuses = ['new', 'in progress', 'review', 'complete', 'error'],
       inProgressButton = generateButton('In progress', 'text', 'solid', 'sm'),
       [reviewButton, setReviewButton] = useState(generateButton('Request review', 'text', 'solid disable', 'sm')),
       approveButton = generateButton('Approve', 'text', 'solid', 'sm'),
       rejectButton = generateButton('Reject', 'text', 'outlined warning', 'sm'),
-      {is_admin, id} = JSON.parse(localStorage.getItem('user'))
-
+      {isAdmin, id} = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
-    if (isActionDisable)
-      setReviewButton = generateButton('Request review', 'text', 'solid', 'sm')
-  }, [])
+    if (!isActionDisable)
+      setReviewButton(generateButton('Request review', 'text', 'solid', 'sm'))
+    else
+      setReviewButton(generateButton('Request review', 'text', 'solid disable', 'sm'))
+
+  }, [isActionDisable])
 
 
-  let updateStatus = (status) => {
-    console.log('Change Status to', status)
+  let updateStatus = async (statusName) => {
+    let payload = {status: getStatusId(statusName)}
+
+    await Put('transactions/status', transactionId, payload)
+    userEdited()
+    reloadDetailTransaction()
+  }
+
+  let getStatusId = (statusName) => {
+    let statusIds = {
+        new: 1,
+        "in progress": 2,
+        review: 3,
+        complete: 4,
+        error: 5
+      }
+    return statusIds[statusName]
+  }
+
+  let isStatusEqual = (targetStatus) => {
+    if (!activeStatus) return false
+
+    return activeStatus.toLowerCase() === targetStatus
   }
 
 
@@ -33,22 +58,22 @@ function Status(props) {
       <div title={isActionDisable ? 'You need to to upload 47 required documents' : ''}  className="status-area">
         {
           statuses.map(i => {
-            return <span key={i} className={`status ${i === activeStatus ? activeStatus.replace(' ', ''): ''}`}>{i}</span>
+            return <span key={i} className={`status ${isStatusEqual(i) ? i.replace(' ', ''): ''}`}>{i}</span>
           })
         }
       </div>
 
       {
         mode === 'edit' &&
-        <div title={activeStatus === 'in progress' ? 'You need to upload 47 required documents to request view' : ''} className="button-area">
+        <div title={isStatusEqual('in progress') ? 'You need to upload 47 required documents to request view' : ''} className="button-area">
           {
-            (!is_admin || (is_admin && userID === id)) &&
-            (activeStatus === 'new' || activeStatus === 'error') &&
+            (!isAdmin || (isAdmin && userId === id)) &&
+            (isStatusEqual('new') || isStatusEqual('error')) &&
             <Button configs={inProgressButton} clickHandler={() => updateStatus('in progress')}/>
           }
-          {(!is_admin || (is_admin && userID === id)) && activeStatus === 'in progress' && <Button configs={reviewButton} clickHandler={() => updateStatus('request review')}/>}
-          {is_admin && activeStatus === 'review' && <Button configs={approveButton} clickHandler={() => updateStatus('complete')}/>}
-          {is_admin && activeStatus === 'review' && <Button configs={rejectButton} clickHandler={() => updateStatus('error')}/>}
+          {(!isAdmin || (isAdmin && userId === id)) && isStatusEqual('in progress') && <Button configs={reviewButton} clickHandler={() => updateStatus('review')}/>}
+          {isAdmin && isStatusEqual('review') && <Button configs={approveButton} clickHandler={() => updateStatus('complete')}/>}
+          {isAdmin && isStatusEqual('review') && <Button configs={rejectButton} clickHandler={() => updateStatus('error')}/>}
         </div>
       }
     </div>
