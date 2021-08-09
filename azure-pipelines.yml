@@ -7,7 +7,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- bash: echo overwrite env before build
+- bash: echo override env before build
   env:
     SERVER_URL: $(SERVER_URL)
 - task: NodeTool@0
