@@ -27,7 +27,7 @@ function TransactionForm(props) {
     buyer = generateInput('Buyer', 'text', `${transaction?.buyerName || ''}`, 'half', true, [], mode === 'view'),
     seller = generateInput('Seller', 'text', `${transaction?.sellerName || ''}`, 'half', true, [], mode === 'view'),
     price = generateInput('Price ($)', 'number', `${transaction?.listingPrice || 0}`, 'half', true, [], mode === 'view'),
-    commissionRate = generateInput('Commission rate (%)', 'number', `${transaction?.commissionAmount || 0}`, 'half', true, [], mode === 'view'),
+    commissionRate = generateInput('Commission ($)', 'number', `${transaction?.commissionAmount || 0}`, 'half', true, [], mode === 'view'),
     startDate = generateInput('Start date', 'date', `${transaction?.listingStartDate || ''}`, 'half', true, [], mode === 'view'),
     endDate = generateInput('End date', 'date', `${transaction?.listingEndDate || ''}`, 'half', true, [], mode === 'view'),
     createButton = generateButton(`${mode === 'edit' ? 'Save' : 'Create'}`, 'text', 'solid', 'md'),

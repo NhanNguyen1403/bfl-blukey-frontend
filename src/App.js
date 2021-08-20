@@ -65,6 +65,8 @@ function App() {
 					<Route path="/users">
 						{isAdmin ? <Administrator /> : redirectHome}
 					</Route>
+					<Route path="/login" component={Home}/>
+					<Route path="/" component={Home}/>
 				</Switch>
 				<Menu/>
 				<SnackBar/>
