@@ -11,7 +11,7 @@ const generateInput = function (
 	isRequired = true,
 	data = [],
 	isDisable = false, 
-	keyPress = () => {}) {
+	keyPress = undefined) {
 	try {
 		return {
 			labelName,

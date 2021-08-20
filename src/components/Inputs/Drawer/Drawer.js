@@ -6,68 +6,55 @@ import DrawerItem from "./DrawerItem/DrawerItem";
 import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab}  from "../../../redux";
 
+
 function Drawer() {
-	let [drawerList, setDrawerList] = useState([]),
-			dispatch = useDispatch(),
+	let dispatch = useDispatch(),
+			{isAdmin} = JSON.parse(localStorage.getItem('user')) || false,
 			{currentTab} = useSelector(state => {
 				return state.tab
 			})
 
 
-	useEffect(() => {
-		setDrawerList(drawerList.map(i => {
-			return {
-				...i,
-				isActive: i.name === currentTab
-			}
-		}))
-	}, [currentTab])
-
-	useEffect(() => {
-		let {isAdmin} = JSON.parse(localStorage.getItem('user'))
-		if (isAdmin) {
-			setDrawerList([
-				{name: "Home", icon: 'home', isActive: true},
-				{name: "Administrator", icon: 'users', isActive: false},
-				{name: "Transaction", icon: 'activity', isActive: false},
-			])
-		} else {
-			setDrawerList([
-				{name: "Home", icon: 'home', isActive: true},
-				{name: "Transaction", icon: 'activity', isActive: false},
-			])
-		}
-	}, [])
-
-	const changeTab = (itemName) => {
-		if (itemName === currentTab)
+	const changeTab = (newTab) => {
+		if (newTab === currentTab)
 			return
-
-		dispatch(changeGlobalTab(itemName))
-		setDrawerList(drawerList.map(i => {
-			return {
-				...i,
-				isActive: i.name === itemName
-			}
-		}))
+		dispatch(changeGlobalTab(newTab))
 	}
 
+
 	return (
-		<div className='drawer-container'>
+		<nav className={'drawer-container'}>
 			<div className="logo">
 				<img src={logo} alt="BluKey Logo"/>
 			</div>
 
 			<div className="drawer-item-area">
+				<DrawerItem
+					path={'/home'}
+					name={'Home'}
+					icon={'home'}
+					currentTab={currentTab}
+					clickHandler={changeTab}
+				/>
+				<DrawerItem
+					path={'/transactions'}
+					name={'Transactions'}
+					icon={'activity'}
+					currentTab={currentTab}
+					clickHandler={changeTab}
+				/>
 				{
-					drawerList.map(i => {
-						return (<DrawerItem key={i.name} configs={i} clickHandler={changeTab}/>)
-					})
+					isAdmin && <DrawerItem
+						path={'/users'}
+						name={'Users'}
+						icon={'users'}
+						currentTab={currentTab}
+						clickHandler={changeTab}
+					/>
 				}
 			</div>
-
-		</div>
-	);
+		</nav>
+	)
 }
 
 export default Drawer;

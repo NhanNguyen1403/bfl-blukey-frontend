@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import './App.scss';
 import checkSession from "./services/Session/checkSession"
@@ -13,43 +13,66 @@ import Menu from "./components/Inputs/Menu/Menu";
 import SnackBar from "./components/SnackBar/SnackBar";
 import ProfileModal from "./components/Modals/ProfileModal/ProfileModal";
 import Loader from "./components/Modals/Loader/Loader";
+import {changeTab as changeGlobalTab} from "./redux";
+import {
+	BrowserRouter,
+	Switch,
+	Route, Redirect,
+} from "react-router-dom";
 
 function App() {
+	checkSession().catch(err => console.log(new Error(err)))
+	let dispatch = useDispatch(),
+			{isAdmin} = JSON.parse(localStorage.getItem('user')) || false,
+			{isDisplay: isLoaderDisplay} = useSelector(state => {
+				return state.loader
+			})
 	const {isLogged} = useSelector(state => {
-		return state.session
-	})
-	const {currentTab} = useSelector(state => {
-		return state.tab
-	})
-	let {isDisplay: isLoaderDisplay} = useSelector(state => {
-		return state.loader
-	})
+					return state.session
+				}),
+				{currentTab} = useSelector(state => {
+					return state.tab
+				})
 
 
 	useEffect(() => {
 		checkSession().catch(err => console.log(new Error(err)))
 	}, [isLogged])
 
+	let redirectHome = () => {
+		dispatch(changeGlobalTab('Home'))
+		return <Redirect to="/home" />
+	}
+
 	if (!isLogged)
 		return (
 			<div className="App">
 				<Login/>
+				<SnackBar isLogging={true}/>
+				{isLoaderDisplay && <Loader isLogging={true}/>}
 			</div>
 		)
 
 	return (
-		<div className="App">
-			<Drawer/>
-			<div className="top-cover"/>
-			{currentTab === 'Home' && <Home/>}
-			{currentTab === 'Administrator' && <Administrator/>}
-			{currentTab === 'Transaction' && <Transaction/>}
-			<Menu/>
-			<SnackBar/>
-			<ProfileModal/>
-			{isLoaderDisplay && <Loader/>}
-		</div>
-	);
+		<BrowserRouter>
+			<div className="App">
+				<Drawer/>
+				<div className="top-cover"/>
+				<Switch>
+					<Route path="/" component={Home} exact/>
+					<Route path="/home" component={Home}/>
+					<Route path="/transactions" component={Transaction}/>
+					<Route path="/users">
+						{isAdmin ? <Administrator /> : redirectHome}
+					</Route>
+				</Switch>
+				<Menu/>
+				<SnackBar/>
+				<ProfileModal/>
+				{isLoaderDisplay && <Loader/>}
+			</div>
+		</BrowserRouter>
+	)
 }
 
 export default App;

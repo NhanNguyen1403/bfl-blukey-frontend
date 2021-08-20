@@ -21,6 +21,7 @@ function TransactionFilter(props) {
 			[agents, setAgents] = useState([]),
 			[status, setStatus] = useState(generateInput('Status', 'text', '', 'sm', false, [])),
 			filterButton = generateButton('Filter', 'icon', 'square', 'md', 'filter-icon'),
+			{isAdmin} = JSON.parse(localStorage.getItem('user')) || false,
 			awaitSearch = null,
 			statuses = {
 				New: 1,
@@ -33,8 +34,10 @@ function TransactionFilter(props) {
 
 
 	useEffect(() => {
-		loadAgentNames()
 		loadStatuses()
+
+		if (isAdmin)
+			loadAgentNames()
 	},[])
 
 	let searchAgent = (agentName) => {
@@ -43,7 +46,7 @@ function TransactionFilter(props) {
 
 		if (awaitSearch)
 			clearTimeout(awaitSearch)
-		
+
 		awaitSearch = setTimeout(() => {
 			loadAgentNames(agentName)
 		}, 2000);
@@ -58,10 +61,10 @@ function TransactionFilter(props) {
 				},
 				{data} = await getAll('users', params),
 				agentNames = data.map(agent => agent.fullName),
-				{labelName, type, getValue, size, isRequired} = agentNameInput
-		
+				{labelName, type, size, isRequired} = agentNameInput
+
 		setAgents(data)
-		setAgentNameInput(generateInput(labelName, type, getValue, size, isRequired, agentNames, false, searchAgent))
+		setAgentNameInput(generateInput(labelName, type, fullName, size, isRequired, agentNames, false, searchAgent))
 	}
 	let loadStatuses = async () => {
 		// load statuses
@@ -77,7 +80,7 @@ function TransactionFilter(props) {
 		if (agentNameInput.getValue) {
 			let agent = agents.find(agent => agent.fullName === agentNameInput.getValue)
 			if (!agent)
-				return dispatch(showSnack('Agent invalid', 'danger')) 
+				return dispatch(showSnack('Agent invalid', 'danger'))
 			agentId = agent.id
 		}
 
@@ -96,11 +99,13 @@ function TransactionFilter(props) {
 
 	return (
 		<div className='transaction-filter-container'>
-			<Input configs={transactionIdInput}/>
-			<Input configs={startDateInput}/>
-			<Input configs={endDateInput}/>
-			<Input configs={agentNameInput}/>
-			<Input configs={status}/>
+			<div className="input-area">
+				<Input configs={transactionIdInput}/>
+				<Input configs={startDateInput}/>
+				<Input configs={endDateInput}/>
+				{isAdmin && <Input configs={agentNameInput}/> }
+				<Input configs={status}/>
+			</div>
 
 			<div className="button-area">
 				<Button configs={filterButton} clickHandler={validate}/>

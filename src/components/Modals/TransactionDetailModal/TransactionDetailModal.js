@@ -26,9 +26,9 @@ function TransactionDetailModal(props) {
       [comments, setComments] = useState([]),
       [canComplete, setCanComplete] = useState(false),
       [optionList, setOptionList] = useState([
-        generatePageOption('Transaction', 'md', true),
-        generatePageOption('Documents', 'md', false),
-        generatePageOption('Comments', 'md', false),
+        generatePageOption('','Transaction', 'md', true),
+        generatePageOption('','Documents', 'md', false),
+        generatePageOption('','Comments', 'md', false),
       ]),
       [statusConfig, setStatusConfig] = useState({}),
       [documentType, setDocumentType] = useState({}),
@@ -61,7 +61,7 @@ function TransactionDetailModal(props) {
 
   let changeOption = (optionName) => {
     setOptionList(optionList.map(i => {
-      return generatePageOption(i.name, i.size, i.name === optionName)
+      return generatePageOption(i.path, i.name, i.size, i.name === optionName)
     }))
   }
   let loadDocuments = async () => {

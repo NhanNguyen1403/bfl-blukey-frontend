@@ -24,20 +24,29 @@ import PageOption from "../../components/Inputs/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
 import Table from "../../components/DataExhibitions/Table/Table";
 import CreateUserForm from "../../components/Forms/CreateUserForm/CreateUserForm";
+import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 
 function Administrator() {
   let dispatch = useDispatch(),
       closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
       [currentPage, setCurrentPage] = useState(1),
       [optionList, setOptionList] = useState([
-        generatePageOption('Users', 'lg', true),
-        generatePageOption('Create', 'lg', false),
+        generatePageOption('','Users', 'lg', true),
+        generatePageOption('/create','Create', 'lg', false),
       ]),
       [users, setUsers] = useState([]),
       [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 25, totalItem: 1}),
       {needReload} = useSelector(state => {
         return state.reload
-      })
+      }),
+      {currentTab} = useSelector(state => {
+        return state.tab
+      }),
+      {path} = useRouteMatch(),
+      currentPath = window.location.pathname,
+      history = useHistory()
+
+
 
   useEffect(async () => {
     await loadData()
@@ -51,6 +60,20 @@ function Administrator() {
     }
   }, [needReload])
 
+  useEffect(() => {
+    if (currentTab !== 'Users')
+      dispatch(changeGlobalTab('Users'))
+
+  }, [currentTab])
+
+  useEffect(() => {
+    if (currentPath === '/users' || currentPath === '/users/')
+      return changePageOption('Users')
+    if (currentPath === '/users/create' || currentPath === '/users/create/')
+      changePageOption('Create')
+  }, [currentPath])
+
+
   let loadData = async () => {
     // Call getAll API to get data
     let {data, paging} = await getAll('users', {page: currentPage, fullName: ''})
@@ -60,10 +83,11 @@ function Administrator() {
   }
   let redirectHome = () => {
     dispatch(changeGlobalTab('Home'))
+    history.push("/home")
   }
   let changePageOption = (optionName) => {
     setOptionList(optionList.map(i => {
-      return generatePageOption(i.name, i.size, i.name === optionName)
+      return generatePageOption(i.path, i.name, i.size, i.name === optionName)
     }))
   }
 
@@ -98,20 +122,23 @@ function Administrator() {
       </div>
 
       <div className="content-area">
-        {
-          optionList[0].isActive &&
-          <div className="table-area">
-            <Table configs={{users, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
-          </div>
-        }
+        <Switch>
+          {
+            <Route path={`${path}`} exact>
+              <div className="table-area">
+                <Table configs={{users, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
+              </div>
+            </Route>
+          }
 
-        {
-          optionList[1].isActive &&
-          <CreateUserForm
-            clickHandler={{cancel: changePageOption}}
-          />
-        }
-
+          {
+            <Route path={`${path}/create`}>
+              <CreateUserForm
+                clickHandler={{cancel: changePageOption}}
+              />
+            </Route>
+          }
+        </Switch>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import home3 from "../../assets/desktop/home-3.jpg"
 
 function Home(props) {
 	let [optionList, setOptionList] = useState([
-		generatePageOption('Home', 'lg', true),
+		generatePageOption('','Home', 'lg', true),
 	])
 	let images = [
 		{original: home1, thumbnail: home1},
@@ -21,7 +21,7 @@ function Home(props) {
 
 	let changeOption = (optionName) => {
 		setOptionList(optionList.map(i => {
-			return generatePageOption(i.name, i.size, i.name === optionName)
+			return generatePageOption(i.path, i.name, i.size, i.name === optionName)
 		}))
 	}
 

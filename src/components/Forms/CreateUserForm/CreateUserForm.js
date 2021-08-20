@@ -6,6 +6,7 @@ import generateInput from "../../../services/Generators/generateInput";
 import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
 import Post from '../../../services/Api/POST/post'
+import {useHistory} from "react-router-dom";
 
 function CreateUserForm(props) {
 	let {cancel} = props.clickHandler
@@ -17,7 +18,8 @@ function CreateUserForm(props) {
 			userName = generateInput('Username', 'text', '', 'half'),
 			password = generateInput('Password', 'password', '', 'half'),
 			createButton = generateButton('Create', 'text', 'solid','md'),
-			cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
+			cancelButton = generateButton('Cancel', 'text', 'outlined', 'md'),
+			history = useHistory()
 
 	let validate = () => {
 		let inputs = [firstName,lastName,email,role,address,userName,password]
@@ -37,7 +39,11 @@ function CreateUserForm(props) {
 
 	let create = async (payload) => {
 		await Post('users', payload)
+		closeForm()
+	}
+	let closeForm = () => {
 		cancel('Users', true)
+		history.push("/users")
 	}
 
 	return (
@@ -61,7 +67,7 @@ function CreateUserForm(props) {
 
 			<div className="button-area">
 				<Button configs={createButton} clickHandler={validate}/>
-				<Button configs={cancelButton} clickHandler={() => cancel('Users')}/>
+				<Button configs={cancelButton} clickHandler={() => closeForm()}/>
 			</div>
 		</div>
 	);

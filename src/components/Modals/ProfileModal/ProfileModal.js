@@ -29,8 +29,8 @@ function ProfileModal(props) {
 		// 		]
 		// 	)
 		setOptionList([
-			generatePageOption('Profile', 'md', true),
-			generatePageOption('Documents', 'md', false),
+			generatePageOption('','Profile', 'md', true),
+			generatePageOption('','Documents', 'md', false),
 		])
 	}, [mode])
 	let closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
@@ -40,7 +40,7 @@ function ProfileModal(props) {
 	}
 	let changeOption = (optionName) => {
 		setOptionList(optionList.map(i => {
-			return generatePageOption(i.name, i.size, i.name === optionName)
+			return generatePageOption(i.path, i.name, i.size, i.name === optionName)
 		}))
 	}
 

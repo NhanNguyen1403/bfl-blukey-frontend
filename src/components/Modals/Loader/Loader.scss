@@ -8,6 +8,7 @@
 	height: 100vh;
 	display: flex;
 	position: fixed;
+	z-index: 4;
 	top: 0;
 	left: 0;
 
@@ -17,12 +18,14 @@
 		padding: 0 10px;
 		background-color: white;
 		box-shadow: 0 10px 40px -10px #96aab490;
-		z-index: 2;
+		z-index: 5;
 		margin-top: 30vh;
 		margin-left: calc(50vw + 125px - 40px);
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+
+
 
 		div {
 			width: 10px;
@@ -42,12 +45,19 @@
 		}
 	}
 
+	&.logging {
+		.loader {
+			margin-inline: auto;
+		}
+	}
+
 	.blur {
 		width: 100vw;
 		height: 100vh;
 		position: absolute;
 		background-color: #00000085;
 		border-radius: 0;
+		z-index: 4;
 	}
 }
 

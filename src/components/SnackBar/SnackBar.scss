@@ -5,9 +5,9 @@
 
 .snack-bar-container {
   position: fixed;
-  min-width: 250px;
+  width: 300px;
   bottom: 40px;
-  left: 50vw;
+  left: calc(50vw + 125px - 160px);
   height: 40px;
   animation: slide-up 300ms ease-out;
   display: flex;
@@ -16,6 +16,10 @@
   padding: 0 10px;
   user-select: none;
   z-index: 1;
+
+  &.logging {
+    left: calc(50vw - 160px);
+  }
 
   p {
     font-weight: bold;

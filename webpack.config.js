@@ -14,10 +14,12 @@ module.exports = env => {
 		output: {
 			path: path.join(__dirname, '/dist'),
 			filename: 'index.bundle.js',
+			publicPath: '/'
 		},
 		devServer: {
 			port: 3000,
 			watchContentBase: true,
+			historyApiFallback: true,
 		},
 		module: {
 			rules: [

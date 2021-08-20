@@ -1,15 +1,20 @@
 import React from 'react';
 
 import "./pageOption.scss"
+import {Link, useRouteMatch} from "react-router-dom";
 
 function PageOption(props) {
-	let {name, size, isActive} = props.configs
+	let {path, name, size, isActive} = props.configs
+	const {url} = useRouteMatch()
+
 	return (
-		<div
-			className={`page-option-container ${size} ${isActive ? 'active' : ''}`}
-			onClick={() => props.clickHandler(name)}>
-			{name}
-		</div>
+		<Link to={`${url}${path}`}>
+			<div
+				className={`page-option-container ${size} ${isActive ? 'active' : ''}`}
+				onClick={() => props.clickHandler(name)}>
+				{name}
+			</div>
+		</Link>
 	);
 }
 
