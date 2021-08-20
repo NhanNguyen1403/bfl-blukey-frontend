@@ -50,7 +50,7 @@ function Comment(props) {
     }
     await Post('transactionComments', payload)
     getComments()
-    setMessageInput(generateInput('Put your comment here...', 'text-area','', 'full',false))
+    setMessageInput(generateInput('Put your comment here...', 'text-area', '', 'full',false))
     userEdited()
   }
   let editComment = async (commentId, message) => {

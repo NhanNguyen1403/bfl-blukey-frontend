@@ -10,6 +10,7 @@ import {showSnack} from "../../../redux";
 import {needReload} from "../../../redux";
 import {useDispatch} from "react-redux";
 import Put from "../../../services/Api/PUT/put";
+import {useHistory} from "react-router-dom";
 
 function TransactionForm(props) {
   let dispatch = useDispatch(),
@@ -26,11 +27,12 @@ function TransactionForm(props) {
     buyer = generateInput('Buyer', 'text', `${transaction?.buyerName || ''}`, 'half', true, [], mode === 'view'),
     seller = generateInput('Seller', 'text', `${transaction?.sellerName || ''}`, 'half', true, [], mode === 'view'),
     price = generateInput('Price ($)', 'number', `${transaction?.listingPrice || 0}`, 'half', true, [], mode === 'view'),
-    commissionRate = generateInput('Commission rate (%)', 'number', `${transaction?.commissionAmount || 0}`, 'half', true, [], mode === 'view'),
+    commissionRate = generateInput('Commission ($)', 'number', `${transaction?.commissionAmount || 0}`, 'half', true, [], mode === 'view'),
     startDate = generateInput('Start date', 'date', `${transaction?.listingStartDate || ''}`, 'half', true, [], mode === 'view'),
     endDate = generateInput('End date', 'date', `${transaction?.listingEndDate || ''}`, 'half', true, [], mode === 'view'),
     createButton = generateButton(`${mode === 'edit' ? 'Save' : 'Create'}`, 'text', 'solid', 'md'),
-    cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
+    cancelButton = generateButton('Cancel', 'text', 'outlined', 'md'),
+    history = useHistory()
 
 
   useEffect(() => {
@@ -73,11 +75,14 @@ function TransactionForm(props) {
   }
   let save = async (payload) => {
     await Put('transactions', transaction.id, payload)
-    closeForm()
+    closeForm(true)
   }
-  let closeForm = () => {
+  let closeForm = (requrestReload = false) => {
+    history.push("/transactions")
     cancel('Transactions')
-    dispatch(needReload())
+
+    if (requrestReload)
+      dispatch(needReload())
   }
 
 
@@ -114,7 +119,7 @@ function TransactionForm(props) {
           mode !== "view" &&
           <div className="button-area">
             <Button configs={createButton} clickHandler={validate}/>
-            <Button configs={cancelButton} clickHandler={() => cancel('Transactions')}/>
+            <Button configs={cancelButton} clickHandler={() => closeForm()}/>
           </div>
         }
       </div>

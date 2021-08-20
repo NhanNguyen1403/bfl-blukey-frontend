@@ -9,6 +9,14 @@
 
   margin-top: 5px;
 
+  .input-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+    margin-left: -5px;
+  }
+
   .button-area {
     height: 29px;
     width: 29px;

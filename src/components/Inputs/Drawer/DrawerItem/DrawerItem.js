@@ -6,25 +6,26 @@ import {FiActivity} from "react-icons/fi";
 import {TiHome} from "react-icons/ti";
 
 import "./DrawerItem.scss"
+import {Link} from "react-router-dom";
 
-function DrawerItem(props) {
-	let {name, icon, isActive} = props.configs
-
+function DrawerItem({path, name, icon, currentTab, clickHandler}) {
 	return (
-		<div
-			onClick={() => props.clickHandler(name)}
-			className={`drawer-item-container ${isActive ? 'active' : ''}`}>
+		<Link to={path}>
+			<div
+				onClick={() => clickHandler(name)}
+				className={`drawer-item-container ${currentTab === name ? 'active' : ''}`}
+				>
+					<IconContext.Provider value={{size: '20px', className: "icon"}}>
+						<div className="icon-area">
+							{icon === 'home' && <TiHome/>}
+							{icon === 'users' && <FaUsers/>}
+							{icon === 'activity' && <FiActivity/>}
+						</div>
+					</IconContext.Provider>
 
-			<IconContext.Provider value={{size: '20px', className: "icon"}}>
-				<div className="icon-area">
-					{icon === 'home' && <TiHome/>}
-					{icon === 'users' && <FaUsers/>}
-					{icon === 'activity' && <FiActivity/>}
-				</div>
-			</IconContext.Provider>
-
-			{name}
-		</div>
+					{name}
+			</div>
+		</Link>
 	);
 }
 

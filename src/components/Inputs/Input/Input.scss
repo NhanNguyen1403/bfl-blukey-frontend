@@ -22,7 +22,9 @@
   }
 
   &.sm {
-    width: 150px;
+    // width: 150px;
+    flex: 1;
+    padding-inline: 5px;
     font-size: 12px;
 
     input {

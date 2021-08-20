@@ -21,9 +21,23 @@ function Input(props) {
 			[value, setValue] = useState(props.configs.getValue)
 
 
+
 	useEffect(() => {
 		setValue(props.configs.getValue)
-	}, [props.configs.getValue]);
+	}, [props.configs.getValue])
+
+
+	const updateValue = (event) => {
+		let {value: newValue} = event.target
+
+		if (type === 'file')
+			return validate(event)
+
+		setValue(newValue)
+
+		if (props.configs.keyPress)
+			keyPressEvent(event)
+	}
 
 
 	const validate = (event) => {
@@ -54,10 +68,10 @@ function Input(props) {
 	let keyPressEvent = (event) => {
 		let newValue = event.target.value,
 				which = event.which
-		
+
 		// ignore left click and enter key
 		if (which && which !== 13) {
-			props.configs.setValue = newValue
+			// props.configs.setValue = newValue
 			props.configs.keyPress(newValue)
 		}
 	}
@@ -84,11 +98,11 @@ function Input(props) {
 				id={`${labelName}-${randomID}`}
 				placeholder={labelName}
 				type={type}
-				defaultValue={value}
+				value={type === 'file'? undefined : value}
 				autoComplete=''
-				onBlur={e => {if (type !== 'file') validate(e)}}
-				onChange={e => {if (type === 'file') validate(e)}}
-				onKeyUp={e => keyPressEvent(e)}
+				onBlur={e => validate(e)}
+				onChange={e =>  updateValue(e)}
+				onKeyUp={e => updateValue(e)}
 				list={data.length > 0 ? `${labelName}-${randomID}s` : ''}
 			/>
 

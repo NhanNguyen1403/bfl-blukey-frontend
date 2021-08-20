@@ -14,6 +14,7 @@ import TransactionList from "../../components/DataExhibitions/TransactionList/Tr
 import TransactionForm from "../../components/Forms/TransactionForm/TransactionForm";
 import getAll from "../../services/Api/GET/getAll";
 import TransactionFilter from "../../components/DataExhibitions/TransactionList/TransactionFilter/TransactionFilter";
+import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 
 
 function Transaction() {
@@ -21,8 +22,8 @@ function Transaction() {
       closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
       [currentPage, setCurrentPage] = useState(1),
       [optionList, setOptionList] = useState([
-        generatePageOption('Transactions', 'lg', true),
-        generatePageOption('Create', 'lg', false),
+        generatePageOption('','Transactions', 'lg', true),
+        generatePageOption('/create','Create', 'lg', false),
       ]),
       [params, setParams] = useState({
         transactionId: '',
@@ -35,8 +36,13 @@ function Transaction() {
       [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 5, totalItem: 1}),
       {needReload} = useSelector(state => {
         return state.reload
-      })
-
+      }),
+      {currentTab} = useSelector(state => {
+        return state.tab
+      }),
+      {path} = useRouteMatch(),
+      currentPath = window.location.pathname,
+      history = useHistory()
 
 
 
@@ -52,6 +58,19 @@ function Transaction() {
     }
   }, [needReload])
 
+  useEffect(() => {
+    if (currentTab !== 'Transactions')
+      dispatch(changeGlobalTab('Transactions'))
+  }, [currentTab])
+
+  useEffect(() => {
+    if (currentPath === '/transactions' || currentPath === '/transactions/')
+      return changePageOption('Transactions')
+    if (currentPath === '/transactions/create' || currentPath === '/transactions/create/')
+      changePageOption('Create')
+  }, [currentPath])
+
+
 
   let loadData = async () => {
     // Call getAll API to get data
@@ -62,16 +81,16 @@ function Transaction() {
   }
   let redirectHome = () => {
     dispatch(changeGlobalTab('Home'))
+    history.push("/home")
   }
   let changePageOption = (optionName) => {
     setOptionList(optionList.map(i => {
-      return generatePageOption(i.name, i.size, i.name === optionName)
+      return generatePageOption(i.path, i.name, i.size, i.name === optionName)
     }))
   }
 
 
   let filterHandler = async (params) => {
-    console.log(1, params)
     setParams({...params})
     setCurrentPage(1)
     setPagingConfigs(prev => {return {...prev, current: currentPage}})
@@ -105,28 +124,31 @@ function Transaction() {
       </div>
 
       <div className="content-area">
-        {
-          optionList[0].isActive && (
-            <div className={'transaction-and-filter'}>
-              <div className="filter-area">
-                <TransactionFilter configs={params} clickHandler={{filterHandler}}/>
-              </div>
+        <Switch>
+          {
+             <Route path={`${path}`} exact>
+                <div className={'transaction-and-filter'}>
+                  <div className="filter-area">
+                    <TransactionFilter configs={params} clickHandler={{filterHandler}}/>
+                  </div>
 
-              <TransactionList
-                configs={{transactions, pageConfigs}}
-                clickHandler={{next, back, changeDirectPage}}
+                  <TransactionList
+                    configs={{transactions, pageConfigs}}
+                    clickHandler={{next, back, changeDirectPage}}
+                  />
+                </div>
+             </Route>
+          }
+
+          {
+            <Route path={`${path}/create`}>
+              <TransactionForm
+                configs={{transaction: {}, mode: 'create'}}
+                clickHandler={{cancel: changePageOption}}
               />
-            </div>
-          )
-        }
-
-        {
-          optionList[1].isActive &&
-          <TransactionForm
-            configs={{transaction: {}, mode: 'create'}}
-            clickHandler={{cancel: changePageOption}}
-          />
-        }
+            </Route>
+          }
+        </Switch>
       </div>
     </div>
   );
