@@ -15,11 +15,15 @@ import Put from "../../../services/Api/PUT/put"
 import getUnit from "../../../services/Api/GET/getUnit";
 
 function ProfileModal(props) {
-	let dispatch = useDispatch()
-	let {isDisplay, mode, user} = useSelector(state => {
-		return state.profileModal
-	})
-	let [optionList, setOptionList] = useState([])
+	let dispatch = useDispatch(),
+			{isDisplay, mode, user} = useSelector(state => {
+				return state.profileModal
+			}),
+			[optionList, setOptionList] = useState([]),
+			closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
+
+
+
 	useEffect(() => {
 		// if (mode === 'edit')
 		// 	return setOptionList(prevState => [
@@ -33,7 +37,8 @@ function ProfileModal(props) {
 			generatePageOption('','Documents', 'md', false),
 		])
 	}, [mode])
-	let closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
+
+
 
 	let closeModal = () => {
 		dispatch(hideProfileModal())
@@ -43,20 +48,25 @@ function ProfileModal(props) {
 			return generatePageOption(i.path, i.name, i.size, i.name === optionName)
 		}))
 	}
-
 	let saveProfile = async (id, payload) => {
 		await Put('users', id, payload)
-		let {data: getInfoResult} = await getUnit('users', id)
-		localStorage.setItem('user', JSON.stringify(getInfoResult))
-		closeModal()
-		dispatch(needReload())
-	}
 
-	const savePassword = async (id, payload) => {
+		if (isLoggingUser(id)) {
+			let {data: getInfoResult} = await getUnit('users', id)
+			localStorage.setItem('user', JSON.stringify(getInfoResult))
+		}
+
+		dispatch(needReload())
+		closeModal()
+	}
+	let savePassword = async (id, payload) => {
 		await Put('users', id, payload)
 		closeModal()
 	}
-
+	let isLoggingUser = (id) => {
+		let {id: loggingUserId} = JSON.parse(localStorage.getItem('user'))
+		return loggingUserId === id
+	}
 
 	return (
 		isDisplay && <div className="profile-modal-container">

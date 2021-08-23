@@ -112,7 +112,7 @@ function Input(props) {
 						<datalist id={`${labelName}-${randomID}s`}>
 							{
 								data.map(i => {
-									return <option key={`option-item-${i}`} value={i}/>
+									return <option key={`option-item-${Math.random()}`} value={i}/>
 								})
 							}
 						</datalist>

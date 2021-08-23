@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import "./CreateUserForm.scss"
 import Input from "../../Inputs/Input/Input";
@@ -7,6 +7,8 @@ import {generateButton} from "../../../services/Generators/generateButton";
 import Button from "../../Inputs/Button/Button";
 import Post from '../../../services/Api/POST/post'
 import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {needReload} from "../../../redux";
 
 function CreateUserForm(props) {
 	let {cancel} = props.clickHandler
@@ -19,7 +21,8 @@ function CreateUserForm(props) {
 			password = generateInput('Password', 'password', '', 'half'),
 			createButton = generateButton('Create', 'text', 'solid','md'),
 			cancelButton = generateButton('Cancel', 'text', 'outlined', 'md'),
-			history = useHistory()
+			history = useHistory(),
+			dispatch = useDispatch()
 
 	let validate = () => {
 		let inputs = [firstName,lastName,email,role,address,userName,password]
@@ -39,11 +42,14 @@ function CreateUserForm(props) {
 
 	let create = async (payload) => {
 		await Post('users', payload)
-		closeForm()
+		closeForm(true)
 	}
-	let closeForm = () => {
-		cancel('Users', true)
+	let closeForm = (requestReload = false) => {
+		cancel('Users')
 		history.push("/users")
+
+		if (requestReload)
+			dispatch(needReload())
 	}
 
 	return (
