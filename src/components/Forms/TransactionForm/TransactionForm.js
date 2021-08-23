@@ -36,11 +36,11 @@ function TransactionForm(props) {
 
 
   useEffect(() => {
-    if (transaction.firstName && transaction.lastName)
-      setAgentName(generateInput('Agent name', 'text', `${transaction.firstName} ${transaction.lastName}`, 'half', true, [], true))
+    if (transaction?.user?.firstName && transaction?.user?.lastName)
+      setAgentName(generateInput('Agent name', 'text', `${transaction.user.firstName} ${transaction.user.lastName}`, 'half', true, [], true))
     else
       setAgentName(generateInput('Agent name', 'text', `${firstName} ${lastName}`, 'half', true, [], true))
-  }, [])
+  }, [transaction])
 
   let validate = () => {
     let inputs = [agentName, address, mlsID, seller, buyer, price, commissionRate, startDate, endDate]
@@ -71,7 +71,7 @@ function TransactionForm(props) {
   }
   let create = async (payload) => {
     await Post('transactions', payload)
-    closeForm()
+    closeForm(true)
   }
   let save = async (payload) => {
     await Put('transactions', transaction.id, payload)
