@@ -21,14 +21,22 @@ function TransactionDocumentForm(props) {
       uploaded: documentType.optionalDocumentUploaded,
       rest: documentType.restOfOptionalDocument
     })
-    if (transaction?.transactionStatus?.name === 'in progress')
-      setMode('edit')
+    isEditMode()
   }, [documentType])
 
   useEffect(() => {
-    if (transaction?.transactionStatus?.name.toLowerCase() === 'in progress')
-      setMode('edit')
+    isEditMode()
   }, [transaction])
+
+  let isEditMode = () => {
+    let {id} = JSON.parse(localStorage.getItem('user')),
+        status = transaction?.transactionStatus?.name?.toLowerCase()
+
+    // only owner transaction can upload and only apply for in progress status
+    if (id === transaction.user.id && status === 'in progress')
+      return setMode('edit')
+    return setMode('view')
+  }
 
 
   return (
