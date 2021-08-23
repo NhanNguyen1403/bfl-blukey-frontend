@@ -31,6 +31,10 @@ jobs:
         run: |
           echo '{ "script": "serve", "env": { "PM2_SERVE_SPA": true, "PM2_SERVE_HOMEPAGE": "/index.html" } }' >> dist/process.json
     
+      - name: add web.config
+        run: |
+          echo '<?xml version="1.0"?> <configuration> <system.webServer> <rewrite> <rules> <rule name="React Routes" stopProcessing="true"> <match url=".*" /> <conditions logicalGrouping="MatchAll"> <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" /> <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" /> <add input="{REQUEST_URI}" pattern="^/(api)" negate="true" /> </conditions> <action type="Rewrite" url="/" /> </rule> </rules> </rewrite> </system.webServer> </configuration>'
+    
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
