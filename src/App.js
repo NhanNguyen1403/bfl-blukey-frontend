@@ -70,7 +70,7 @@ function App() {
 				</Switch>
 				<Menu/>
 				<SnackBar/>
-				<ProfileModal/>
+				<ProfileModal />
 				{isLoaderDisplay && <Loader/>}
 			</div>
 		</BrowserRouter>

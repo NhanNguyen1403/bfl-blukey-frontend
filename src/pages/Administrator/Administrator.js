@@ -132,7 +132,7 @@ function Administrator() {
           }
 
           {
-            <Route path={`${path}/create`}>
+            <Route path={`${path}create`}>
               <CreateUserForm
                 clickHandler={{cancel: changePageOption}}
               />

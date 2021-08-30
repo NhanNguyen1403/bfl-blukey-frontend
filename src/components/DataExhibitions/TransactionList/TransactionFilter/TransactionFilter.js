@@ -12,17 +12,24 @@ import getAll from "../../../../services/Api/GET/getAll"
 
 function TransactionFilter(props) {
 	let dispatch = useDispatch(),
+			{isAdmin, fullName} = JSON.parse(localStorage.getItem('user')) || false,
 			{filterHandler} = props.clickHandler,
-			{transactionId, startDate, endDate, agentName} = props.configs,
+			{transactionId, startDate, endDate, agentName, seller, buyer, address} = props.configs,
 			transactionIdInput = generateInput('Transaction ID','number', transactionId, 'sm',false),
 			startDateInput = generateInput('Start date','date', startDate,'sm', false),
 			endDateInput = generateInput('End date','date', endDate,'sm', false),
-			[agentNameInput, setAgentNameInput] = useState(generateInput('Agent name','text', agentName,'sm', false, [], false)),
-			[agents, setAgents] = useState([]),
 			[status, setStatus] = useState(generateInput('Status', 'text', '', 'sm', false, [])),
+			[agentNameInput, setAgentNameInput] = useState(generateInput('Agent name','text', !isAdmin ? fullName : agentName,'sm', false, [], !isAdmin)),
+			[sellerInput, setSellerInput] = useState(generateInput('Seller','text', seller,'sm', false, [], false)),
+			[buyerInput, setBuyerInput] = useState(generateInput('Buyer','text', buyer,'sm', false, [], false)),
+			[agents, setAgents] = useState([]),
+			[sellers, setSellers] = useState([]),
+			[buyers, setBuyers] = useState([]),
+			addressInput = generateInput('Address','text', address, 'sm',false),
 			filterButton = generateButton('Filter', 'icon', 'square', 'md', 'filter-icon'),
-			{isAdmin} = JSON.parse(localStorage.getItem('user')) || false,
-			awaitSearch = null,
+			awaitSearchAgent = null,
+			awaitSearchSeller = null,
+			awaitSearchBuyer = null,
 			statuses = {
 				New: 1,
 				"In Progress": 2,
@@ -34,7 +41,9 @@ function TransactionFilter(props) {
 
 
 	useEffect(() => {
-		loadStatuses()
+		loadStatuses() // In case load status from Server
+		loadSellerNames('', true)
+		loadBuyerNames('', true)
 
 		if (isAdmin)
 			loadAgentNames()
@@ -44,11 +53,33 @@ function TransactionFilter(props) {
 		if (!agentName)
 			return
 
-		if (awaitSearch)
-			clearTimeout(awaitSearch)
+		if (awaitSearchAgent)
+			clearTimeout(awaitSearchAgent)
 
-		awaitSearch = setTimeout(() => {
+		awaitSearchAgent = setTimeout(() => {
 			loadAgentNames(agentName)
+		}, 2000);
+	}
+	let searchSeller = (sellerName) => {
+		if (!sellerName)
+			return
+
+		if (awaitSearchSeller)
+			clearTimeout(awaitSearchSeller)
+
+		awaitSearchSeller = setTimeout(() => {
+			loadSellerNames(sellerName)
+		}, 2000);
+	}
+	let searchBuyer = (buyerName) => {
+		if (!buyerName)
+			return
+
+		if (awaitSearchBuyer)
+			clearTimeout(awaitSearchBuyer)
+
+		awaitSearchBuyer = setTimeout(() => {
+			loadBuyerNames(buyerName)
 		}, 2000);
 	}
 
@@ -66,6 +97,42 @@ function TransactionFilter(props) {
 		setAgents(data)
 		setAgentNameInput(generateInput(labelName, type, fullName, size, isRequired, agentNames, false, searchAgent))
 	}
+	let loadSellerNames = async (searchingName = "", loadDefault = false) => {
+		if (loadDefault){
+			let {labelName, type, size, isRequired} = sellerInput
+			return setSellerInput(generateInput(labelName, type, '', size, isRequired, [], false, searchSeller))
+		}
+
+		let params = {
+					page: 1,
+					limit: 5,
+					sellerName: searchingName,
+				},
+				{data} = await getAll('transactions/search/suggest', params),
+				sellerNames = data.map(seller => seller.sellerName),
+				{labelName, type, size, isRequired} = sellerInput
+
+		setSellers(data)
+		setSellerInput(generateInput(labelName, type, searchingName, size, isRequired, sellerNames, false, searchSeller))
+	}
+	let loadBuyerNames = async (searchingName = "", loadDefault = false) => {
+		if (loadDefault) {
+			let {labelName, type, size, isRequired} = buyerInput
+			return setBuyerInput(generateInput(labelName, type, '', size, isRequired, [], false, searchBuyer))
+		}
+
+		let params = {
+					page: 1,
+					limit: 5,
+					buyerName: searchingName,
+				},
+				{data} = await getAll('transactions/search/suggest', params),
+				buyerNames = data.map(buyer => buyer.buyerName),
+				{labelName, type, size, isRequired} = buyerInput
+
+		setBuyers(data)
+		setBuyerInput(generateInput(labelName, type, searchingName, size, isRequired, buyerNames, false, searchBuyer))
+	}
 	let loadStatuses = async () => {
 		// load statuses
 		let statuses = ['New', 'In Progress', 'Review', 'Complete', 'Error'],
@@ -75,13 +142,28 @@ function TransactionFilter(props) {
 	}
 	let validate = () => {
 		console.log('Validate filter')
-		let agentId = ''
+		let agentId = '',
+				sellerName = '',
+				buyerName = ''
 
 		if (agentNameInput.getValue) {
-			let agent = agents.find(agent => agent.fullName === agentNameInput.getValue)
+			let agent = agents.find(a => a.fullName === agentNameInput.getValue)
 			if (!agent)
 				return dispatch(showSnack('Agent invalid', 'danger'))
 			agentId = agent.id
+		}
+		if (sellerInput.getValue) {
+			let seller = sellers.find(s => s.sellerName === sellerInput.getValue)
+			if (!seller)
+				return dispatch(showSnack('Seller name invalid', 'danger'))
+			sellerName = seller.sellerName
+		}
+
+		if (buyerInput.getValue) {
+			let buyer = buyers.find(b => b.buyerName === buyerInput.getValue)
+			if (!buyer)
+				return dispatch(showSnack('Buyer name invalid', 'danger'))
+			buyerName = buyer.buyerName
 		}
 
 		if ((startDate.isValid && endDate.isValid) && startDate.getValue > endDate.getValue)
@@ -91,8 +173,11 @@ function TransactionFilter(props) {
 			transactionId: transactionIdInput.getValue || '',
 			startDate: startDateInput.getValue || '',
 			endDate: endDateInput.getValue || '',
-			agentId: agentId,
-			transactionStatusId: statuses[status.getValue] || ''
+			transactionStatusId: statuses[status.getValue] || '',
+			agentId,
+			buyerName,
+			sellerName,
+			address: addressInput.getValue || ''
 		})
 	}
 
@@ -103,8 +188,11 @@ function TransactionFilter(props) {
 				<Input configs={transactionIdInput}/>
 				<Input configs={startDateInput}/>
 				<Input configs={endDateInput}/>
-				{isAdmin && <Input configs={agentNameInput}/> }
 				<Input configs={status}/>
+				<Input configs={agentNameInput}/>
+				<Input configs={sellerInput}/>
+				<Input configs={buyerInput}/>
+				<Input configs={addressInput}/>
 			</div>
 
 			<div className="button-area">
