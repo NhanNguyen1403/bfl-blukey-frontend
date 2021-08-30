@@ -14,15 +14,29 @@ function TransactionDocumentForm(props) {
 
   useEffect(() => {
     setRequired({
-      uploaded: documentType.requiredDocumentUploaded,
-      rest: documentType.restOfRequiredDocument
+      uploaded: extractUploaded('required'),
+      rest: extractRest('required'),
+      process: documentType.numberProcessRequired,
     })
     setOptional({
-      uploaded: documentType.optionalDocumentUploaded,
-      rest: documentType.restOfOptionalDocument
+      uploaded: extractUploaded('optional'),
+      rest: extractRest('optional'),
+      process: documentType.numberProcessOptional,
     })
     isEditMode()
   }, [documentType])
+
+  let extractUploaded = (type) => {
+    return {
+      listing: documentType.listing[type].uploaded,
+      buying: documentType.buying[type].uploaded
+    }
+  }
+
+  let extractRest = (type) => {
+    let transactionType = documentType.transactionIsListing ? 'listing' : 'buying'
+    return documentType[transactionType][type].rest
+  }
 
   useEffect(() => {
     isEditMode()

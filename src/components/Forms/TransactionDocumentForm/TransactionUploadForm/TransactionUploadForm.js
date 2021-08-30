@@ -19,8 +19,8 @@ function TransactionUploadForm(props) {
       [typeInput, setTypeInput] = useState(generateInput(`Type`, 'text', '', 'full', true, [])),
       [documentInput, setDocumentInput] = useState(generateInput('Document', 'file', '', 'full', true)),
       submitButton = generateButton('Submit', 'text', 'solid', 'lg'),
-      removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon')
-
+      removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon'),
+      {process} = documents
 
 
   useEffect(() => {
@@ -97,7 +97,7 @@ function TransactionUploadForm(props) {
         {
           mode === 'edit' &&
           <div className="upload-area">
-            <p className="title">UPLOAD ({uploadedDocuments.length}/{uploadedDocuments.length + restDocuments.length})</p>
+            <p className="title">UPLOAD ({process})</p>
 
             <Input configs={typeInput}/>
             <Input configs={documentInput} fileHandler={() => {}}/>
@@ -105,30 +105,37 @@ function TransactionUploadForm(props) {
           </div>
         }
 
-        <div className="uploaded-area">
-          <p className="title">UPLOADED {}</p>
 
-          <div className="uploaded">
-            {
-              uploadedDocuments.length === 0
-                ? (<span>Documents uploaded will be here... </span>)
-                : uploadedDocuments.map(i => {
-                  return (
-                    <div key={i.fileName} className="document" title={i.fileName}>
-                      <a href={i.url} target="_blank">{i.documentTypeName}</a>
+          {
+            Object.keys(uploadedDocuments).map(group => {
+              return (
+                <div key={group} className="uploaded-area">
+                  <p className="title">{group.toUpperCase()}({uploadedDocuments[group].length})</p>
 
-                      {
-                        mode === 'edit' &&
-                        <div className="button-area">
-                          <Button configs={removeButton} clickHandler={() => remove(i)}/>
-                        </div>
-                      }
-                    </div>
-                  )
-                })
-            }
-          </div>
-        </div>
+                  <div className="uploaded">
+                    {
+                      uploadedDocuments[group].length === 0
+                        ? (<span>Documents uploaded will be here... </span>)
+                        : uploadedDocuments[group].map(i => {
+                          return (
+                            <div key={Math.random()} className="document" title={i.fileName}>
+                              <a href={i.url} target="_blank">{i.documentTypeName}</a>
+
+                              {
+                                mode === 'edit' &&
+                                <div className="button-area">
+                                  <Button configs={removeButton} clickHandler={() => remove(i)}/>
+                                </div>
+                              }
+                            </div>
+                          )
+                        })
+                    }
+                  </div>
+                </div>
+              )
+            })
+          }
       </div>
     </div>
   );

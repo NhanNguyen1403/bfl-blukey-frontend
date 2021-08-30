@@ -14,7 +14,7 @@ import TransactionList from "../../components/DataExhibitions/TransactionList/Tr
 import TransactionForm from "../../components/Forms/TransactionForm/TransactionForm";
 import getAll from "../../services/Api/GET/getAll";
 import TransactionFilter from "../../components/DataExhibitions/TransactionList/TransactionFilter/TransactionFilter";
-import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 
 
 function Transaction() {
@@ -29,8 +29,11 @@ function Transaction() {
         transactionId: '',
         startDate: '',
         endDate: '',
+        transactionStatusId: '',
         agentName: '',
-        transactionStatusId: ''
+        buyer: '',
+        seller: '',
+        address: '',
       }),
       [transactions, setTransactions] = useState([]),
       [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 5, totalItem: 1}),
@@ -66,6 +69,7 @@ function Transaction() {
   useEffect(() => {
     if (currentPath === '/transactions' || currentPath === '/transactions/')
       return changePageOption('Transactions')
+
     if (currentPath === '/transactions/create' || currentPath === '/transactions/create/')
       changePageOption('Create')
   }, [currentPath])

@@ -19,29 +19,19 @@ function ProfileModal(props) {
 			{isDisplay, mode, user} = useSelector(state => {
 				return state.profileModal
 			}),
-			[optionList, setOptionList] = useState([]),
+			[optionList, setOptionList] = useState([
+				generatePageOption(undefined,'Profile', 'md', true),
+				generatePageOption(undefined,'Documents', 'md', false),
+			]),
 			closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
-
-
-
-	useEffect(() => {
-		// if (mode === 'edit')
-		// 	return setOptionList(prevState => [
-		// 			generatePageOption('Profile', 'md', true),
-		// 			generatePageOption('Documents', 'md', false),
-		// 			generatePageOption('Password', 'md', false),
-		// 		]
-		// 	)
-		setOptionList([
-			generatePageOption('','Profile', 'md', true),
-			generatePageOption('','Documents', 'md', false),
-		])
-	}, [mode])
-
 
 
 	let closeModal = () => {
 		dispatch(hideProfileModal())
+		setOptionList([
+			generatePageOption(undefined,'Profile', 'md', true),
+			generatePageOption(undefined,'Documents', 'md', false),
+		])
 	}
 	let changeOption = (optionName) => {
 		setOptionList(optionList.map(i => {

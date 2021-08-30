@@ -20,6 +20,7 @@ function TransactionForm(props) {
     [agentName, setAgentName] = useState(generateInput('Agent name', 'text', '', 'half', true, [], true)),
     mlsID = generateInput('MLS-ID', 'text', `${transaction?.mlsId || ''}`, 'half', true, [], mode === 'view'),
     apn = generateInput('Apn', 'text', `${transaction?.apn || ''}`, 'half', true, [], mode === 'view'),
+    type = generateInput('Type', 'text', `${transaction.isListing ? 'Listing' : 'Buying'}`, 'half', false, ['Listing', 'Buying'], mode === 'view'),
     address = generateInput('Address', 'text', `${transaction?.address || ''}`, 'half', true, [], mode === 'view'),
     city = generateInput('City', 'text', `${transaction?.city || ''}`, 'half', true, [], mode === 'view'),
     state = generateInput('State', 'text', `${transaction?.state || ''}`, 'half', true, [], mode === 'view'),
@@ -57,6 +58,7 @@ function TransactionForm(props) {
       zipCode: zipCode.getValue,
       mlsId: mlsID.getValue,
       apn: apn.getValue,
+      isListing: type.getValue === 'Listing',
       listingPrice: price.getValue,
       commissionAmount: commissionRate.getValue,
       sellerName: seller.getValue,
@@ -64,7 +66,7 @@ function TransactionForm(props) {
       listingStartDate: startDate.getValue,
       listingEndDate: endDate.getValue,
     }
-
+    console.log(payload)
     if (mode === 'create')
       return create(payload)
     return save(payload)
@@ -96,6 +98,7 @@ function TransactionForm(props) {
             <Input configs={agentName}/>
             <Input configs={mlsID}/>
             <Input configs={apn}/>
+            <Input configs={type}/>
           </div>
 
           <div className="block">

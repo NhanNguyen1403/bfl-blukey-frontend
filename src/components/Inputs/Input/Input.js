@@ -8,7 +8,6 @@ import Chip from "../../DataExhibitions/Chip/Chip";
 import {generateChip} from '../../../services/Generators/generateChip'
 
 
-
 function Input(props) {
 	let {labelName, data, type, size, isRequired, isDisable} = props.configs
 	let chipMessage = 'Required'
@@ -17,28 +16,30 @@ function Input(props) {
 	let [shortInput, setShortInput] = useState(
 				generateChip(chipMessage, 'error', false)
 			),
-			randomID = Math.random(),
-			[value, setValue] = useState(props.configs.getValue)
-
+			randomID = Math.random()
 
 
 	useEffect(() => {
-		setValue(props.configs.getValue)
+		let inputRef = document.getElementById(`${labelName}-${randomID}`)
+
+		if (type !== 'file' && inputRef.value !== props.configs.getValue)
+			inputRef.value = props.configs.getValue
 	}, [props.configs.getValue])
 
 
 	const updateValue = (event) => {
-		let {value: newValue} = event.target
+		let {value: newValue} = event.target,
+				{which} = event
 
 		if (type === 'file')
 			return validate(event)
 
-		setValue(newValue)
 
-		if (props.configs.keyPress)
-			keyPressEvent(event)
+		if (props.configs.search && which && which !== 13) // only search keypress event, ignore onchange
+			props.configs.search(newValue)
+
+		props.configs.setValue = newValue
 	}
-
 
 	const validate = (event) => {
 		let {value: newValue, files} = event.target
@@ -61,19 +62,7 @@ function Input(props) {
 			return
 		}
 
-		props.configs.setValue = newValue
 		toggleAlert(false)
-	}
-
-	let keyPressEvent = (event) => {
-		let newValue = event.target.value,
-				which = event.which
-
-		// ignore left click and enter key
-		if (which && which !== 13) {
-			// props.configs.setValue = newValue
-			props.configs.keyPress(newValue)
-		}
 	}
 
 	const toggleAlert = (isDisplay) => {
@@ -81,6 +70,7 @@ function Input(props) {
 			generateChip(chipMessage, 'error', isDisplay)
 		)
 	}
+
 
 
 	return (
@@ -98,9 +88,8 @@ function Input(props) {
 				id={`${labelName}-${randomID}`}
 				placeholder={labelName}
 				type={type}
-				value={type === 'file'? undefined : value}
 				autoComplete=''
-				onBlur={e => validate(e)}
+				onBlur={e => validate(e, 'Blur')}
 				onChange={e =>  updateValue(e)}
 				onKeyUp={e => updateValue(e)}
 				list={data.length > 0 ? `${labelName}-${randomID}s` : ''}

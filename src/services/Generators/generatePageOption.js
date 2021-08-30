@@ -2,7 +2,7 @@
  * Using this service to creat props for PageOption component
  ************************************************************/
 
-exports.generatePageOption = function (path='', name = 'Option', size = 'lg', isActive= false) {
+exports.generatePageOption = function (path=undefined, name = 'Option', size = 'lg', isActive= false) {
 	try {
 		return {
 			path,

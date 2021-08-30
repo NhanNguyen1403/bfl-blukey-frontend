@@ -10,8 +10,8 @@ const generateInput = function (
 	size = 'full',
 	isRequired = true,
 	data = [],
-	isDisable = false, 
-	keyPress = undefined) {
+	isDisable = false,
+	search = undefined) {
 	try {
 		return {
 			labelName,
@@ -37,7 +37,7 @@ const generateInput = function (
 			},
 
 			data,
-			keyPress,
+			search,
 		}
 	} catch (err) {
 		console.error(err)

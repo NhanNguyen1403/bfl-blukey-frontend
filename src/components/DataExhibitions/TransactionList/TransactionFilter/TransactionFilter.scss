@@ -12,14 +12,17 @@
   .input-area {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-right: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     margin-left: -5px;
+    margin-bottom: 10px;
   }
 
   .button-area {
-    height: 29px;
-    width: 29px;
+    height: 30px;
+    width: 30px;
     border: solid 1px $primary-bg-color;
+    background: $primary-bg-color;
+    padding: 20px 0px;
   }
 }

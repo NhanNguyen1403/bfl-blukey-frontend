@@ -73,6 +73,11 @@ function TransactionDetailModal(props) {
   }
   let closeModal = () => {
     dispatch(hideTransactionDetail())
+    setOptionList([
+      generatePageOption(undefined,'Transaction', 'md', true),
+      generatePageOption(undefined,'Documents', 'md', false),
+      generatePageOption(undefined,'Comments', 'md', false),
+    ])
     if (isUserEdited) {
       dispatch(needReload())
       setIsUserEdited(false)

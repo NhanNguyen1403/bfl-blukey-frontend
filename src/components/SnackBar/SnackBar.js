@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import "./SnackBar.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {hideSnack} from "../../redux"
+import {isInaccessible} from "@testing-library/react";
 
 
 function SnackBar({isLogging}) {
@@ -10,6 +11,14 @@ function SnackBar({isLogging}) {
   let {isDisplay, message, snackType} = useSelector(state => {
     return state.snack
   })
+
+  useEffect(() => {
+    if (isDisplay)
+      setTimeout(() => {
+        dispatch(hideSnack())
+      }, 5000)
+  }, [isDisplay]);
+
 
   return (
     isDisplay && <div className={`snack-bar-container ${snackType} ${isLogging ? 'logging': ''}`}>
