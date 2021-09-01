@@ -10,7 +10,7 @@
 
 import React, {useEffect, useState} from 'react';
 
-import "./Administrator.scss"
+import "./Documents.scss"
 
 import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab} from "../../redux";
@@ -26,25 +26,25 @@ import Table from "../../components/DataExhibitions/Table/Table";
 import CreateUserForm from "../../components/Forms/CreateUserForm/CreateUserForm";
 import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 
-function Administrator() {
+function Documents() {
   let dispatch = useDispatch(),
-      closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
-      [currentPage, setCurrentPage] = useState(1),
-      [optionList, setOptionList] = useState([
-        generatePageOption('','Users', 'lg', true),
-        generatePageOption('/create','Create', 'lg', false),
-      ]),
-      [users, setUsers] = useState([]),
-      [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 25, totalItem: 1}),
-      {needReload} = useSelector(state => {
-        return state.reload
-      }),
-      {currentTab} = useSelector(state => {
-        return state.tab
-      }),
-      {path} = useRouteMatch(),
-      currentPath = window.location.pathname,
-      history = useHistory()
+    closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
+    [currentPage, setCurrentPage] = useState(1),
+    [optionList, setOptionList] = useState([
+      generatePageOption('','Documents', 'lg', true),
+      generatePageOption('/create','Create', 'lg', false),
+    ]),
+    [users, setUsers] = useState([]),
+    [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 25, totalItem: 1}),
+    {needReload} = useSelector(state => {
+      return state.reload
+    }),
+    {currentTab} = useSelector(state => {
+      return state.tab
+    }),
+    {path} = useRouteMatch(),
+    currentPath = window.location.pathname,
+    history = useHistory()
 
 
 
@@ -67,9 +67,9 @@ function Administrator() {
   }, [currentTab])
 
   useEffect(() => {
-    if (currentPath === '/users' || currentPath === '/users/')
-      return changePageOption('Users')
-    if (currentPath === '/users/create' || currentPath === '/users/create/')
+    if (currentPath === '/documents' || currentPath === '/documents/')
+      return changePageOption('Documents')
+    if (currentPath === '/documents/create' || currentPath === '/documents/create/')
       changePageOption('Create')
   }, [currentPath])
 
@@ -108,7 +108,7 @@ function Administrator() {
 
 
   return (
-    <div className='administrator-container'>
+    <div className='documents-container'>
       <div className="options-area">
         {
           optionList.map(i => {
@@ -144,4 +144,4 @@ function Administrator() {
   );
 }
 
-export default Administrator;
+export default Documents;

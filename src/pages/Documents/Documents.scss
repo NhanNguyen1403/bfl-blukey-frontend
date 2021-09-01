@@ -1,0 +1,26 @@
+@import "../../scss/Color";
+@import "../../scss/Border";
+@import "../../scss/BoxShadow";
+@import "../../scss/Templates";
+@import "../../scss/Animation";
+
+
+.documents-container {
+  @extend %page;
+
+  .content-area {
+    height: calc(100vh - 210px);
+    margin: 50px 0px;
+    padding: 0 20px;
+    position: relative;
+    overflow: auto;
+
+    .table-area {
+      width: 100%;
+      height: calc(100% - 40px);
+      box-sizing: border-box;
+      overflow: auto;
+      animation: zoom-out 300ms;
+    }
+  }
+}

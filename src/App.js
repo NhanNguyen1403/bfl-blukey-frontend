@@ -5,10 +5,12 @@ import './App.scss';
 import checkSession from "./services/Session/checkSession"
 
 import Login from "./pages/Login/Login";
-import Drawer from "./components/Inputs/Drawer/Drawer";
 import Home from "./pages/Home/Home";
-import Administrator from "./pages/Administrator/Administrator";
 import Transaction from "./pages/Transaction/Transaction";
+import Administrator from "./pages/Administrator/Administrator";
+import Documents from "./pages/Documents/Documents";
+
+import Drawer from "./components/Inputs/Drawer/Drawer";
 import Menu from "./components/Inputs/Menu/Menu";
 import SnackBar from "./components/SnackBar/SnackBar";
 import ProfileModal from "./components/Modals/ProfileModal/ProfileModal";
@@ -64,6 +66,9 @@ function App() {
 					<Route path="/transactions" component={Transaction}/>
 					<Route path="/users">
 						{isAdmin ? <Administrator /> : redirectHome}
+					</Route>
+					<Route path="/documents">
+						{isAdmin ? <Documents /> : redirectHome}
 					</Route>
 					<Route path="/login" component={Home}/>
 					<Route path="/" component={Home}/>
