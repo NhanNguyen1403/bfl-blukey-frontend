@@ -52,6 +52,15 @@ function Drawer() {
 						clickHandler={changeTab}
 					/>
 				}
+				{
+					isAdmin && <DrawerItem
+						path={'/documents'}
+						name={'Documents'}
+						icon={'documents'}
+						currentTab={currentTab}
+						clickHandler={changeTab}
+					/>
+				}
 			</div>
 		</nav>
 	)

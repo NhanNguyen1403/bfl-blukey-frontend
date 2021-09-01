@@ -4,6 +4,7 @@ import {IconContext} from "react-icons";
 import {FaUsers} from "react-icons/fa";
 import {FiActivity} from "react-icons/fi";
 import {TiHome} from "react-icons/ti";
+import {IoDocuments} from "react-icons/io5";
 
 import "./DrawerItem.scss"
 import {Link} from "react-router-dom";
@@ -20,6 +21,7 @@ function DrawerItem({path, name, icon, currentTab, clickHandler}) {
 							{icon === 'home' && <TiHome/>}
 							{icon === 'users' && <FaUsers/>}
 							{icon === 'activity' && <FiActivity/>}
+							{icon === 'documents' && <IoDocuments/>}
 						</div>
 					</IconContext.Provider>
 
