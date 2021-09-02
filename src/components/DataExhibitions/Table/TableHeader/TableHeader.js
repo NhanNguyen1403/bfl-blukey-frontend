@@ -34,6 +34,10 @@ function TableHeader(props) {
 
 							case 'lastLoginDate': return <th key={`table-header-${i}`}>Last Login</th>
 
+							case 'isRequired': return <th key={`table-header-${i}`}>Required</th>
+
+							case 'isListing': return <th key={`table-header-${i}`}>For Listing</th>
+
 							case 'updatedAt': return
 
 							case 'isAdmin': return <th key={`table-header-${i}`}>Admin</th>

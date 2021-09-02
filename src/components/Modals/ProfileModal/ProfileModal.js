@@ -3,9 +3,7 @@ import React, {useEffect, useState} from 'react';
 import "./ProfileModal.scss"
 import {useDispatch, useSelector} from "react-redux";
 import Button from "../../Inputs/Button/Button";
-import {generateButton} from "../../../services/Generators/generateButton";
 import PageOption from "../../Inputs/pageOption/pageOption";
-import {generatePageOption} from "../../../services/Generators/generatePageOption";
 import {hideProfileModal} from "../../../redux";
 import {needReload} from "../../../redux";
 import ChangeProfileForm from "../../Forms/changeProfileForm/changeProfileForm";
@@ -13,6 +11,8 @@ import DocumentForm from "../../Forms/DocumentForm/DocumentForm";
 import ChangePasswordForm from "../../Forms/changePasswordForm/changePasswordForm";
 import Put from "../../../services/Api/PUT/put"
 import getUnit from "../../../services/Api/GET/getUnit";
+import {generateButton} from "../../../services/Generators/generateButton";
+import {generatePageOption} from "../../../services/Generators/generatePageOption";
 
 function ProfileModal(props) {
 	let dispatch = useDispatch(),

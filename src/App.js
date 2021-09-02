@@ -21,6 +21,7 @@ import {
 	Switch,
 	Route, Redirect,
 } from "react-router-dom";
+import DocumentModal from "./components/Modals/DocumentModal/DocumentModal";
 
 function App() {
 	checkSession().catch(err => console.log(new Error(err)))
@@ -76,6 +77,7 @@ function App() {
 				<Menu/>
 				<SnackBar/>
 				<ProfileModal />
+				<DocumentModal />
 				{isLoaderDisplay && <Loader/>}
 			</div>
 		</BrowserRouter>

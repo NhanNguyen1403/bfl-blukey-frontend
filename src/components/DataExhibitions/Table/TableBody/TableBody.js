@@ -14,24 +14,16 @@ import moment from 'moment'
 import "./TableBody.scss"
 
 function TableBody(props) {
-  let dispatch = useDispatch()
-
-  let viewUserDetail = (userInfo) => {
-    // check User's role
-    let {isAdmin} = JSON.parse(localStorage.getItem('user'))
-
-    isAdmin
-      ? dispatch(showProfileModal('edit', userInfo))
-      : dispatch(showProfileModal('view', userInfo))
-  }
+  let {data} = props.configs,
+      {rowAction} = props.clickHandler
 
   return (
     <tbody className='table-body-container'>
     <IconContext.Provider value={{size: '20px', className: "icon"}}>
       {
-        props.configs.map(item => {
+        data.map(item => {
           return (
-            <tr onClick={() => viewUserDetail(item)} key={`table-row-${item.id}`}>
+            <tr onClick={() => rowAction(item)} key={`table-row-${item.id}`}>
               {
                 Object.keys(item).map(key => {
                   switch (key) {
@@ -57,6 +49,27 @@ function TableBody(props) {
 
                     case 'createAt':
                       return
+
+                    case 'isRequired':
+                      return (
+                        <td key={`row-item-${item.id}-${key}`} className={item[key] ? 'icon' : ''}>
+                          {item[key] ? <FaCheckCircle/> : ''}
+                        </td>
+                      )
+
+                    case 'isBoth':
+                      return (
+                        <td key={`row-item-${item.id}-${key}`} className={item[key] ? 'icon' : ''}>
+                          {item[key] ? <FaCheckCircle/> : ''}
+                        </td>
+                      )
+
+                    case 'isListing':
+                      return (
+                        <td key={`row-item-${item.id}-${key}`} className={item[key] ? 'icon' : ''}>
+                          {item[key] ? <FaCheckCircle/> : ''}
+                        </td>
+                      )
 
                     default: {
                       return (
