@@ -13,7 +13,7 @@ import React, {useEffect, useState} from 'react';
 import "./Documents.scss"
 
 import {useDispatch, useSelector} from "react-redux";
-import {changeTab as changeGlobalTab} from "../../redux";
+import {changeTab as changeGlobalTab, showDocumentModal,} from "../../redux";
 import {completeReload} from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
@@ -23,8 +23,8 @@ import getAll from "../../services/Api/GET/getAll.js"
 import PageOption from "../../components/Inputs/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
 import Table from "../../components/DataExhibitions/Table/Table";
-import CreateUserForm from "../../components/Forms/CreateUserForm/CreateUserForm";
 import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
+import CreateDocumentForm from "../../components/Forms/CreateDocumentForm/CreateDocumentForm";
 
 function Documents() {
   let dispatch = useDispatch(),
@@ -34,7 +34,7 @@ function Documents() {
       generatePageOption('','Documents', 'lg', true),
       generatePageOption('/create','Create', 'lg', false),
     ]),
-    [users, setUsers] = useState([]),
+    [docs, setDocs] = useState([]),
     [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 25, totalItem: 1}),
     {needReload} = useSelector(state => {
       return state.reload
@@ -61,8 +61,8 @@ function Documents() {
   }, [needReload])
 
   useEffect(() => {
-    if (currentTab !== 'Users')
-      dispatch(changeGlobalTab('Users'))
+    if (currentTab !== 'Documents')
+      dispatch(changeGlobalTab('Documents'))
 
   }, [currentTab])
 
@@ -76,11 +76,17 @@ function Documents() {
 
   let loadData = async () => {
     // Call getAll API to get data
-    let {data, paging} = await getAll('users', {page: currentPage, fullName: ''})
+    let {data, paging} = await getAll('documentTypes', {page: currentPage, fullName: ''})
 
-    setUsers(data)
+    setDocs(data)
     setPagingConfigs(prev => {return {...prev, totalItem: paging.total}})
   }
+  let editDocument = (doc) => {
+    dispatch(showDocumentModal('edit', doc))
+  }
+
+
+
   let redirectHome = () => {
     dispatch(changeGlobalTab('Home'))
     history.push("/home")
@@ -126,14 +132,14 @@ function Documents() {
           {
             <Route path={`${path}`} exact>
               <div className="table-area">
-                <Table configs={{users, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
+                <Table configs={{data: docs, pageConfigs}} clickHandler={{next, back, changeDirectPage, rowAction: editDocument}}/>
               </div>
             </Route>
           }
 
           {
             <Route path={`${path}/create`}>
-              <CreateUserForm
+              <CreateDocumentForm
                 clickHandler={{cancel: changePageOption}}
               />
             </Route>

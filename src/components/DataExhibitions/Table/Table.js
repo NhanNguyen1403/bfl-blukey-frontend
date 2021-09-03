@@ -13,14 +13,13 @@ import TableBody from "./TableBody/TableBody";
 import Paging from "../Paging/Paging";
 
 function Table(props) {
-  let data = props.configs.users
-  let {pageConfigs} = props.configs
-
+  let {data, pageConfigs} = props.configs,
+      {rowAction} = props.clickHandler
   return (
     <React.Fragment>
       <table className='table-container'>
         <TableHeader configs={data}/>
-        <TableBody configs={data}/>
+        <TableBody configs={{data}} clickHandler={{rowAction}}/>
       </table>
 
       <div className="paging-area">

@@ -13,7 +13,7 @@ import React, {useEffect, useState} from 'react';
 import "./Administrator.scss"
 
 import {useDispatch, useSelector} from "react-redux";
-import {changeTab as changeGlobalTab} from "../../redux";
+import {changeTab as changeGlobalTab, showProfileModal} from "../../redux";
 import {completeReload} from "../../redux";
 
 import {generatePageOption} from "../../services/Generators/generatePageOption"
@@ -81,6 +81,18 @@ function Administrator() {
     setUsers(data)
     setPagingConfigs(prev => {return {...prev, totalItem: paging.total}})
   }
+  let viewUserDetail = (userInfo) => {
+    // check User's role
+    let {isAdmin} = JSON.parse(localStorage.getItem('user'))
+
+    isAdmin
+      ? dispatch(showProfileModal('edit', userInfo))
+      : dispatch(showProfileModal('view', userInfo))
+  }
+
+
+
+
   let redirectHome = () => {
     dispatch(changeGlobalTab('Home'))
     history.push("/home")
@@ -126,7 +138,7 @@ function Administrator() {
           {
             <Route path={`${path}`} exact>
               <div className="table-area">
-                <Table configs={{users, pageConfigs}} clickHandler={{next, back, changeDirectPage}}/>
+                <Table configs={{data: users, pageConfigs}} clickHandler={{next, back, changeDirectPage, rowAction: viewUserDetail}}/>
               </div>
             </Route>
           }

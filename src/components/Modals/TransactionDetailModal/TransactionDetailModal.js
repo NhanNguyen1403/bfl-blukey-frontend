@@ -66,7 +66,7 @@ function TransactionDetailModal(props) {
   }
   let loadDocuments = async () => {
     if (transaction && transaction.id) {
-      let {data} = await getAll('documentTypes', {transactionId: transaction.id})
+      let {data} = await getAll(`documentTypes/transactions/${transaction.id}`)
       setCanComplete(data.canComplete)
       setDocumentType(data)
     }

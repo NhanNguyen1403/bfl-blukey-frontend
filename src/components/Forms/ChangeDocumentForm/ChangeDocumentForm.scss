@@ -1,0 +1,10 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.change-document-form-container {
+  margin-top: 40px;
+
+  @extend %input-layout;
+}
