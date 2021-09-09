@@ -20,7 +20,8 @@
     padding: 5px 10px;
   }
   &.md {
-    width: calc(50% - 10px);
+    width: calc(50% - 5px);
+    padding: 0px;
   }
 
   &.lg {
@@ -45,6 +46,15 @@
     &.square {
       padding: 3px;
       border-radius: $border-radius-sm;
+
+      &.non-bg {
+        border: unset;
+        background-color: unset;
+
+        * {
+          color: $primary-bg-color;
+        }
+      }
     }
 
     &.non-bg {

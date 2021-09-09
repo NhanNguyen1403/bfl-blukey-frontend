@@ -15,7 +15,7 @@ function TransactionFilter(props) {
 			{isAdmin, fullName} = JSON.parse(localStorage.getItem('user')) || false,
 			{filterHandler} = props.clickHandler,
 			{transactionId, startDate, endDate, agentName, seller, buyer, address} = props.configs,
-			transactionIdInput = generateInput('Transaction ID','number', transactionId, 'sm',false),
+			transactionIdInput = generateInput('Search transaction with ID', 'text-area',transactionId, 'full',false),
 			startDateInput = generateInput('Start date','date', startDate,'sm', false),
 			endDateInput = generateInput('End date','date', endDate,'sm', false),
 			[status, setStatus] = useState(generateInput('Status', 'text', '', 'sm', false, [])),
@@ -25,11 +25,16 @@ function TransactionFilter(props) {
 			[agents, setAgents] = useState([]),
 			[sellers, setSellers] = useState([]),
 			[buyers, setBuyers] = useState([]),
-			addressInput = generateInput('Address','text', address, 'sm',false),
-			filterButton = generateButton('Filter', 'icon', 'square', 'md', 'filter-icon'),
+			addressInput = generateInput('Address','text', address, 'full font-sm',false),
+			searchButton = generateButton('Search', 'icon', 'square non-bg', 'md', 'search-icon'),
+			filterButton = generateButton('Filter', 'icon', 'square non-bg', 'md', 'filter-icon'),
 			awaitSearchAgent = null,
 			awaitSearchSeller = null,
 			awaitSearchBuyer = null,
+			[currentTabFilter, setCurrentTabFilter] = useState('Listing'),
+			[displayAdvanceFilter, setDisplayAdvanceFilter] = useState(false),
+			appleButton = generateButton(`Apply`, 'text', 'solid', 'md'),
+			resetButton = generateButton('Reset', 'text', 'outlined', 'md'),
 			statuses = {
 				New: 1,
 				"In Progress": 2,
@@ -48,6 +53,9 @@ function TransactionFilter(props) {
 		if (isAdmin)
 			loadAgentNames()
 	},[])
+	useEffect(() => {
+		validate()
+	}, [currentTabFilter])
 
 	let searchAgent = (agentName) => {
 		if (!agentName)
@@ -140,6 +148,26 @@ function TransactionFilter(props) {
 
 		setStatus(generateInput(labelName, type, value, size, isRequired, statuses))
 	}
+	let changeTabFilter = (tab) => {
+		if (tab !== currentTabFilter){
+			setCurrentTabFilter(tab)
+		}
+	}
+	let resetFilter = () => {
+		filterHandler({
+			transactionId: '',
+			isListing: currentTabFilter === 'Listing',
+			startDate: '',
+			endDate: '',
+			transactionStatusId: '',
+			agentId: null,
+			buyerName: '',
+			sellerName: '',
+			address: '',
+		})
+		setDisplayAdvanceFilter(false)
+	}
+
 	let validate = () => {
 		console.log('Validate filter')
 		let agentId = '',
@@ -169,35 +197,95 @@ function TransactionFilter(props) {
 		if ((startDate.isValid && endDate.isValid) && startDate.getValue > endDate.getValue)
 			return dispatch(showSnack('Start-date must before/same End date', 'danger'))
 
-		return filterHandler({
+		filterHandler({
 			transactionId: transactionIdInput.getValue || '',
+			isListing: currentTabFilter === 'Listing',
 			startDate: startDateInput.getValue || '',
 			endDate: endDateInput.getValue || '',
 			transactionStatusId: statuses[status.getValue] || '',
 			agentId,
 			buyerName,
 			sellerName,
-			address: addressInput.getValue || ''
+			address: addressInput.getValue || '',
 		})
+
+		setDisplayAdvanceFilter(false)
 	}
 
 
 	return (
 		<div className='transaction-filter-container'>
-			<div className="input-area">
-				<Input configs={transactionIdInput}/>
-				<Input configs={startDateInput}/>
-				<Input configs={endDateInput}/>
-				<Input configs={status}/>
-				<Input configs={agentNameInput}/>
-				<Input configs={sellerInput}/>
-				<Input configs={buyerInput}/>
-				<Input configs={addressInput}/>
+
+			<div className="tab-filter-area">
+				{
+					['Listing', 'Buying'].map(tab => {
+						return (
+							<div
+								key={tab}
+								className={`tab-item ${tab === currentTabFilter ? 'active' : ''}`}
+								onClick={() => changeTabFilter(tab)}>
+								{tab}
+							</div>
+						)
+					})
+				}
 			</div>
 
-			<div className="button-area">
-				<Button configs={filterButton} clickHandler={validate}/>
+			<div className="search-area">
+				<div className="button-area">
+					<Button configs={searchButton} clickHandler={validate}/>
+				</div>
+
+				<div className="search">
+					<Input configs={transactionIdInput}/>
+				</div>
+
+				<div className="button-area">
+					<Button configs={filterButton} clickHandler={() => setDisplayAdvanceFilter(!displayAdvanceFilter)}/>
+				</div>
+
+				{
+					displayAdvanceFilter && <div className="advance-filter-area">
+						<div className="filters">
+							<p className="title">FILTER</p>
+							<Input configs={startDateInput}/>
+							<Input configs={endDateInput}/>
+							<Input configs={sellerInput}/>
+							<Input configs={buyerInput}/>
+							<Input configs={agentNameInput}/>
+							<Input configs={status}/>
+							<Input configs={addressInput}/>
+						</div>
+
+						<div className="button-area">
+							<Button configs={resetButton} clickHandler={() => resetFilter()}/>
+							<Button configs={appleButton} clickHandler={validate}/>
+						</div>
+					</div>
+				}
+
 			</div>
+
+
+
+
+
+
+
+			{/*<div className="input-area">*/}
+			{/*	<Input configs={transactionIdInput}/>*/}
+			{/*	<Input configs={startDateInput}/>*/}
+			{/*	<Input configs={endDateInput}/>*/}
+			{/*	<Input configs={status}/>*/}
+			{/*	<Input configs={agentNameInput}/>*/}
+			{/*	<Input configs={sellerInput}/>*/}
+			{/*	<Input configs={buyerInput}/>*/}
+			{/*	<Input configs={addressInput}/>*/}
+			{/*</div>*/}
+
+			{/*<div className="button-area">*/}
+			{/*	<Button configs={filterButton} clickHandler={validate}/>*/}
+			{/*</div>*/}
 		</div>
 	);
 }

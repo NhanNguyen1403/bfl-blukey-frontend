@@ -54,8 +54,8 @@ function ChangeProfileForm(props) {
 			{
 				mode === 'edit' &&
 				<div className="button-area">
-					<Button configs={saveButton} clickHandler={validate}/>
 					<Button configs={cancelButton} clickHandler={() => cancel()}/>
+					<Button configs={saveButton} clickHandler={validate}/>
 				</div>
 			}
 		</div>

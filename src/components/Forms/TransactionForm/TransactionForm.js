@@ -27,8 +27,8 @@ function TransactionForm(props) {
     zipCode = generateInput('Zip code', 'text', `${transaction?.zipCode || ''}`, 'half', true, [], mode === 'view'),
     buyer = generateInput('Buyer', 'text', `${transaction?.buyerName || ''}`, 'half', true, [], mode === 'view'),
     seller = generateInput('Seller', 'text', `${transaction?.sellerName || ''}`, 'half', true, [], mode === 'view'),
-    price = generateInput('Price ($)', 'number', `${transaction?.listingPrice || 0}`, 'half', true, [], mode === 'view'),
-    commissionRate = generateInput('Commission ($)', 'number', `${transaction?.commissionAmount || 0}`, 'half', true, [], mode === 'view'),
+    price = generateInput('Price ($)', 'number', `${transaction?.listingPrice || null}`, 'half', true, [], mode === 'view'),
+    commissionRate = generateInput('Commission ($)', 'number', `${transaction?.commissionAmount || null}`, 'half', true, [], mode === 'view'),
     startDate = generateInput('Start date', 'date', `${transaction?.listingStartDate || ''}`, 'half', true, [], mode === 'view'),
     endDate = generateInput('End date', 'date', `${transaction?.listingEndDate || ''}`, 'half', true, [], mode === 'view'),
     createButton = generateButton(`${mode === 'edit' ? 'Save' : 'Create'}`, 'text', 'solid', 'md'),
@@ -121,8 +121,8 @@ function TransactionForm(props) {
         {
           mode !== "view" &&
           <div className="button-area">
-            <Button configs={createButton} clickHandler={validate}/>
             <Button configs={cancelButton} clickHandler={() => closeForm()}/>
+            <Button configs={createButton} clickHandler={validate}/>
           </div>
         }
       </div>
