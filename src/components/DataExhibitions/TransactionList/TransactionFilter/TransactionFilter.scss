@@ -8,6 +8,95 @@
   justify-content: space-between;
 
   margin-top: 5px;
+  margin-bottom: 10px;
+
+
+  .tab-filter-area {
+    width: calc(50% - 5px);
+    margin-right: 10px;
+    border-radius: unset;
+    border-bottom: solid 1px $primary-bg-color;
+    display: flex;
+
+    .tab-item {
+      width: 120px;
+      font-weight: bold;
+      padding: 5px 10px;
+      //font-size: 14px;
+      color: $primary-bg-color;
+      margin-right: 5px;
+
+      &.active {
+        color: white;
+        background-color: $primary-bg-color;
+        border-radius: 4px 4px 0px 0px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .search-area {
+    width: calc(50% - 5px);
+    margin-left: 5px;
+    border: solid 1px $primary-bg-color;
+    display: flex;
+    align-content: center;
+    position: relative;
+
+    .button-area {
+      height: 30px;
+      width: 40px;
+      color: $primary-bg-color;
+    }
+
+    .search {
+      flex: 1;
+      align-self: center;
+    }
+
+    .advance-filter-area {
+      position: absolute;
+      top: 35px;
+      background-color: white;
+      border: solid 1px $primary-bg-color;
+      z-index: 3;
+      padding: 10px;
+      box-shadow: $primary-box-shadow;
+
+      .filters {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        box-sizing: border-box;
+
+        .title {
+          font-weight: bold;
+          text-transform: uppercase;
+          color: $second-text-color;
+          width: 100%;
+          margin: 5px;
+        }
+
+      }
+
+      .button-area {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+        padding-top: 10px;
+        margin-top: 10px;
+        border-top: dashed 1px $second-text-color;
+
+        input {
+          flex: 1;
+        }
+      }
+    }
+  }
 
   .input-area {
     width: 100%;
@@ -16,13 +105,5 @@
     justify-content: flex-start;
     margin-left: -5px;
     margin-bottom: 10px;
-  }
-
-  .button-area {
-    height: 30px;
-    width: 30px;
-    border: solid 1px $primary-bg-color;
-    background: $primary-bg-color;
-    padding: 20px 0px;
   }
 }

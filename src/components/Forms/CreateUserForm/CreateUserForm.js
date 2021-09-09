@@ -72,8 +72,8 @@ function CreateUserForm(props) {
 			</div>
 
 			<div className="button-area">
-				<Button configs={createButton} clickHandler={validate}/>
 				<Button configs={cancelButton} clickHandler={() => closeForm()}/>
+				<Button configs={createButton} clickHandler={validate}/>
 			</div>
 		</div>
 	);

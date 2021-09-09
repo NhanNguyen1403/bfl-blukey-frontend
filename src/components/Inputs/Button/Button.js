@@ -13,6 +13,8 @@ import {IconContext} from "react-icons";
 import {IoClose} from "react-icons/io5"
 import {FaUserCircle} from "react-icons/fa";
 import {BiSearchAlt2} from "react-icons/bi";
+import {BiFilter} from "react-icons/bi";
+
 
 function Button(props) {
   let {name, type, style, size, icon} = props.configs,
@@ -27,7 +29,8 @@ function Button(props) {
         {type === 'text' && name}
         {type === 'icon' && icon === 'close-icon' && <IoClose/>}
         {type === 'icon' && icon === 'user-icon' && <FaUserCircle/>}
-        {type === 'icon' && icon === 'filter-icon' && <BiSearchAlt2/>}
+        {type === 'icon' && icon === 'search-icon' && <BiSearchAlt2/>}
+        {type === 'icon' && icon === 'filter-icon' && <BiFilter/>}
       </button>
     </IconContext.Provider>
   );
