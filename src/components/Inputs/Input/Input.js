@@ -1,11 +1,11 @@
 /***********************************************************
- * 1. Received an input config by generateInput service
+ * 1. Received an input config by gInput service
  ***********************************************************/
 
 import React, {useEffect, useState} from 'react';
 import "./Input.scss"
 import Chip from "../../DataExhibitions/Chip/Chip";
-import {generateChip} from '../../../services/Generators/generateChip'
+import {gChip} from '../../../services/Generators/gChip'
 
 
 function Input(props) {
@@ -14,7 +14,7 @@ function Input(props) {
 	if (type === 'number') chipMessage = `Should > 0`
 	if (type === 'text' || type === 'password') chipMessage = `Too short`
 	let [shortInput, setShortInput] = useState(
-				generateChip(chipMessage, 'error', false)
+				gChip(chipMessage, 'error', false)
 			),
 			randomID = Math.random()
 
@@ -67,7 +67,7 @@ function Input(props) {
 
 	const toggleAlert = (isDisplay) => {
 		setShortInput(
-			generateChip(chipMessage, 'error', isDisplay)
+			gChip(chipMessage, 'error', isDisplay)
 		)
 	}
 

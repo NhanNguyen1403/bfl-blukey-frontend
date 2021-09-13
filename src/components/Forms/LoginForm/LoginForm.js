@@ -2,15 +2,15 @@ import React from 'react';
 import "./LoginForm.scss"
 import logo from "../../../assets/desktop/logo.png"
 import Input from "../../Inputs/Input/Input";
-import generateInput from "../../../services/Generators/generateInput"
-import {generateButton} from "../../../services/Generators/generateButton"
+import gInput from "../../../services/Generators/gInput"
+import {gButton} from "../../../services/Generators/gButton"
 import Login from "../../../services/Session/Login"
 import Button from "../../Inputs/Button/Button";
 
 function LoginForm() {
-	let usernameInput = generateInput("Username", "text", '', "lg", true),
-			passwordInput = generateInput("Password", "password", '', "lg", true),
-			loginButton = generateButton('Sign In', "text", 'solid',  "lg")
+	let usernameInput = gInput("Username", "text", '', "lg", true),
+			passwordInput = gInput("Password", "password", '', "lg", true),
+			loginButton = gButton('Sign In', "text", 'solid',  "lg")
 
 	let inputConfig = [usernameInput, passwordInput]
 

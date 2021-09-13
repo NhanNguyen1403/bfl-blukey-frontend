@@ -11,8 +11,8 @@ import DocumentForm from "../../Forms/DocumentForm/DocumentForm";
 import ChangePasswordForm from "../../Forms/changePasswordForm/changePasswordForm";
 import Put from "../../../services/Api/PUT/put"
 import getUnit from "../../../services/Api/GET/getUnit";
-import {generateButton} from "../../../services/Generators/generateButton";
-import {generatePageOption} from "../../../services/Generators/generatePageOption";
+import {gButton} from "../../../services/Generators/gButton";
+import {gPageOption} from "../../../services/Generators/gPageOption";
 
 function ProfileModal(props) {
 	let dispatch = useDispatch(),
@@ -20,22 +20,22 @@ function ProfileModal(props) {
 				return state.profileModal
 			}),
 			[optionList, setOptionList] = useState([
-				generatePageOption(undefined,'Profile', 'md', true),
-				generatePageOption(undefined,'Documents', 'md', false),
+				gPageOption(undefined,'Profile', 'md', true),
+				gPageOption(undefined,'Documents', 'md', false),
 			]),
-			closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
+			closeButton = gButton('close', 'icon', 'solid', 'md', 'close-icon')
 
 
 	let closeModal = () => {
 		dispatch(hideProfileModal())
 		setOptionList([
-			generatePageOption(undefined,'Profile', 'md', true),
-			generatePageOption(undefined,'Documents', 'md', false),
+			gPageOption(undefined,'Profile', 'md', true),
+			gPageOption(undefined,'Documents', 'md', false),
 		])
 	}
 	let changeOption = (optionName) => {
 		setOptionList(optionList.map(i => {
-			return generatePageOption(i.path, i.name, i.size, i.name === optionName)
+			return gPageOption(i.path, i.name, i.size, i.name === optionName)
 		}))
 	}
 	let saveProfile = async (id, payload) => {

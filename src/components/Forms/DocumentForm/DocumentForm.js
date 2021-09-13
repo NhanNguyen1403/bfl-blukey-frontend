@@ -3,10 +3,10 @@ import React, {useEffect, useState} from 'react';
 import "./DocumentForm.scss"
 
 import Input from "../../Inputs/Input/Input";
-import generateInput from "../../../services/Generators/generateInput";
+import gInput from "../../../services/Generators/gInput";
 import Post from "../../../services/Api/POST/post"
 import getAll from "../../../services/Api/GET/getAll"
-// import {generateButton} from "../../../services/Generators/generateButton";
+// import {gButton} from "../../../services/Generators/gButton";
 // import Button from "../../Inputs/Button/Button";
 import {useDispatch} from "react-redux";
 import {hideSnack, showSnack} from "../../../redux";
@@ -14,8 +14,8 @@ import {hideSnack, showSnack} from "../../../redux";
 function DocumentForm(props) {
 	let dispatch = useDispatch()
 	let {mode, user} = props.configs
-	let document = generateInput('Document', 'file', '', 'full')
-	// let removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon')
+	let document = gInput('Document', 'file', '', 'full')
+	// let removeButton = gButton('close', 'icon', 'secondary', 'md', 'close-icon')
 	let [documents, setDocuments] = useState([])
 
 	useEffect(async () => {

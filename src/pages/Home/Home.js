@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import "./Home.scss"
-import {generatePageOption} from "../../services/Generators/generatePageOption"
+import {gPageOption} from "../../services/Generators/gPageOption"
 import PageOption from "../../components/Inputs/pageOption/pageOption";
 
 import Carousel from "../../components/DataExhibitions/Carousel/Carousel";
@@ -11,7 +11,7 @@ import home3 from "../../assets/desktop/home-3.jpg"
 
 function Home(props) {
 	let [optionList, setOptionList] = useState([
-		generatePageOption('','Home', 'lg', true),
+		gPageOption('','Home', 'lg', true),
 	])
 	let images = [
 		{original: home1, thumbnail: home1},
@@ -21,7 +21,7 @@ function Home(props) {
 
 	let changeOption = (optionName) => {
 		setOptionList(optionList.map(i => {
-			return generatePageOption(i.path, i.name, i.size, i.name === optionName)
+			return gPageOption(i.path, i.name, i.size, i.name === optionName)
 		}))
 	}
 

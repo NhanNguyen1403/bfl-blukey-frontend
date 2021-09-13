@@ -6,24 +6,25 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab} from "../../redux";
 import {completeReload} from "../../redux";
 
-import {generatePageOption} from "../../services/Generators/generatePageOption"
-import {generateButton} from "../../services/Generators/generateButton"
 import PageOption from "../../components/Inputs/pageOption/pageOption";
 import Button from "../../components/Inputs/Button/Button";
 import TransactionList from "../../components/DataExhibitions/TransactionList/TransactionList";
-import TransactionForm from "../../components/Forms/TransactionForm/TransactionForm";
-import getAll from "../../services/Api/GET/getAll";
 import TransactionFilter from "../../components/DataExhibitions/TransactionList/TransactionFilter/TransactionFilter";
-import {Redirect, Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
+import TransactionForm from "../../components/Forms/TransactionForm/TransactionForm";
+
+import {gPageOption} from "../../services/Generators/gPageOption"
+import {gButton} from "../../services/Generators/gButton"
+import getAll from "../../services/Api/GET/getAll";
+import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 
 
 function Transaction() {
   let dispatch = useDispatch(),
-      closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
+      closeButton = gButton('close', 'icon', 'solid', 'lg', 'close-icon'),
       [currentPage, setCurrentPage] = useState(1),
       [optionList, setOptionList] = useState([
-        generatePageOption('','Transactions', 'lg', true),
-        generatePageOption('/create','Create', 'lg', false),
+        gPageOption('','Transactions', 'lg', true),
+        gPageOption('/create','Create', 'lg', false),
       ]),
       [params, setParams] = useState({
         transactionId: '',
@@ -33,6 +34,7 @@ function Transaction() {
         agentName: '',
         buyer: '',
         seller: '',
+        isListing: true,
         address: '',
       }),
       [transactions, setTransactions] = useState([]),
@@ -89,7 +91,7 @@ function Transaction() {
   }
   let changePageOption = (optionName) => {
     setOptionList(optionList.map(i => {
-      return generatePageOption(i.path, i.name, i.size, i.name === optionName)
+      return gPageOption(i.path, i.name, i.size, i.name === optionName)
     }))
   }
 

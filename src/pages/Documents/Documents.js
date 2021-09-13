@@ -16,8 +16,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab, showDocumentModal,} from "../../redux";
 import {completeReload} from "../../redux";
 
-import {generatePageOption} from "../../services/Generators/generatePageOption"
-import {generateButton} from "../../services/Generators/generateButton"
+import {gPageOption} from "../../services/Generators/gPageOption"
+import {gButton} from "../../services/Generators/gButton"
 import getAll from "../../services/Api/GET/getAll.js"
 
 import PageOption from "../../components/Inputs/pageOption/pageOption";
@@ -28,11 +28,11 @@ import CreateDocumentForm from "../../components/Forms/CreateDocumentForm/Create
 
 function Documents() {
   let dispatch = useDispatch(),
-    closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
+    closeButton = gButton('close', 'icon', 'solid', 'lg', 'close-icon'),
     [currentPage, setCurrentPage] = useState(1),
     [optionList, setOptionList] = useState([
-      generatePageOption('','Documents', 'lg', true),
-      generatePageOption('/create','Create', 'lg', false),
+      gPageOption('','Documents', 'lg', true),
+      gPageOption('/create','Create', 'lg', false),
     ]),
     [docs, setDocs] = useState([]),
     [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 25, totalItem: 1}),
@@ -93,7 +93,7 @@ function Documents() {
   }
   let changePageOption = (optionName) => {
     setOptionList(optionList.map(i => {
-      return generatePageOption(i.path, i.name, i.size, i.name === optionName)
+      return gPageOption(i.path, i.name, i.size, i.name === optionName)
     }))
   }
 

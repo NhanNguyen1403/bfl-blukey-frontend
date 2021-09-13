@@ -2,24 +2,24 @@ import React, {useEffect, useState} from 'react';
 
 import "./Status.scss"
 import Button from "../../Inputs/Button/Button";
-import {generateButton} from "../../../services/Generators/generateButton";
+import {gButton} from "../../../services/Generators/gButton";
 import Put from "../../../services/Api/PUT/put";
 
 function Status(props) {
   let {transactionId, activeStatus, userId, mode, isActionDisable} = props.configs,
       {userEdited, reloadDetailTransaction} = props.clickHandler,
       statuses = ['new', 'in progress', 'review', 'complete', 'error'],
-      inProgressButton = generateButton('In progress', 'text', 'solid', 'sm'),
-      [reviewButton, setReviewButton] = useState(generateButton('Request review', 'text', 'solid disable', 'sm')),
-      approveButton = generateButton('Approve', 'text', 'solid', 'sm'),
-      rejectButton = generateButton('Reject', 'text', 'outlined warning', 'sm'),
+      inProgressButton = gButton('In progress', 'text', 'solid', 'sm'),
+      [reviewButton, setReviewButton] = useState(gButton('Request review', 'text', 'solid disable', 'sm')),
+      approveButton = gButton('Approve', 'text', 'solid', 'sm'),
+      rejectButton = gButton('Reject', 'text', 'outlined warning', 'sm'),
       {isAdmin, id} = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     if (!isActionDisable)
-      setReviewButton(generateButton('Request review', 'text', 'solid', 'sm'))
+      setReviewButton(gButton('Request review', 'text', 'solid', 'sm'))
     else
-      setReviewButton(generateButton('Request review', 'text', 'solid disable', 'sm'))
+      setReviewButton(gButton('Request review', 'text', 'solid disable', 'sm'))
 
   }, [isActionDisable])
 

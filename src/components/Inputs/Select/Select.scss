@@ -1,0 +1,62 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+@import "../../../scss/Templates";
+
+.select-container {
+  position: relative;
+  height: fit-content;
+
+  label {
+    position: absolute;
+    line-height: 1rem;
+    top: -.5rem;
+    left: 10px;
+    color: $primary-text-color;
+    font-weight: bold;
+    background-color: white;
+
+    span {
+      color: red;
+    }
+  }
+
+  select {
+    padding: 9px;
+    box-sizing: border-box;
+    border-radius: $border-radius-md;
+    width: 100%;
+    outline: unset;
+    color: $primary-text-color;
+    @extend %outlined;
+
+    * {
+      color: $primary-text-color;
+      font-size: 16px;
+    }
+  }
+
+  &.font {
+    &__md {
+      font-size: 12px;
+
+      select {
+        padding: 6px;
+      }
+    }
+  }
+
+  &.width {
+    &__half {
+      width: calc(50% - 5px);
+    }
+  }
+
+  &.disabled {
+    select {
+      color: $second-text-color;
+    }
+
+    pointer-events: none;
+  }
+}

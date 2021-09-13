@@ -2,21 +2,30 @@ import React from 'react';
 
 import "./CreateDocumentForm.scss"
 import Input from "../../Inputs/Input/Input";
-import generateInput from "../../../services/Generators/generateInput";
-import {generateButton} from "../../../services/Generators/generateButton";
+import gInput from "../../../services/Generators/gInput";
+import {gButton} from "../../../services/Generators/gButton";
 import Button from "../../Inputs/Button/Button";
 import Post from '../../../services/Api/POST/post'
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {needReload} from "../../../redux";
+import gSelect from "../../../services/Generators/gSelect";
+import Select from "../../Inputs/Select/Select";
 
 function CreateDocumentForm(props) {
   let {cancel} = props.clickHandler
-  let name = generateInput('Document Name', 'text', '', 'full'),
-      type = generateInput('Type', 'text', '', 'half', true, ['Required', 'Optional']),
-      category = generateInput('Category', 'text', '', 'half', true, ['Listing', 'Buying', 'Both']),
-      createButton = generateButton('Create', 'text', 'solid','md'),
-      cancelButton = generateButton('Cancel', 'text', 'outlined', 'md'),
+  let name = gInput('Document Name', 'text', '', 'full'),
+      type = gSelect('Type', false, 'width__half',[
+        {value: false, displayName: 'Optional'},
+        {value: true, displayName: 'Required'}
+      ]),
+      category = gSelect('Category', false, 'width__half',[
+        {value: 'Listing', displayName: 'Listing'},
+        {value: 'Buying', displayName: 'Buying'},
+        {value: 'Both', displayName: 'Both'},
+      ]),
+      createButton = gButton('Create', 'text', 'solid','md'),
+      cancelButton = gButton('Cancel', 'text', 'outlined', 'md'),
       history = useHistory(),
       dispatch = useDispatch()
 
@@ -28,9 +37,9 @@ function CreateDocumentForm(props) {
 
     return create({
       name: name.getValue,
-      isRequired: type.getValue === 'Required',
-      isBoth: category.getValue === 'Both',
-      isListing: category.getValue === 'Listing'
+      isRequired: type.value,
+      isBoth: category.value === 'Both',
+      isListing: category.value === 'Listing'
     })
   }
 
@@ -53,8 +62,8 @@ function CreateDocumentForm(props) {
 
         <div className="block">
           <Input configs={name}/>
-          <Input configs={type}/>
-          <Input configs={category}/>
+          <Select configs={type}/>
+          <Select configs={category}/>
         </div>
       </div>
 

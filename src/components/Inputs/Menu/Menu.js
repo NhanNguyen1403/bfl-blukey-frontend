@@ -3,28 +3,37 @@ import React, {useEffect, useRef, useState} from 'react';
 import "./Menu.scss"
 
 import {showProfileModal}  from "../../../redux";
-
-import {generateButton} from "../../../services/Generators/generateButton";
-import LogOut from "../../../services/Session/LogOut";
-import Button from "../../Inputs/Button/Button";
 import {useDispatch} from "react-redux";
 
-function Menu() {
-	let [displayMenu, setDisplayMenu] = useState(false)
-	let profileButton = generateButton('profile', 'icon', 'circle secondary', 'lg', 'user-icon')
-	let dispatch = useDispatch()
+import {gButton} from "../../../services/Generators/gButton";
+import LogOut from "../../../services/Session/LogOut";
+import Button from "../../Inputs/Button/Button";
 
-	let menuListRef = useRef()
+function Menu() {
+	let [displayMenu, setDisplayMenu] = useState(false),
+			profileButton = gButton('profile', 'icon', 'circle secondary', 'lg', 'user-icon'),
+			dispatch = useDispatch(),
+			menuListRef = useRef()
+
+
+
 	useEffect(() => {
 		displayMenu
-			? document.addEventListener('mousedown', handleClickOutside)
-			: document.removeEventListener('mousedown', handleClickOutside)
+			? document.addEventListener('mousedown', clickOutsideHandler)
+			: document.removeEventListener('mousedown', clickOutsideHandler)
 
 		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
+			document.removeEventListener('mousedown', clickOutsideHandler);
 		};
 	}, [displayMenu]);
 
+
+
+	let clickOutsideHandler = (e) => {
+		if (!menuListRef.current || !menuListRef.current.contains(e.target)) {
+			setDisplayMenu(false);
+		}
+	};
 	let toggleMenu = () => {
 		setDisplayMenu(prevState => !prevState)
 	}
@@ -33,11 +42,7 @@ function Menu() {
 		dispatch(showProfileModal('edit', JSON.parse(localStorage.getItem('user'))))
 	}
 
-	let handleClickOutside = (e) => {
-		if (!menuListRef.current || !menuListRef.current.contains(e.target)) {
-			setDisplayMenu(false);
-		}
-	};
+
 
 	return (
 		<div className='menu-container'>

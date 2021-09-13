@@ -2,25 +2,30 @@ import React, {useState} from 'react';
 
 import "./CreateUserForm.scss"
 import Input from "../../Inputs/Input/Input";
-import generateInput from "../../../services/Generators/generateInput";
-import {generateButton} from "../../../services/Generators/generateButton";
+import gInput from "../../../services/Generators/gInput";
+import {gButton} from "../../../services/Generators/gButton";
 import Button from "../../Inputs/Button/Button";
 import Post from '../../../services/Api/POST/post'
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {needReload} from "../../../redux";
+import gSelect from "../../../services/Generators/gSelect";
+import Select from "../../Inputs/Select/Select";
 
 function CreateUserForm(props) {
 	let {cancel} = props.clickHandler
-	let firstName = generateInput('First name', 'text', '', 'half'),
-			lastName = generateInput('Last name', 'text', '', 'half'),
-			email = generateInput('Email', 'text', '', 'half'),
-			role = generateInput('Role', 'text', '', 'half', true, ['User', 'Admin']),
-			address = generateInput('Address', 'text', '', 'full'),
-			userName = generateInput('Username', 'text', '', 'half'),
-			password = generateInput('Password', 'password', '', 'half'),
-			createButton = generateButton('Create', 'text', 'solid','md'),
-			cancelButton = generateButton('Cancel', 'text', 'outlined', 'md'),
+	let firstName = gInput('First name', 'text', '', 'half'),
+			lastName = gInput('Last name', 'text', '', 'half'),
+			email = gInput('Email', 'text', '', 'half'),
+			role = gSelect('Role', false, 'width__half',[
+				{value: false, displayName: 'User'},
+				{value: true, displayName: 'Admin'}
+			]),
+			address = gInput('Address', 'text', '', 'full'),
+			userName = gInput('Username', 'text', '', 'half'),
+			password = gInput('Password', 'password', '', 'half'),
+			createButton = gButton('Create', 'text', 'solid','md'),
+			cancelButton = gButton('Cancel', 'text', 'outlined', 'md'),
 			history = useHistory(),
 			dispatch = useDispatch()
 
@@ -33,7 +38,7 @@ function CreateUserForm(props) {
 			firstName: firstName.getValue,
 			lastName: lastName.getValue,
 			email: email.getValue,
-			isAdmin: role.getValue === 'Admin',
+			isAdmin: role.value,
 			address: address.getValue,
 			userName: userName.getValue,
 			password: password.getValue
@@ -60,7 +65,7 @@ function CreateUserForm(props) {
 				<Input configs={firstName}/>
 				<Input configs={lastName}/>
 				<Input configs={email}/>
-				<Input configs={role}/>
+				<Select configs={role}/>
 				<Input configs={address}/>
 			</div>
 

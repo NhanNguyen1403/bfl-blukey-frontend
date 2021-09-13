@@ -16,8 +16,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeTab as changeGlobalTab, showProfileModal} from "../../redux";
 import {completeReload} from "../../redux";
 
-import {generatePageOption} from "../../services/Generators/generatePageOption"
-import {generateButton} from "../../services/Generators/generateButton"
+import {gPageOption} from "../../services/Generators/gPageOption"
+import {gButton} from "../../services/Generators/gButton"
 import getAll from "../../services/Api/GET/getAll.js"
 
 import PageOption from "../../components/Inputs/pageOption/pageOption";
@@ -28,11 +28,11 @@ import {Route, Switch, useHistory, useRouteMatch} from "react-router-dom";
 
 function Administrator() {
   let dispatch = useDispatch(),
-      closeButton = generateButton('close', 'icon', 'solid', 'lg', 'close-icon'),
+      closeButton = gButton('close', 'icon', 'solid', 'lg', 'close-icon'),
       [currentPage, setCurrentPage] = useState(1),
       [optionList, setOptionList] = useState([
-        generatePageOption('','Users', 'lg', true),
-        generatePageOption('/create','Create', 'lg', false),
+        gPageOption('','Users', 'lg', true),
+        gPageOption('/create','Create', 'lg', false),
       ]),
       [users, setUsers] = useState([]),
       [pageConfigs, setPagingConfigs] = useState({current: currentPage, itemPerPage: 25, totalItem: 1}),
@@ -99,7 +99,7 @@ function Administrator() {
   }
   let changePageOption = (optionName) => {
     setOptionList(optionList.map(i => {
-      return generatePageOption(i.path, i.name, i.size, i.name === optionName)
+      return gPageOption(i.path, i.name, i.size, i.name === optionName)
     }))
   }
 
