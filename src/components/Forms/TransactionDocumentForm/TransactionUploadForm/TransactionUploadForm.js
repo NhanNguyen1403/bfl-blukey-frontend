@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
 import "./TransactionUploadForm.scss"
-import generateInput from "../../../../services/Generators/generateInput";
+import gInput from "../../../../services/Generators/gInput";
 import Input from "../../../Inputs/Input/Input";
 import Button from "../../../Inputs/Button/Button";
-import {generateButton} from "../../../../services/Generators/generateButton";
+import {gButton} from "../../../../services/Generators/gButton";
 import {useDispatch} from "react-redux";
 import {hideSnack, showSnack} from "../../../../redux";
 import Post from "../../../../services/Api/POST/post";
@@ -16,15 +16,15 @@ function TransactionUploadForm(props) {
       {updateCanComplete, userEdited, loadDocuments} = props.clickHandler,
       [uploadedDocuments, setUploadedDocuments] = useState([]),
       [restDocuments, setRestDocuments] = useState([]),
-      [typeInput, setTypeInput] = useState(generateInput(`Type`, 'text', '', 'full', true, [])),
-      [documentInput, setDocumentInput] = useState(generateInput('Document', 'file', '', 'full', true)),
-      submitButton = generateButton('Submit', 'text', 'solid', 'lg'),
-      removeButton = generateButton('close', 'icon', 'secondary', 'md', 'close-icon'),
+      [typeInput, setTypeInput] = useState(gInput(`Type`, 'text', '', 'full', true, [])),
+      [documentInput, setDocumentInput] = useState(gInput('Document', 'file', '', 'full', true)),
+      submitButton = gButton('Submit', 'text', 'solid', 'lg'),
+      removeButton = gButton('close', 'icon', 'secondary', 'md', 'close-icon'),
       {process} = documents
 
 
   useEffect(() => {
-    setTypeInput(generateInput(`Type`, 'text', '', 'full', true, restDocuments.map(i => i.documentTypeName)))
+    setTypeInput(gInput(`Type`, 'text', '', 'full', true, restDocuments.map(i => i.documentTypeName)))
   }, [restDocuments])
 
   useEffect(() => {

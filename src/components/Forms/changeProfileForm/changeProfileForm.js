@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 
 import "./changeProfileForm.scss"
-import generateInput from "../../../services/Generators/generateInput";
-import {generateButton} from "../../../services/Generators/generateButton";
+import gInput from "../../../services/Generators/gInput";
+import {gButton} from "../../../services/Generators/gButton";
 import Input from "../../Inputs/Input/Input";
 import Button from "../../Inputs/Button/Button";
+import gSelect from "../../../services/Generators/gSelect";
+import Select from "../../Inputs/Select/Select";
 
 function ChangeProfileForm(props) {
 	let {save, cancel} = props.clickHandler
@@ -15,13 +17,16 @@ function ChangeProfileForm(props) {
 		return isAdmin === true
 	}
 
-	let firstName = generateInput('First name', 'text', user.firstName, 'half'),
-		lastName = generateInput('Last name', 'text', user.lastName, 'half'),
-		email = generateInput('Email', 'text', user.email, 'half'),
-		role = generateInput('Role', 'text', user.isAdmin ? 'Admin' : 'User', 'half', true, ['User', 'Admin'], !isOwnerAdmin()),
-		address = generateInput('Address', 'text', user.address, 'full'),
-		saveButton = generateButton('Save', 'text', 'solid', 'md'),
-		cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
+	let firstName = gInput('First name', 'text', user.firstName, 'half'),
+		lastName = gInput('Last name', 'text', user.lastName, 'half'),
+		email = gInput('Email', 'text', user.email, 'half'),
+		role = gSelect('Role', user.isAdmin, 'width__half',[
+			{value: false, displayName: 'User'},
+			{value: true, displayName: 'Admin'}
+		]),
+		address = gInput('Address', 'text', user.address, 'full'),
+		saveButton = gButton('Save', 'text', 'solid', 'md'),
+		cancelButton = gButton('Cancel', 'text', 'outlined', 'md')
 
 
 	let validate = () => {
@@ -33,7 +38,7 @@ function ChangeProfileForm(props) {
 			firstName: firstName.getValue,
 			lastName: lastName.getValue,
 			email: email.getValue,
-			isAdmin: role.getValue === 'Admin',
+			isAdmin: role.value,
 			address: address.getValue,
 		})
 	}
@@ -47,7 +52,7 @@ function ChangeProfileForm(props) {
 				<Input configs={firstName}/>
 				<Input configs={lastName}/>
 				<Input configs={email}/>
-				<Input configs={role}/>
+				<Select configs={role}/>
 				<Input configs={address}/>
 			</div>
 

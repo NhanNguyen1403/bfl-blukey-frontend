@@ -1,5 +1,5 @@
 /***********************************************************
- * 1. Received an button config with generateButton service
+ * 1. Received an button config with gButton service
  * 2. Received an clickHandler function
  *
  * **note:  type: text, icon

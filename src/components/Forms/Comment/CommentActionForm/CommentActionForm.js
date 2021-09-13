@@ -1,18 +1,18 @@
 import React from 'react';
 
 import "./CommentActionForm.scss"
-import generateInput from "../../../../services/Generators/generateInput";
-import {generateButton} from "../../../../services/Generators/generateButton";
+import gInput from "../../../../services/Generators/gInput";
+import {gButton} from "../../../../services/Generators/gButton";
 import Button from "../../../Inputs/Button/Button";
 import Input from "../../../Inputs/Input/Input";
 
 function CommentActionForm(props) {
   let {comment, isDisplay} = props.configs,
       {editComment, deleteComment, toggleActionForm} = props.clickHandler,
-      commentInput = generateInput('Edit','text',comment.comment,'full', false),
-      saveButton = generateButton('Save change','text', 'solid', 'sm'),
-      cancelButton = generateButton('Cancel','text', 'outlined', 'sm'),
-      deleteButton = generateButton('Delete', 'text', 'outlined warning', 'sm')
+      commentInput = gInput('Edit','text',comment.comment,'full', false),
+      saveButton = gButton('Save change','text', 'solid', 'sm'),
+      cancelButton = gButton('Cancel','text', 'outlined', 'sm'),
+      deleteButton = gButton('Delete', 'text', 'outlined warning', 'sm')
 
   let validate = async () => {
     console.log('validate new new message')

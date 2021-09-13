@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 
 import "./Comment.scss"
-import generateInput from "../../../services/Generators/generateInput";
+import gInput from "../../../services/Generators/gInput";
 import Input from "../../Inputs/Input/Input";
-import {generateButton} from "../../../services/Generators/generateButton";
+import {gButton} from "../../../services/Generators/gButton";
 import Button from "../../Inputs/Button/Button";
 import CommentItem from "./CommentItem/CommentItem";
 import GetAll from "../../../services/Api/GET/getAll"
@@ -16,8 +16,8 @@ function Comment(props) {
       commentHistory = null,
       {userEdited} = props.clickHandler,
       [comments, setComments]= useState([...props.configs.comments || []].reverse()),
-      [messageInput, setMessageInput] = useState(generateInput('Put your comment here...', 'text-area','', 'full',false)),
-      sendButton = generateButton('Send', 'text', 'solid', 'lg')
+      [messageInput, setMessageInput] = useState(gInput('Put your comment here...', 'text-area','', 'full',false)),
+      sendButton = gButton('Send', 'text', 'solid', 'lg')
 
   useEffect(() => {
     // Scroll to latest comment
@@ -50,7 +50,7 @@ function Comment(props) {
     }
     await Post('transactionComments', payload)
     getComments()
-    setMessageInput(generateInput('Put your comment here...', 'text-area', '', 'full',false))
+    setMessageInput(gInput('Put your comment here...', 'text-area', '', 'full',false))
     userEdited()
   }
   let editComment = async (commentId, message) => {

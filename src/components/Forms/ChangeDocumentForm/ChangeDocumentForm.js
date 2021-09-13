@@ -1,21 +1,28 @@
 import React, {useEffect} from 'react';
 
 import "./ChangeDocumentForm.scss"
-import generateInput from "../../../services/Generators/generateInput";
-import {generateButton} from "../../../services/Generators/generateButton";
+import gInput from "../../../services/Generators/gInput";
+import {gButton} from "../../../services/Generators/gButton";
 import Input from "../../Inputs/Input/Input";
 import Button from "../../Inputs/Button/Button";
+import gSelect from "../../../services/Generators/gSelect";
+import Select from "../../Inputs/Select/Select";
 
 function ChangeDocumentForm(props) {
-  let {save, cancel} = props.clickHandler
-  let {doc} = props.configs
-
-
-  let name = generateInput('Document Name', 'text', doc.name, 'full'),
-      type = generateInput('Type', 'text', `${doc.isRequired ? 'Required' : 'Optional'}`, 'half', true, ['Required', 'Optional']),
-      category = generateInput('Category', 'text', `${doc.isBoth ? 'Both' : doc.isListing ? 'Listing' : 'Buying'}`, 'half', true, ['Listing', 'Buying', 'Both']),
-      saveButton = generateButton('Save', 'text', 'solid', 'md'),
-      cancelButton = generateButton('Cancel', 'text', 'outlined', 'md')
+  let {save, cancel} = props.clickHandler,
+      {doc} = props.configs,
+      name = gInput('Document Name', 'text', doc.name, 'full'),
+      type = gSelect('Type', doc.isRequired, 'width__half',[
+        {value: false, displayName: 'Optional'},
+        {value: true, displayName: 'Required'}
+      ]),
+      category = gSelect('Category', doc.isBoth ? 'Both' : doc.isListing ? 'Listing' : 'Buying', 'width__half',[
+        {value: 'Listing', displayName: 'Listing'},
+        {value: 'Buying', displayName: 'Buying'},
+        {value: 'Both', displayName: 'Both'},
+      ]),
+      saveButton = gButton('Save', 'text', 'solid', 'md'),
+      cancelButton = gButton('Cancel', 'text', 'outlined', 'md')
 
 
   let validate = () => {
@@ -25,9 +32,9 @@ function ChangeDocumentForm(props) {
 
     return save(doc.id, {
       name: name.getValue,
-      isRequired: type.getValue === 'Required',
-      isBoth: category.getValue === 'Both',
-      isListing: category.getValue === 'Listing'
+      isRequired: type.value,
+      isBoth: category.value === 'Both',
+      isListing: category.value === 'Listing'
     })
   }
 
@@ -37,8 +44,8 @@ function ChangeDocumentForm(props) {
       <div className="info-form-container">
         <div className="block">
           <Input configs={name}/>
-          <Input configs={type}/>
-          <Input configs={category}/>
+          <Select configs={type}/>
+          <Select configs={category}/>
         </div>
       </div>
 

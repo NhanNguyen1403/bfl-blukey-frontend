@@ -4,8 +4,8 @@ import "./TransactionDetailModal.scss"
 import PageOption from "../../Inputs/pageOption/pageOption";
 import Button from "../../Inputs/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {generatePageOption} from "../../../services/Generators/generatePageOption";
-import {generateButton} from "../../../services/Generators/generateButton";
+import {gPageOption} from "../../../services/Generators/gPageOption";
+import {gButton} from "../../../services/Generators/gButton";
 import {hideTransactionDetail, needReload} from "../../../redux";
 // import Put from "../../../services/Api/PUT/put";
 // import getAll from "../../../services/Api/GET/getAll";
@@ -26,14 +26,14 @@ function TransactionDetailModal(props) {
       [comments, setComments] = useState([]),
       [canComplete, setCanComplete] = useState(false),
       [optionList, setOptionList] = useState([
-        generatePageOption('','Transaction', 'md', true),
-        generatePageOption('','Documents', 'md', false),
-        generatePageOption('','Comments', 'md', false),
+        gPageOption('','Transaction', 'md', true),
+        gPageOption('','Documents', 'md', false),
+        gPageOption('','Comments', 'md', false),
       ]),
       [statusConfig, setStatusConfig] = useState({}),
       [documentType, setDocumentType] = useState({}),
       [isUserEdited, setIsUserEdited] = useState(false),
-      closeButton = generateButton('close', 'icon', 'solid', 'md', 'close-icon')
+      closeButton = gButton('close', 'icon', 'solid', 'md', 'close-icon')
 
 
 
@@ -61,7 +61,7 @@ function TransactionDetailModal(props) {
 
   let changeOption = (optionName) => {
     setOptionList(optionList.map(i => {
-      return generatePageOption(i.path, i.name, i.size, i.name === optionName)
+      return gPageOption(i.path, i.name, i.size, i.name === optionName)
     }))
   }
   let loadDocuments = async () => {
@@ -74,9 +74,9 @@ function TransactionDetailModal(props) {
   let closeModal = () => {
     dispatch(hideTransactionDetail())
     setOptionList([
-      generatePageOption(undefined,'Transaction', 'md', true),
-      generatePageOption(undefined,'Documents', 'md', false),
-      generatePageOption(undefined,'Comments', 'md', false),
+      gPageOption(undefined,'Transaction', 'md', true),
+      gPageOption(undefined,'Documents', 'md', false),
+      gPageOption(undefined,'Comments', 'md', false),
     ])
     if (isUserEdited) {
       dispatch(needReload())
