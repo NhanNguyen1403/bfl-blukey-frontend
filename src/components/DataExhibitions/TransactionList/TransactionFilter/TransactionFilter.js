@@ -14,7 +14,7 @@ import Select from "../../../Inputs/Select/Select";
 
 function TransactionFilter(props) {
 	let dispatch = useDispatch(),
-			{isAdmin, fullName} = JSON.parse(localStorage.getItem('user')) || false,
+			{isAdmin, fullName, id: loggingUserId} = JSON.parse(localStorage.getItem('user')) || false,
 			{filterHandler} = props.clickHandler,
 			{transactionId, startDate, endDate, agentName, transactionStatusId, seller, buyer, address} = props.configs,
 			transactionIdInput = gInput('Search transaction with ID', 'text-area',transactionId, 'full',false),
@@ -121,6 +121,7 @@ function TransactionFilter(props) {
 				{data} = await getAll('users', params),
 				agentNames = data.map(agent => agent.fullName),
 				{labelName, type, size, isRequired} = agentNameInput
+		
 
 		setAgents(data)
 		setAgentNameInput(gInput(labelName, type, fullName, size, isRequired, agentNames, false, searchAgent))
@@ -189,10 +190,14 @@ function TransactionFilter(props) {
 				buyerName = ''
 
 		if (agentNameInput.getValue) {
-			let agent = agents.find(a => a.fullName === agentNameInput.getValue)
-			if (!agent)
-				return dispatch(showSnack('Agent invalid', 'danger'))
-			agentId = agent.id
+			if (!isAdmin) 
+				agentId = loggingUserId
+			else {
+				let agent = agents.find(a => a.fullName === agentNameInput.getValue)
+				if (!agent) 
+					return dispatch(showSnack('Agent invalid', 'danger'))
+				agentId = agent.id 
+			}
 		}
 		if (sellerInput.getValue) {
 			let seller = sellers.find(s => s.sellerName === sellerInput.getValue)

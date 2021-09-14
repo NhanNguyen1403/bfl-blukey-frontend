@@ -20,7 +20,7 @@ const gInput = function (
 			isRequired,
 			isDisable,
 
-			isValid: value && true,
+			isValid: value ? true : false,
 			set setIsValid(status) {
 				return this.isValid = status
 			},

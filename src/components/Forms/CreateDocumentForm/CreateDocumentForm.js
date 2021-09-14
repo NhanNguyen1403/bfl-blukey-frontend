@@ -19,7 +19,7 @@ function CreateDocumentForm(props) {
         {value: false, displayName: 'Optional'},
         {value: true, displayName: 'Required'}
       ]),
-      category = gSelect('Category', false, 'width__half',[
+      category = gSelect('Category', 'Listing', 'width__half',[
         {value: 'Listing', displayName: 'Listing'},
         {value: 'Buying', displayName: 'Buying'},
         {value: 'Both', displayName: 'Both'},

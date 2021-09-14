@@ -32,7 +32,7 @@ function CreateUserForm(props) {
 	let validate = () => {
 		let inputs = [firstName,lastName,email,role,address,userName,password]
 		if (inputs.some(i => i.getIsValid === false))
-			return console.log(false)
+			return console.log('Form Invalid')
 
 		return create({
 			firstName: firstName.getValue,

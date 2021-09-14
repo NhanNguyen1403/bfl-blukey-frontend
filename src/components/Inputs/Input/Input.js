@@ -19,6 +19,7 @@ function Input(props) {
 			randomID = Math.random()
 
 
+
 	useEffect(() => {
 		let inputRef = document.getElementById(`${labelName}-${randomID}`)
 
@@ -27,13 +28,16 @@ function Input(props) {
 	}, [props.configs.getValue])
 
 
+
+
 	const updateValue = (event) => {
 		let {value: newValue} = event.target,
 				{which} = event
 
-		if (type === 'file')
-			return validate(event)
-
+		if (type === 'file') {
+			validate(event)
+			return props.fileHandler()
+		}
 
 		if (props.configs.search && which && which !== 13) // only search keypress event, ignore onchange
 			props.configs.search(newValue)
@@ -44,11 +48,15 @@ function Input(props) {
 	const validate = (event) => {
 		let {value: newValue, files} = event.target
 
-		if (isRequired && type === 'number' && newValue <= 0)
+		if (isRequired && type === 'number' && newValue <= 0) {
+			props.configs.setIsValid = false
 			return toggleAlert(true)
+		}
 
-		if (isRequired && type !== 'number' && newValue.length < 2)
+		if (isRequired && type !== 'number' && newValue.length < 2) {
+			props.configs.setIsValid = false
 			return toggleAlert(true)
+		}
 
 		if (data.length > 0 && newValue.length !== 0 && !data.includes(newValue))
 			return props.configs.setIsValid = false
@@ -57,9 +65,6 @@ function Input(props) {
 
 		if (type === 'file') {
 			props.configs.setValue = files[0]
-			props.fileHandler()
-			toggleAlert(false)
-			return
 		}
 
 		toggleAlert(false)
@@ -89,7 +94,7 @@ function Input(props) {
 				placeholder={labelName}
 				type={type}
 				autoComplete=''
-				onBlur={e => validate(e, 'Blur')}
+				onBlur={e => validate(e)}
 				onChange={e =>  updateValue(e)}
 				onKeyUp={e => updateValue(e)}
 				list={data.length > 0 ? `${labelName}-${randomID}s` : ''}

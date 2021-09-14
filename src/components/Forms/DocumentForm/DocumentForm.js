@@ -12,11 +12,11 @@ import {useDispatch} from "react-redux";
 import {hideSnack, showSnack} from "../../../redux";
 
 function DocumentForm(props) {
-	let dispatch = useDispatch()
-	let {mode, user} = props.configs
-	let document = gInput('Document', 'file', '', 'full')
-	// let removeButton = gButton('close', 'icon', 'secondary', 'md', 'close-icon')
-	let [documents, setDocuments] = useState([])
+	let dispatch = useDispatch(),
+	 		{mode, user} = props.configs,
+	 		document = gInput('Document', 'file', '', 'full'),
+			[documents, setDocuments] = useState([])
+	// 	removeButton = gButton('close', 'icon', 'secondary', 'md', 'close-icon')
 
 	useEffect(async () => {
 		await getDocuments()
@@ -47,7 +47,7 @@ function DocumentForm(props) {
 		else
 			dispatch(hideSnack())
 
-		console.log('Save document:', document.getValue)
+		// console.log('Save document:', document.getValue)
 		let formData = new FormData()
 
 		formData.append('pdf', document.getValue)
