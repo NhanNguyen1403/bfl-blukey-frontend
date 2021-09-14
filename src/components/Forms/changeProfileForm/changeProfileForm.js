@@ -9,30 +9,24 @@ import gSelect from "../../../services/Generators/gSelect";
 import Select from "../../Inputs/Select/Select";
 
 function ChangeProfileForm(props) {
-	let {save, cancel} = props.clickHandler
-	let {mode, user} = props.configs
-
-	let isOwnerAdmin = () => {
-		let {isAdmin} = JSON.parse(localStorage.getItem('user'))
-		return isAdmin === true
-	}
-
-	let firstName = gInput('First name', 'text', user.firstName, 'half'),
-		lastName = gInput('Last name', 'text', user.lastName, 'half'),
-		email = gInput('Email', 'text', user.email, 'half'),
-		role = gSelect('Role', user.isAdmin, 'width__half',[
-			{value: false, displayName: 'User'},
-			{value: true, displayName: 'Admin'}
-		]),
-		address = gInput('Address', 'text', user.address, 'full'),
-		saveButton = gButton('Save', 'text', 'solid', 'md'),
-		cancelButton = gButton('Cancel', 'text', 'outlined', 'md')
+	let {save, cancel} = props.clickHandler,
+	 		{mode, user} = props.configs,
+			firstName 		= gInput('First name', 'text', user.firstName, 'half'),
+			lastName 			= gInput('Last name', 'text', user.lastName, 'half'),
+			email 				= gInput('Email', 'text', user.email, 'half'),
+			address 			= gInput('Address', 'text', user.address, 'full'),
+			saveButton 		= gButton('Save', 'text', 'solid', 'md'),
+			cancelButton 	= gButton('Cancel', 'text', 'outlined', 'md'),
+			role 					= gSelect('Role', user.isAdmin, 'width__half',[
+				{value: false, displayName: 'User'},
+				{value: true, displayName: 'Admin'}
+			])
 
 
 	let validate = () => {
 		let inputs = [firstName, lastName, email, role, address]
 		if (inputs.some(i => i.getIsValid === false))
-			return console.log('false')
+			return console.log('Form Invalid')
 
 		return save(user.id, {
 			firstName: firstName.getValue,

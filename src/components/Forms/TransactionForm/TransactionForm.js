@@ -44,7 +44,6 @@ function TransactionForm(props) {
 
 
   useEffect(() => {
-    console.log(transaction)
     if (transaction?.user?.firstName && transaction?.user?.lastName)
       setAgentName(gInput('Agent name', 'text', `${transaction.user.firstName} ${transaction.user.lastName}`, 'half', true, [], true))
     else
@@ -54,7 +53,7 @@ function TransactionForm(props) {
   let validate = () => {
     let inputs = [agentName, address, mlsID, seller, buyer, price, commissionRate, startDate, endDate]
     if (inputs.some(i => i.getIsValid === false))
-      return console.log(false)
+      return console.log('Form Invalid')
 
     if (startDate.getValue > endDate.getValue)
       return dispatch(showSnack('Start-date must before/same End date', 'danger'))
@@ -66,7 +65,7 @@ function TransactionForm(props) {
       zipCode: zipCode.getValue,
       mlsId: mlsID.getValue,
       apn: apn.getValue,
-      isListing: type.value,
+      isListing: type.value || false,
       listingPrice: price.getValue,
       commissionAmount: commissionRate.getValue,
       sellerName: seller.getValue,
