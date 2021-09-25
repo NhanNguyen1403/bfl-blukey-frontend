@@ -1,0 +1,64 @@
+@import "../../../../scss/Color";
+@import "../../../../scss/Border";
+@import "../../../../scss/BoxShadow";
+@import "../../../../scss/Templates";
+
+.transaction-upload-form {
+  width: 100%;
+  height: calc(100% - 30px);
+  box-sizing: border-box;
+
+  &__scroll {
+    margin-left: -10px;
+    padding-left: 10px;
+    height: calc(100% - 20px);
+    overflow: auto;
+
+    &__upload-area {
+      border-bottom: dashed 1px $text-placeholder;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			padding-top: 10px;
+			padding-inline: 20px;
+			border-radius: unset;
+			display: flex;
+			gap: 10px;
+    }
+
+    &__uploaded-area {
+			&__title {
+				width: 100%;
+				margin-top: 0px;
+				margin-bottom: 5px;
+				font-weight: bold;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+      &__uploaded {
+				@extend %uploaded-area-v2;
+        padding-inline: 20px;
+				box-sizing: border-box;
+				max-height: 500px;
+				overflow: auto;
+				transition: 300ms;
+
+        &__document {
+					@extend %document;
+          width: 33.33333%;
+					max-width: 33.33333%;
+					flex: 1;
+          gap: 5px;
+        }
+
+				&.hidden {
+					max-height: 0;
+					overflow: hidden;
+					margin-bottom: 0;
+				}
+      }
+    }
+  }
+}

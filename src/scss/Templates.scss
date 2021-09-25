@@ -119,3 +119,47 @@
     }
   }
 }
+
+
+%uploaded-area-v2 {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+%document {
+  height: 34px;
+  width: 160px;
+  box-sizing: border-box;
+  border: solid 1px $primary-text-color;
+  padding-left: 10px;
+  background-color: $background-pages;
+  border-radius: $border-radius-md;
+  transition: 300ms;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+    transition: 300ms;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $primary-text-color;
+  }
+
+  &:hover, &:active {
+    box-shadow: $default-box-shadow;
+    border-color: $primary-text-color;
+
+    a {
+      cursor: pointer;
+      color: $primary-text-color;
+    }
+  }
+}

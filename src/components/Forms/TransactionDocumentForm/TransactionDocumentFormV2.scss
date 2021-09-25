@@ -1,0 +1,9 @@
+@import "../../../scss/Color";
+@import "../../../scss/Border";
+@import "../../../scss/BoxShadow";
+
+.transaction-document-form-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  justify-content: space-between;
+}
