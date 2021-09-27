@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {hideTransactionDetail, needReload} from "../../../redux";
 
 import "./TransactionDetailModal.scss"
-import PageOption from "../../Inputs/pageOption/pageOption";
 import Button from "../../Inputs/Button/Button";
-import {useDispatch, useSelector} from "react-redux";
-import {gPageOption} from "../../../services/Generators/gPageOption";
-import {gButton} from "../../../services/Generators/gButton";
-import {hideTransactionDetail, needReload} from "../../../redux";
+import PageOption from "../../Inputs/pageOption/pageOption";
 // import Put from "../../../services/Api/PUT/put";
 // import getAll from "../../../services/Api/GET/getAll";
 import getAll from "../../../services/Api/GET/getAll";
-import Status from "../../Forms/Status/Status";
-import TransactionForm from "../../Forms/TransactionForm/TransactionForm";
-import TransactionDocumentForm from "../../Forms/TransactionDocumentForm/TransactionDocumentForm";
-import Comment from "../../Forms/Comment/Comment";
 import getUnit from "../../../services/Api/GET/getUnit";
+import {gButton} from "../../../services/Generators/gButton";
+import {gPageOption} from "../../../services/Generators/gPageOption";
+import Status from "../../Forms/Status/Status";
+import Comment from "../../Forms/Comment/Comment";
+import TransactionForm from "../../Forms/TransactionForm/TransactionForm";
+import TransactionDocumentFormV2 from '../../Forms/TransactionDocumentForm/TransactionDocumentFormV2';
 
 function TransactionDetailModal(props) {
   let dispatch = useDispatch(),
@@ -37,15 +37,18 @@ function TransactionDetailModal(props) {
 
 
 
-  useEffect(async () => {
+  useEffect(() => {
     setTransaction(transactionDetail)
   }, [transactionDetail])
   useEffect(() => {
     setMode(initMode)
   }, [initMode])
-  useEffect(async () => {
-    await loadDocuments()
-    setComments(transaction.comments)
+  useEffect( () => {
+    async function loadData () {
+      await loadDocuments()
+      setComments(transaction.comments)
+    } 
+    loadData()
   }, [transaction])
   useEffect(() => {
     if (transaction && transaction.user)
@@ -139,7 +142,7 @@ function TransactionDetailModal(props) {
           }
           {
             optionList[1].isActive &&
-            <TransactionDocumentForm
+            <TransactionDocumentFormV2
               configs={{transaction, documentType}}
               clickHandler={{updateCanComplete, userEdited, loadDocuments}}
             />

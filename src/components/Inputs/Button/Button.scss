@@ -28,6 +28,19 @@
     height: 100%;
   }
 
+  &.w {
+    &-fit {
+      width: fit-content;
+      padding-inline: 10px;
+    }
+  }
+
+  &.h {
+    &-full {
+      height: 100%;
+    }
+  }
+
   &.icon {
     padding: 8px 8px 6px 8px;
 

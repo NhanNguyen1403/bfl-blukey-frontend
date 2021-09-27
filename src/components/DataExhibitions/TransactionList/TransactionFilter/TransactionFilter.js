@@ -1,15 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
-
-import "./TransactionFilter.scss"
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { showSnack } from "../../../../redux";
+import getAll from "../../../../services/Api/GET/getAll";
+import { gButton } from "../../../../services/Generators/gButton";
 import gInput from "../../../../services/Generators/gInput";
-import Input from "../../../Inputs/Input/Input";
-import {gButton} from "../../../../services/Generators/gButton";
-import Button from "../../../Inputs/Button/Button";
-import {showSnack} from "../../../../redux";
-import {useDispatch} from "react-redux";
-import getAll from "../../../../services/Api/GET/getAll"
 import gSelect from "../../../../services/Generators/gSelect";
+import gSubTab from '../../../../services/Generators/gSubTab';
+import Button from "../../../Inputs/Button/Button";
+import Input from "../../../Inputs/Input/Input";
 import Select from "../../../Inputs/Select/Select";
+import SubTab from '../../../Inputs/SubTab/SubTab';
+import "./TransactionFilter.scss";
+
 
 
 function TransactionFilter(props) {
@@ -44,7 +46,12 @@ function TransactionFilter(props) {
 				{value: 3, displayName: 'Review'},
 				{value: 4, displayName: 'Complete'},
 				{value: 5, displayName: 'Error'},
-			], false)
+			], false),
+			[subTabConfig, setSubTabConfig] = useState(gSubTab(
+        ['Listing', 'Buying'],
+        'Listing',
+				'w-half'
+      ))
 
 
 
@@ -55,9 +62,11 @@ function TransactionFilter(props) {
 		if (isAdmin)
 			loadAgentNames()
 	},[])
+
 	useEffect(() => {
 		validate()
 	}, [currentTabFilter])
+
 	useEffect(() => {
 		displayAdvanceFilter
 			? document.addEventListener('mousedown', clickOutsideHandler)
@@ -88,6 +97,7 @@ function TransactionFilter(props) {
 			loadAgentNames(agentName)
 		}, 2000);
 	}
+
 	let searchSeller = (sellerName) => {
 		if (!sellerName)
 			return
@@ -99,6 +109,7 @@ function TransactionFilter(props) {
 			loadSellerNames(sellerName)
 		}, 2000);
 	}
+
 	let searchBuyer = (buyerName) => {
 		if (!buyerName)
 			return
@@ -126,6 +137,7 @@ function TransactionFilter(props) {
 		setAgents(data)
 		setAgentNameInput(gInput(labelName, type, fullName, size, isRequired, agentNames, false, searchAgent))
 	}
+
 	let loadSellerNames = async (searchingName = "", loadDefault = false) => {
 		if (loadDefault){
 			let {labelName, type, size, isRequired} = sellerInput
@@ -144,6 +156,7 @@ function TransactionFilter(props) {
 		setSellers(data)
 		setSellerInput(gInput(labelName, type, searchingName, size, isRequired, sellerNames, false, searchSeller))
 	}
+
 	let loadBuyerNames = async (searchingName = "", loadDefault = false) => {
 		if (loadDefault) {
 			let {labelName, type, size, isRequired} = buyerInput
@@ -163,11 +176,6 @@ function TransactionFilter(props) {
 		setBuyerInput(gInput(labelName, type, searchingName, size, isRequired, buyerNames, false, searchBuyer))
 	}
 
-	let changeTabFilter = (tab) => {
-		if (tab !== currentTabFilter){
-			setCurrentTabFilter(tab)
-		}
-	}
 	let resetFilter = () => {
 		filterHandler({
 			transactionId: '',
@@ -230,24 +238,19 @@ function TransactionFilter(props) {
 		setDisplayAdvanceFilter(false)
 	}
 
+	let changeSubTab = (newTab) => {
+    let {tabs, styles} = subTabConfig
+    setSubTabConfig(gSubTab(tabs, newTab, styles))
+
+		if (newTab !== currentTabFilter){
+			setCurrentTabFilter(newTab)
+		}
+  }
+
 
 	return (
 		<div className='transaction-filter-container'>
-
-			<div className="tab-filter-area">
-				{
-					['Listing', 'Buying'].map(tab => {
-						return (
-							<div
-								key={tab}
-								className={`tab-item ${tab === currentTabFilter ? 'active' : ''}`}
-								onClick={() => changeTabFilter(tab)}>
-								{tab}
-							</div>
-						)
-					})
-				}
-			</div>
+			<SubTab configs={subTabConfig} handlers={{changeSubTab}}/>
 
 			<div className="search-area">
 				<div className="button-area">
