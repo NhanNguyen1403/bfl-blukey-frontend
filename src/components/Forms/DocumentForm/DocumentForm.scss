@@ -13,6 +13,14 @@
   }
 
   .documents-area {
-    @extend %uploaded-area
+    @extend %uploaded-area-v2;
+    max-height: 200px;
+    overflow-x: auto;
+
+    &__document {
+      @extend %document;
+      margin-bottom: 10px;
+      width: 100%;
+    }
   }
 }
