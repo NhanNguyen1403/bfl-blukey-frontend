@@ -3,22 +3,21 @@
 @import "../../../../scss/BoxShadow";
 @import "../../../../scss/Templates";
 
+
 .transaction-upload-form {
   width: 100%;
   height: calc(100% - 30px);
   box-sizing: border-box;
 
   &__scroll {
-    margin-left: -10px;
-    padding-left: 10px;
+		margin-top: 15px;
     height: calc(100% - 20px);
     overflow: auto;
 
     &__upload-area {
       border-bottom: dashed 1px $text-placeholder;
 			margin-top: 10px;
-			margin-bottom: 10px;
-			padding-top: 10px;
+			margin-bottom: 15px;
 			padding-inline: 20px;
 			border-radius: unset;
 			display: flex;
@@ -38,25 +37,31 @@
 			}
 
       &__uploaded {
+				$gap: 10px;
+				$cols: 3;
+
 				@extend %uploaded-area-v2;
-        padding-inline: 20px;
-				box-sizing: border-box;
 				max-height: 500px;
 				overflow: auto;
 				transition: 300ms;
-
+				width: calc(100% - 30px);
+				margin-left: $gap;
+				
         &__document {
 					@extend %document;
-          width: 33.33333%;
-					max-width: 33.33333%;
-					flex: 1;
-          gap: 5px;
+					width: calc((100% / #{$cols}) - #{$gap});
+					margin-left: $gap;
+					margin-bottom: $gap;
         }
 
 				&.hidden {
 					max-height: 0;
 					overflow: hidden;
 					margin-bottom: 0;
+				}
+
+				span {
+					margin-left: 10px;
 				}
       }
     }

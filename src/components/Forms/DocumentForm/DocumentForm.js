@@ -67,16 +67,15 @@ function DocumentForm(props) {
 				}
 
 
+				<p className="title">DOCUMENTS</p>
 				<div className="documents-area">
-					<p className="title">DOCUMENTS</p>
-
 					{
 						documents.length === 0
 							? (<span>Documents uploaded will be here... </span>)
 							: documents.map(i => {
 								return (
-									<div key={i.id} className="document" title={i.fileName}>
-										<a href={i.url} target="_blank">{i.fileName}</a>
+									<div key={i.id} className="documents-area__document" title={i.fileName}>
+										<a href={i.url} target="_blank" rel="noreferrer">{i.fileName}</a>
 
 										{/*{*/}
 										{/*	mode === 'edit' &&*/}
