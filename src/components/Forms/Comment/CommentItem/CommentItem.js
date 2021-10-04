@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import "./CommentItem.scss"
 import CommentActionForm from "../CommentActionForm/CommentActionForm";
+import moment from 'moment'
 
 function CommentItem(props) {
   let {comment, mode} = props.configs,
@@ -31,10 +32,19 @@ function CommentItem(props) {
 
           {
             !isActionFormDisplay &&
-            <p onDoubleClick={toggleActionForm} title={`${comment.user.firstName}, ${comment.createdAt}`}>
-              {comment.comment}
-              {comment.isEdited && <i> - Edited</i>}
-            </p>
+            <div className={`content ${userId === comment.userId ? 'reverse' : ''}`}>
+              <p 
+                onDoubleClick={toggleActionForm} 
+                title={moment(comment.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
+              >
+                {comment.comment}
+                {comment.isEdited && <i> - Edited</i>}
+              </p>
+
+              <span>
+                {comment.user.firstName}
+              </span>
+            </div>
           }
 
           <CommentActionForm
@@ -47,9 +57,15 @@ function CommentItem(props) {
     return (
       <div className={`comment-item-container ${userId === comment.userId ? 'owner' : ''} ${mode}`}>
         {
-          <p title={`${comment.user.firstName}, ${comment.createdAt}`}>
-            <i>Message is deleted.</i>
-          </p>
+          <div className={`content ${userId === comment.userId ? 'reverse' : ''}`}>
+            <p title={`${comment.user.firstName}, ${comment.createdAt}`}>
+              <i>Message is deleted.</i>
+            </p>
+
+            <span>
+                {comment.user.firstName}
+              </span>
+          </div>
         }
       </div>
     );

@@ -18,10 +18,10 @@
 
 @keyframes slide-up {
   from {
-    transform: translateY(100px);
+    transform: translate(-50%, 100px);
   }
   to {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
   }
 }
 
