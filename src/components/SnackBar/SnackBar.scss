@@ -2,12 +2,14 @@
 @import "../../scss/Border";
 @import "../../scss/BoxShadow";
 @import "../../scss/Templates";
+@import "../../scss/Animation.scss";
 
 .snack-bar-container {
   position: fixed;
-  width: 300px;
   bottom: 40px;
-  left: calc(50vw + 125px - 160px);
+  min-width: 300px;
+  left: calc(50% + 125px);
+  transform: translateX(-50%);
   height: 40px;
   animation: slide-up 300ms ease-out;
   display: flex;
@@ -18,7 +20,7 @@
   z-index: 1;
 
   &.logging {
-    left: calc(50vw - 160px);
+    left: 50%;
   }
 
   p {
