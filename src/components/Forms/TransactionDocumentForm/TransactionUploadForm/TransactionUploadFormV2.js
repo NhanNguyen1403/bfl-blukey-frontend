@@ -133,7 +133,7 @@ function TransactionUploadFormV2(props) {
 								>
 									{
 										uploadedDocuments[group].length === 0
-											? (<span>Documents uploaded will be here... </span>)
+											? (<span>Can you update me the status of Document types</span>)
 											: uploadedDocuments[group].map(i => {
 												return (
 													<div
