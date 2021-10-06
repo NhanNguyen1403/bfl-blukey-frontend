@@ -12,12 +12,12 @@ function SnackBar({isLogging}) {
     return state.snack
   })
 
-  // useEffect(() => {
-  //   if (isDisplay)
-  //     setTimeout(() => {
-  //       dispatch(hideSnack())
-  //     }, 5000)
-  // }, [isDisplay]);
+  useEffect(() => {
+    if (isDisplay)
+      setTimeout(() => {
+        dispatch(hideSnack())
+      }, 5000)
+  }, [isDisplay]);
 
 
   return (
