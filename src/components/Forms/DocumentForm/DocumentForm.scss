@@ -10,17 +10,26 @@
 
   .add-document-area {
     width: 100%;
+
+    .upload-area {
+      display: flex;
+      gap: 5px;
+    }
   }
 
   .documents-area {
     @extend %uploaded-area-v2;
     max-height: 200px;
-    overflow-x: auto;
+    overflow-y: auto;
 
     &__document {
       @extend %document;
       margin-bottom: 10px;
       width: 100%;
+    }
+
+    .button-area {
+      margin-bottom: 0;
     }
   }
 }

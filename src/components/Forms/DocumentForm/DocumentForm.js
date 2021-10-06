@@ -1,58 +1,69 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import "./DocumentForm.scss"
+import "./DocumentForm.scss";
 
-import Input from "../../Inputs/Input/Input";
+import { useDispatch } from "react-redux";
+import { hideSnack, showSnack } from "../../../redux";
+
+import getAll from "../../../services/Api/GET/getAll";
+import Post from "../../../services/Api/POST/post";
+import Delete from "../../../services/Api/DELETE/delete";
 import gInput from "../../../services/Generators/gInput";
-import Post from "../../../services/Api/POST/post"
-import getAll from "../../../services/Api/GET/getAll"
-// import {gButton} from "../../../services/Generators/gButton";
-// import Button from "../../Inputs/Button/Button";
-import {useDispatch} from "react-redux";
-import {hideSnack, showSnack} from "../../../redux";
+import Input from "../../Inputs/Input/Input";
+import { gButton } from "../../../services/Generators/gButton";
+import Button from "../../Inputs/Button/Button";
+
+
 
 function DocumentForm(props) {
 	let dispatch = useDispatch(),
-	 		{mode, user} = props.configs,
-	 		document = gInput('Document', 'file', '', 'full'),
-			[documents, setDocuments] = useState([])
-	// 	removeButton = gButton('close', 'icon', 'secondary', 'md', 'close-icon')
+		{ mode, user } = props.configs,
+		[documentInput, setDocumentInput] = useState(gInput('Document', 'file', null, 'full')),
+		[documents, setDocuments] = useState([]),
+		submitButton = gButton('Submit', 'text', 'solid', 'h-full w-fit'),
+		removeButton = gButton('close', 'icon', 'secondary', 'md', 'close-icon')
 
-	useEffect(async () => {
-		await getDocuments()
+	useEffect( () => {
+		async function fetchData() {
+			await loadDocuments()
+		}
+
+		fetchData();
 	}, [])
 
 	let isOwner = () => {
 		if (mode === 'view') return false
 
-		let {id} = JSON.parse(localStorage.getItem('user'))
+		let { id } = JSON.parse(localStorage.getItem('user'))
 		return id === user.id
 	}
 
-	let getDocuments = async () => {
-		let res = await getAll('documentUsers', {userId: user.id})
+	let loadDocuments = async () => {
+		let res = await getAll('documentUsers', { userId: user.id })
 		if (res && res.data)
 			setDocuments(res.data)
 	}
 
-	// let removeFile = () => {
-	// 	console.log('Remove File')
-	// }
+	let removeFile = async (file) => {
+		console.log('Remove File')
+		await Delete('uploadDocumentUser', file.id)
+		loadDocuments()
+	}
 
 	let fileHandler = async () => {
-		if (!document.getValue) return console.log('Ignore')
+		if (!documentInput.getValue) return console.log('Ignore')
 
-		if (!/\.pdf$/.test(document.getValue.name))
+		if (!/\.pdf$/.test(documentInput.getValue.name))
 			return dispatch(showSnack('Document should be PDF file', 'danger'))
 		else
 			dispatch(hideSnack())
 
-		// console.log('Save document:', document.getValue)
 		let formData = new FormData()
 
-		formData.append('pdf', document.getValue)
+		formData.append('pdf', documentInput.getValue)
+		console.log('UPload')
 		await Post('uploadDocumentUser', formData)
-		await getDocuments()
+		loadDocuments()
 	}
 
 	return (
@@ -62,7 +73,11 @@ function DocumentForm(props) {
 					isOwner() &&
 					<div className='add-document-area'>
 						<p className="title">NEW</p>
-						<Input configs={document} fileHandler={fileHandler}/>
+
+						<div className="upload-area">
+							<Input configs={documentInput} fileHandler={() => { }} />
+							<Button configs={submitButton} clickHandler={fileHandler} />
+						</div>
 					</div>
 				}
 
@@ -71,18 +86,18 @@ function DocumentForm(props) {
 				<div className="documents-area">
 					{
 						documents.length === 0
-							? (<span>Documents uploaded will be here... </span>)
+							? (<span>Can you update your documents.</span>)
 							: documents.map(i => {
 								return (
 									<div key={i.id} className="documents-area__document" title={i.fileName}>
 										<a href={i.url} target="_blank" rel="noreferrer">{i.fileName}</a>
 
-										{/*{*/}
-										{/*	mode === 'edit' &&*/}
-										{/*	<div className="button-area">*/}
-										{/*		<Button configs={removeButton} clickHandler={removeFile}/>*/}
-										{/*	</div>*/}
-										{/*}*/}
+										{
+											mode === 'edit' &&
+											<div className="button-area">
+												<Button configs={removeButton} clickHandler={() => removeFile(i)} />
+											</div>
+										}
 									</div>
 								)
 							})
