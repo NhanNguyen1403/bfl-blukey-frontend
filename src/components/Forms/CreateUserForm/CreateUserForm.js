@@ -24,8 +24,8 @@ function CreateUserForm(props) {
 			address = gInput('Address', 'text', '', 'full'),
 			userName = gInput('Username', 'text', '', 'half'),
 			password = gInput('Password', 'password', '', 'half'),
-			createButton = gButton('Create', 'text', 'solid','md'),
-			cancelButton = gButton('Cancel', 'text', 'outlined', 'md'),
+			buttonCreate = gButton('Create', 'text', 'solid','md'),
+			buttonCancel = gButton('Cancel', 'text', 'outlined', 'md'),
 			history = useHistory(),
 			dispatch = useDispatch()
 
@@ -77,8 +77,8 @@ function CreateUserForm(props) {
 			</div>
 
 			<div className="button-area">
-				<Button configs={cancelButton} clickHandler={() => closeForm()}/>
-				<Button configs={createButton} clickHandler={validate}/>
+				<Button configs={buttonCancel} clickHandler={() => closeForm()}/>
+				<Button configs={buttonCreate} clickHandler={validate}/>
 			</div>
 		</div>
 	);

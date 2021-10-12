@@ -24,8 +24,8 @@ function CreateDocumentForm(props) {
         {value: 'Buying', displayName: 'Buying'},
         {value: 'Both', displayName: 'Both'},
       ]),
-      createButton = gButton('Create', 'text', 'solid','md'),
-      cancelButton = gButton('Cancel', 'text', 'outlined', 'md'),
+      buttonCreate = gButton('Create', 'text', 'solid','md'),
+      buttonCancel = gButton('Cancel', 'text', 'outlined', 'md'),
       history = useHistory(),
       dispatch = useDispatch()
 
@@ -68,8 +68,8 @@ function CreateDocumentForm(props) {
       </div>
 
       <div className="button-area">
-        <Button configs={createButton} clickHandler={validate}/>
-        <Button configs={cancelButton} clickHandler={() => closeForm()}/>
+        <Button configs={buttonCreate} clickHandler={validate}/>
+        <Button configs={buttonCancel} clickHandler={() => closeForm()}/>
       </div>
     </div>
   );

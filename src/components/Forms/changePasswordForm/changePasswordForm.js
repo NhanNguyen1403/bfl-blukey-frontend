@@ -16,7 +16,7 @@ function ChangePasswordForm(props) {
       newPassword = gInput('New password', 'password', '', 'full'),
       confirmPassword = gInput('Confirm password', 'password', '', 'full'),
       saveButton = gButton('Save', 'text', 'solid', 'md'),
-      cancelButton = gButton('Cancel', 'text', 'outlined', 'md')
+      buttonCancel = gButton('Cancel', 'text', 'outlined', 'md')
 
   let validate = () => {
     let inputs = [newPassword,confirmPassword]
@@ -44,7 +44,7 @@ function ChangePasswordForm(props) {
 
       <div className="button-area">
         <Button configs={saveButton} clickHandler={validate}/>
-        <Button configs={cancelButton} clickHandler={() => cancel()}/>
+        <Button configs={buttonCancel} clickHandler={() => cancel()}/>
       </div>
     </div>
   );

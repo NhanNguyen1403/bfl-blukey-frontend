@@ -23,7 +23,7 @@ function TransactionForm(props) {
     {firstName, lastName} = JSON.parse(localStorage.getItem('user')),
     [agentName, setAgentName] = useState(gInput('Agent name', 'text', '', 'half', true, [], true)),
     mlsID     = gInput('MLS-ID', 'text', `${transaction?.mlsId || ''}`, 'half', true, [], mode === 'view'),
-    apn       = gInput('Apn', 'text', `${transaction?.apn || ''}`, 'half', true, [], mode === 'view'),
+    apn       = gInput('Apn', 'text', `${transaction?.apn || ''}`, 'half', false, [], mode === 'view'),
     address   = gInput('Address', 'text', `${transaction?.address || ''}`, 'half', true, [], mode === 'view'),
     city      = gInput('City', 'text', `${transaction?.city || ''}`, 'half', true, [], mode === 'view'),
     state     = gInput('State', 'text', `${transaction?.state || ''}`, 'half', true, [], mode === 'view'),
@@ -37,9 +37,9 @@ function TransactionForm(props) {
     type      = gSelect('Type', transaction?.isListing, 'width__half', [
       {value: false, displayName: 'Buying'},
       {value: true, displayName: 'Listing'},
-    ], true, mode === 'view'),
-    createButton = gButton(`${mode === 'edit' ? 'Save' : 'Create'}`, 'text', 'solid', 'md'),
-    cancelButton = gButton('Cancel', 'text', 'outlined', 'md'),
+    ], true, transaction.id ? true : false),
+    buttonCreate = gButton(`${mode === 'edit' ? 'Save' : 'Create'}`, 'text', 'solid', 'md'),
+    buttonCancel = gButton('Cancel', 'text', 'outlined', 'md'),
     history = useHistory()
 
 
@@ -127,8 +127,8 @@ function TransactionForm(props) {
         {
           mode !== "view" &&
           <div className="button-area">
-            <Button configs={cancelButton} clickHandler={() => closeForm()}/>
-            <Button configs={createButton} clickHandler={validate}/>
+            <Button configs={buttonCancel} clickHandler={() => closeForm()}/>
+            <Button configs={buttonCreate} clickHandler={validate}/>
           </div>
         }
       </div>

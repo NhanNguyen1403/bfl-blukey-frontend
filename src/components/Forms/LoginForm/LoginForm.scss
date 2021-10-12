@@ -1,6 +1,7 @@
 @import "../../../scss/Color";
 @import "../../../scss/Border";
 @import "../../../scss/BoxShadow";
+@import "../../../scss/Animation.scss";
 
 .login-form-container {
   width: 300px;
@@ -8,6 +9,7 @@
   background-color: white;
   z-index: 2;
   padding: 0px 30px 30px 30px;
+  animation: zoom-out 300ms;
 
   img {
     height: 100px;

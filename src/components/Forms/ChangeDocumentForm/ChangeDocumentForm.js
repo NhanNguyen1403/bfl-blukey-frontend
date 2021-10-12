@@ -22,7 +22,7 @@ function ChangeDocumentForm(props) {
         {value: 'Both', displayName: 'Both'},
       ]),
       saveButton = gButton('Save', 'text', 'solid', 'md'),
-      cancelButton = gButton('Cancel', 'text', 'outlined', 'md')
+      buttonCancel = gButton('Cancel', 'text', 'outlined', 'md')
 
 
   let validate = () => {
@@ -51,7 +51,7 @@ function ChangeDocumentForm(props) {
 
       <div className="button-area">
         <Button configs={saveButton} clickHandler={validate}/>
-        <Button configs={cancelButton} clickHandler={() => cancel()}/>
+        <Button configs={buttonCancel} clickHandler={() => cancel()}/>
       </div>
     </div>
   );
