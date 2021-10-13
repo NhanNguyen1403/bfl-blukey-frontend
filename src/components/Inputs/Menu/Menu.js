@@ -53,7 +53,7 @@ function Menu() {
 					displayMenu && <div ref={menuListRef} className="menu-list">
 						<div onClick={showModal} className="menu-item">Profile</div>
 						<hr/>
-						<div onClick={LogOut} className="menu-item">Log out</div>
+						<div onClick={() => LogOut(true)} className="menu-item">Log out</div>
 					</div>
 				}
 			</div>

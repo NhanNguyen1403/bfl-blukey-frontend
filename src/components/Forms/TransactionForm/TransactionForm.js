@@ -64,7 +64,6 @@ function TransactionForm(props) {
       state: state.getValue,
       zipCode: zipCode.getValue,
       mlsId: mlsID.getValue,
-      apn: apn.getValue,
       isListing: type.value || false,
       listingPrice: price.getValue,
       commissionAmount: commissionRate.getValue,
@@ -73,6 +72,10 @@ function TransactionForm(props) {
       listingStartDate: startDate.getValue,
       listingEndDate: endDate.getValue,
     }
+
+    if (apn.getValue.length !== 0)
+      payload.apn = apn.getValue
+    
     if (mode === 'create')
       return create(payload)
     return save(payload)

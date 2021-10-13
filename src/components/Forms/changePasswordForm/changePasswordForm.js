@@ -27,7 +27,7 @@ function ChangePasswordForm(props) {
       return dispatch(showSnack('Confirm password unmatched', 'danger'))
 
     return save(user.id, {
-      old_password: oldPassword.getValue,
+      oldPassword: oldPassword.getValue,
       password: confirmPassword.getValue,
     })
   }
@@ -43,8 +43,8 @@ function ChangePasswordForm(props) {
       </div>
 
       <div className="button-area">
-        <Button configs={saveButton} clickHandler={validate}/>
         <Button configs={buttonCancel} clickHandler={() => cancel()}/>
+        <Button configs={saveButton} clickHandler={validate}/>
       </div>
     </div>
   );

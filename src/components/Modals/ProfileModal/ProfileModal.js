@@ -22,6 +22,7 @@ function ProfileModal(props) {
 			[optionList, setOptionList] = useState([
 				gPageOption(undefined,'Profile', 'md', true),
 				gPageOption(undefined,'Documents', 'md', false),
+				gPageOption(undefined,'Password', 'md', false),
 			]),
 			closeButton = gButton('close', 'icon', 'solid', 'md', 'close-icon')
 
@@ -31,6 +32,7 @@ function ProfileModal(props) {
 		setOptionList([
 			gPageOption(undefined,'Profile', 'md', true),
 			gPageOption(undefined,'Documents', 'md', false),
+			gPageOption(undefined,'Password', 'md', false),
 		])
 	}
 	let changeOption = (optionName) => {
@@ -76,12 +78,12 @@ function ProfileModal(props) {
 					optionList[0].isActive &&
 					<ChangeProfileForm configs={{mode, user}} clickHandler={{save: saveProfile, cancel: closeModal}}/>
 				}
-				{optionList[1].isActive && <DocumentForm configs={{mode, user}}/>}
-				{/*{*/}
-				{/*	mode === 'edit' &&*/}
-				{/*	optionList[2]?.isActive &&*/}
-				{/*	<ChangePasswordForm configs={user} clickHandler={{save: savePassword, cancel: closeModal}}/>*/}
-				{/*}*/}
+				{optionList[1].isActive && <DocumentForm configs={{ mode, user }} />}
+				{
+					mode === 'edit' &&
+					optionList[2]?.isActive &&
+					<ChangePasswordForm configs={user} clickHandler={{ save: savePassword, cancel: closeModal }} />
+				}
 			</div>
 
 			<div className="blur"/>
