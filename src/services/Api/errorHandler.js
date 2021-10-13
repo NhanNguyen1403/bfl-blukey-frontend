@@ -3,11 +3,11 @@ import {hideLoader, hideSnack, showSnack} from "../../redux";
 import LogOut from "../../services/Session/LogOut";
 
 function errorHandler(err) {
-	let {message} = err.response.data
+	let {message, messageSystem} = err.response.data
 	console.log(message)
 
 	store.dispatch(hideLoader())
-	if (message === 'Unauthorized.') {
+	if (messageSystem === 'invalid token') {
 		setTimeout(() => {
 			store.dispatch(hideSnack())
 			return LogOut()

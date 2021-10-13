@@ -16,7 +16,7 @@ function Comment(props) {
       commentHistory = null,
       {userEdited} = props.clickHandler,
       [comments, setComments]= useState([...props.configs.comments || []].reverse()),
-      [messageInput, setMessageInput] = useState(gInput('Put your comment here...', 'text-area','', 'full',false)),
+      [inputMessage, setInputMessage] = useState(''),
       sendButton = gButton('Send', 'text', 'solid', 'lg')
 
   useEffect(() => {
@@ -32,25 +32,29 @@ function Comment(props) {
     setComments([...props.configs.comments || []].reverse())
 
   }, [props.configs.comments])
-  useEffect(async () => {
-    //Load comments in edit mode
-    if (mode === "edit")
-      await getComments()
+  useEffect( () => {
+    let loadData = async () => {
+      //Load comments in edit mode
+      if (mode === "edit")
+        await getComments() 
+    }
+    
+    loadData()
   }, [mode, transactionId])
 
 
 
   let sendComment = async () => {
-    console.log('send a Comment with:', messageInput.getValue)
-    if (!messageInput.isValid) return
+    console.log('send a Comment with:', inputMessage)
+    if (inputMessage.length === 0) return
 
     let payload = {
       transactionId,
-      comment: messageInput.getValue
+      comment: inputMessage
     }
     await Post('transactionComments', payload)
     getComments()
-    setMessageInput(gInput('Put your comment here...', 'text-area', '', 'full',false))
+    setInputMessage('')
     userEdited()
   }
   let editComment = async (commentId, message) => {
@@ -67,6 +71,12 @@ function Comment(props) {
     // Reload comments after commented (edit mode)
     let {data} = await GetAll('transactionComments', {transactionId})
     setComments(data.reverse())
+  }
+  let isEnter = (e) => {
+    let {which, shiftKey} = e
+
+    if (which === 13 && !shiftKey)
+      return sendComment()
   }
 
 
@@ -88,7 +98,15 @@ function Comment(props) {
         mode === 'edit' &&
         <div className="typing-area">
           <div className="typing">
-            <Input configs={messageInput}/>
+            <textarea 
+              name="message" 
+              id="message"
+              placeholder="Leave a comment here."
+              rows='5'
+              value={inputMessage}
+              onKeyPress={e => isEnter(e)}
+              onChange={e => setInputMessage(e.target.value)}>
+            </textarea>
           </div>
 
           <div className="send-comment-button">

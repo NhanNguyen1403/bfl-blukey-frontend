@@ -16,7 +16,7 @@ function ChangeProfileForm(props) {
 			email 				= gInput('Email', 'text', user.email, 'half'),
 			address 			= gInput('Address', 'text', user.address, 'full'),
 			saveButton 		= gButton('Save', 'text', 'solid', 'md'),
-			cancelButton 	= gButton('Cancel', 'text', 'outlined', 'md'),
+			buttonCancel 	= gButton('Cancel', 'text', 'outlined', 'md'),
 			role 					= gSelect('Role', user.isAdmin, 'width__half',[
 				{value: false, displayName: 'User'},
 				{value: true, displayName: 'Admin'}
@@ -53,7 +53,7 @@ function ChangeProfileForm(props) {
 			{
 				mode === 'edit' &&
 				<div className="button-area">
-					<Button configs={cancelButton} clickHandler={() => cancel()}/>
+					<Button configs={buttonCancel} clickHandler={() => cancel()}/>
 					<Button configs={saveButton} clickHandler={validate}/>
 				</div>
 			}

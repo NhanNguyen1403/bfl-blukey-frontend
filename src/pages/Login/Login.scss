@@ -1,4 +1,5 @@
 @import "../../scss/Color.scss";
+@import "../../scss/Animation.scss";
 
 .login-container {
 	width: 100vw;
@@ -6,9 +7,24 @@
 	background-color: $primary-bg-color;
 	border-radius: unset;
 	display: flex;
+  flex-direction: column;
 	justify-content: center;
 	align-items: center;
   position: relative;
+  
+
+  p {
+    width: 400px;
+    text-align: right;
+    text-decoration: underline;
+    transition: 300ms;
+
+    &:hover {
+      cursor: pointer;
+      color: white;
+    }
+
+  }
 
   .sub-background {
     width: 125vw;

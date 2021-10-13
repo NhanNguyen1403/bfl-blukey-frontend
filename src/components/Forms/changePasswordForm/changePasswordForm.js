@@ -16,7 +16,7 @@ function ChangePasswordForm(props) {
       newPassword = gInput('New password', 'password', '', 'full'),
       confirmPassword = gInput('Confirm password', 'password', '', 'full'),
       saveButton = gButton('Save', 'text', 'solid', 'md'),
-      cancelButton = gButton('Cancel', 'text', 'outlined', 'md')
+      buttonCancel = gButton('Cancel', 'text', 'outlined', 'md')
 
   let validate = () => {
     let inputs = [newPassword,confirmPassword]
@@ -27,7 +27,7 @@ function ChangePasswordForm(props) {
       return dispatch(showSnack('Confirm password unmatched', 'danger'))
 
     return save(user.id, {
-      old_password: oldPassword.getValue,
+      oldPassword: oldPassword.getValue,
       password: confirmPassword.getValue,
     })
   }
@@ -43,8 +43,8 @@ function ChangePasswordForm(props) {
       </div>
 
       <div className="button-area">
+        <Button configs={buttonCancel} clickHandler={() => cancel()}/>
         <Button configs={saveButton} clickHandler={validate}/>
-        <Button configs={cancelButton} clickHandler={() => cancel()}/>
       </div>
     </div>
   );
