@@ -7,7 +7,7 @@ function errorHandler(err) {
 	console.log(message)
 
 	store.dispatch(hideLoader())
-	if (messageSystem === 'invalid token') {
+	if (messageSystem === 'invalid token' || messageSystem === 'jwt expired') {
 		setTimeout(() => {
 			store.dispatch(hideSnack())
 			return LogOut()

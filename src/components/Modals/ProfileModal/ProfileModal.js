@@ -21,18 +21,26 @@ function ProfileModal(props) {
 			}),
 			[optionList, setOptionList] = useState([
 				gPageOption(undefined,'Profile', 'md', true),
-				gPageOption(undefined,'Documents', 'md', false),
-				gPageOption(undefined,'Password', 'md', false),
+				gPageOption(undefined,'Documents', 'md', false)
 			]),
 			closeButton = gButton('close', 'icon', 'solid', 'md', 'close-icon')
 
+	useEffect(() => {
+		if (isDisplay && isOwner())
+			setOptionList(prevState => {
+				return [
+					gPageOption(undefined,'Profile', 'md', true),
+					gPageOption(undefined,'Documents', 'md', false),
+					gPageOption(undefined, 'Password', 'md', false)
+				]
+			})
+	}, [isDisplay])
 
 	let closeModal = () => {
 		dispatch(hideProfileModal())
 		setOptionList([
 			gPageOption(undefined,'Profile', 'md', true),
 			gPageOption(undefined,'Documents', 'md', false),
-			gPageOption(undefined,'Password', 'md', false),
 		])
 	}
 	let changeOption = (optionName) => {
@@ -58,6 +66,12 @@ function ProfileModal(props) {
 	let isLoggingUser = (id) => {
 		let {id: loggingUserId} = JSON.parse(localStorage.getItem('user'))
 		return loggingUserId === id
+	}
+	let isOwner = () => {
+		if (mode === 'view') return false
+
+		let { id } = JSON.parse(localStorage.getItem('user'))
+		return id === user.id
 	}
 
 	return (
