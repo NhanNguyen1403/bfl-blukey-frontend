@@ -36,7 +36,9 @@ function TableHeader(props) {
 
 							case 'isRequired': return <th key={`table-header-${i}`}>Required</th>
 
-							case 'isListing': return <th key={`table-header-${i}`}>For Listing</th>
+							case 'isListing': return <th key={`table-header-${i}`}>Listing</th>
+
+							case 'isBoth': return <th key={`table-header-${i}`}>Both</th>
 
 							case 'updatedAt': return
 

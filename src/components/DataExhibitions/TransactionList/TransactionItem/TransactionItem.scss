@@ -44,6 +44,7 @@
     color: $primary-text-color;
     border-right: dashed 1px $second-text-color;
     box-sizing: border-box;
+    overflow: auto;
   }
 
   .info-3 {

@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import "./TransactionList.scss"
 import TransactionItem from "./TransactionItem/TransactionItem";
 import Paging from "../Paging/Paging";
-import TransactionFilter from "./TransactionFilter/TransactionFilter";
 import TransactionDetailModal from "../../Modals/TransactionDetailModal/TransactionDetailModal";
 import {useDispatch} from "react-redux";
 import {showTransactionDetail} from "../../../redux";
