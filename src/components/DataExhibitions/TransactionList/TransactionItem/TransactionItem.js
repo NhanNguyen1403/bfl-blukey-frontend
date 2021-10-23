@@ -8,10 +8,11 @@ import moment from "moment"
 function TransactionItem(props) {
   let transaction = props.configs,
       { id, user, canComplete, mlsId, apn, totalDocumentUploadedRequired, totalDocumentRequired, address, state, city, zipCode,
-        sellerName, buyerName, listingPrice, listingStartDate, listingEndDate,
+        sellerName, buyerName, listingPrice, listingStartDate, listingEndDate, createdAt,
         transactionStatus, transactionComments
       } = transaction
 
+  console.log(props)
 
   return (
     <div onClick={() => {props.clickHandler(transaction)}} className='transaction-item-container'>
@@ -29,8 +30,9 @@ function TransactionItem(props) {
         <p className="field" title={sellerName}> <b>Seller: </b>{sellerName}</p>
         <p className="field" title={buyerName}> <b>Buyer: </b>{buyerName}</p>
         <p className="field" title={listingPrice}> <b>Price: </b>{listingPrice}</p>
-        <p className="field" title={listingStartDate}> <b>Start date: </b>{moment(listingStartDate).format('L')}</p>
-        <p className="field" title={listingEndDate}> <b>End date: </b>{moment(listingEndDate).format('L')}</p>
+        <p className="field" title={listingStartDate}> <b>Start date: </b>{moment(listingStartDate).format("MMM Do YY")}</p>
+        <p className="field" title={listingEndDate}> <b>End date: </b>{moment(listingEndDate).format("MMM Do YY")}</p>
+        <p className="field" title={createdAt}> <b>Created at: </b>{moment(createdAt).format("MMM Do YY")}</p>
       </div>
 
       <div className="info-3">
