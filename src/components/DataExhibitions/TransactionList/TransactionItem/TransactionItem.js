@@ -12,8 +12,6 @@ function TransactionItem(props) {
         transactionStatus, transactionComments
       } = transaction
 
-  console.log(props)
-
   return (
     <div onClick={() => {props.clickHandler(transaction)}} className='transaction-item-container'>
       <div className="info-1">
